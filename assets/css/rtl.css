@@ -1,0 +1,318 @@
+/* Main custom styles for AusflugÄgypten Home Page */
+/* ------------------------------------------------ */
+
+@font-face {
+  font-family: JF-Flat;
+  src: url("../fonts/JF-Flat-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+
+
+body {
+  font-family: JF-Flat;
+}
+
+[lang="ar"],
+[dir="rtl"] {
+  font-family: JF-Flat;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.display-4 {
+  font-family: JF-Flat !important;
+  font-weight: 700;
+
+}
+
+.navbar .btn-book-now {
+  margin-right: 0;
+  margin-left: 0;
+}
+
+
+
+.about-hero .container {
+  text-align: right;
+}
+
+.section-heading::after {
+  left: auto;
+  right: 0;
+}
+
+.mission-vision-card,
+.why-choose-card {
+  text-align: right;
+}
+
+.contact-info-card,
+.contact-form-card,
+.contact-map-card {
+  text-align: right;
+}
+
+.contact-info-card .info-list li {
+  flex-direction: row-reverse;
+}
+
+.contact-info-card .info-icon {
+  margin-left: 0;
+}
+
+.faq-accordion .accordion-button {
+  text-align: right;
+}
+
+.contact-hero .container {
+  text-align: right;
+}
+
+.contact-cta {
+  text-align: center;
+}
+
+.destinations-filter {
+  justify-content: center;
+}
+
+.destinations-filter .btn {
+  direction: rtl;
+}
+
+.destination-card .card-body {
+  text-align: right;
+}
+
+.featured-destination__content {
+  text-align: right;
+}
+
+.destinations-tips .tip-card {
+  text-align: right;
+}
+
+.blog-search {
+  text-align: right;
+}
+
+.blog-search .form-control {
+  text-align: right;
+}
+
+.blog-categories {
+  justify-content: center;
+}
+
+.blog-card .card-body {
+  text-align: right;
+}
+
+.blog-card .card-meta {
+  justify-content: flex-start;
+}
+
+.blog-featured {
+  direction: rtl;
+}
+
+.blog-featured__content {
+  text-align: right;
+}
+
+.destination-intro {
+  text-align: center;
+}
+
+.destination-highlight-card {
+  text-align: right;
+}
+
+.destination-itinerary {
+  text-align: right;
+}
+
+.destination-itinerary h3 {
+  text-align: right;
+}
+
+.destination-booking-cta {
+  text-align: center;
+}
+
+.related-destination-card .card-body {
+  text-align: right;
+}
+
+.lightbox-overlay .lightbox-close {
+  right: auto;
+  left: 1.5rem;
+}
+
+.mission-vision-card .icon,
+.why-choose-card .icon {
+  display: inline-flex;
+}
+
+.tour-breadcrumb,
+.breadcrumb {
+  justify-content: flex-end;
+}
+
+.breadcrumb .breadcrumb-item + .breadcrumb-item::before {
+  float: right;
+}
+
+.tour-detail-hero .container {
+  text-align: right;
+}
+
+.tour-breadcrumb {
+  justify-content: flex-end;
+}
+
+.tour-breadcrumb .breadcrumb-item + .breadcrumb-item::before {
+  float: right;
+}
+
+.tour-info-card .info-item {
+  flex-direction: row-reverse;
+  text-align: right;
+}
+
+.tour-info-card .info-icon {
+  margin-left: 0;
+}
+
+.tour-section {
+  text-align: right;
+}
+
+.tour-section ul {
+  padding-right: 1.25rem;
+  padding-left: 0;
+}
+
+.similar-tours .card-body {
+  text-align: right;
+}
+
+.tours-hero .container {
+  text-align: right;
+}
+
+.top-destinations .destination-overlay {
+  text-align: right;
+  align-items: flex-end;
+}
+
+.tours-filter .range-wrap {
+  direction: ltr;
+}
+
+.newsletter-section .newsletter-card {
+  text-align: right;
+}
+
+.newsletter-section .newsletter-card .form-control {
+  text-align: right;
+}
+
+.booking-cta .btn {
+  margin-right: 0;
+  margin-left: 0;
+}
+
+.blog-detail-meta {
+  justify-content: center;
+}
+
+.blog-content {
+  text-align: right;
+}
+
+.blog-content ul,
+.blog-content ol {
+  padding-right: 1.5rem;
+  padding-left: 0;
+}
+
+.blog-pull-quote {
+  border-left: none;
+  border-right: 4px solid var(--brand-primary);
+}
+
+.blog-share {
+  justify-content: center;
+}
+
+.blog-related-card .card-body {
+  text-align: right;
+}
+
+.blog-comment-cta {
+  text-align: right;
+}
+
+.offers-hero .container {
+  text-align: center;
+}
+
+.offers-tabs {
+  justify-content: center;
+}
+
+.offer-card .offer-badge {
+  left: auto;
+  right: 1.25rem;
+}
+
+.offer-meta {
+  justify-content: flex-start;
+}
+
+.offers-banner {
+  text-align: center;
+}
+
+.offers-cta {
+  text-align: center;
+}
+
+.faq-hero .container {
+  text-align: center;
+}
+
+.faq-filters {
+  justify-content: center;
+}
+
+.contact-modern .contact-meta {
+  justify-content: center;
+}
+
+.contact-modern .contact-meta-item {
+  flex-direction: row-reverse;
+}
+
+.contact-channel-card {
+  text-align: right;
+}
+
+.contact-channel-card .btn {
+  align-self: flex-end;
+}
+
+.contact-step-card {
+  text-align: right;
+}
+
+.contact-support-team {
+  text-align: right;
+}

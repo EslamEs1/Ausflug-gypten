@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="presentation">
+  <defs>
+    <linearGradient id="maleGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#dd0000" />
+      <stop offset="100%" stop-color="#b80000" />
+    </linearGradient>
+  </defs>
+  <circle cx="32" cy="32" r="30" fill="#f5f1e3" />
+  <circle cx="32" cy="22" r="12" fill="url(#maleGradient)" />
+  <path
+    d="M32 36c-12.15 0-22 9.85-22 22v2h44v-2c0-12.15-9.85-22-22-22Z"
+    fill="#161616"
+    opacity="0.9"
+  />
+</svg>
+

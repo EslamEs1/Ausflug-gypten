@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="480" viewBox="0 0 640 480">
+  <defs>
+    <linearGradient id="plate" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffd166" />
+      <stop offset="100%" stop-color="#f6bd60" />
+    </linearGradient>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#fefae0" />
+      <stop offset="100%" stop-color="#e9c46a" />
+    </linearGradient>
+  </defs>
+  <rect width="640" height="480" fill="url(#bg)" />
+  <circle cx="320" cy="260" r="180" fill="white" opacity="0.85" />
+  <circle cx="320" cy="260" r="140" fill="url(#plate)" />
+  <path d="M240 240 C280 200, 360 200, 400 240 C360 280, 280 280, 240 240 Z" fill="#e76f51" opacity="0.8" />
+  <path d="M260 280 C300 320, 340 320, 380 280 C340 260, 300 260, 260 280 Z" fill="#2a9d8f" opacity="0.85" />
+  <circle cx="300" cy="220" r="18" fill="#264653" />
+  <circle cx="340" cy="220" r="16" fill="#264653" />
+  <circle cx="320" cy="300" r="14" fill="#264653" />
+  <path d="M200 160 L240 120" stroke="#264653" stroke-width="14" stroke-linecap="round" />
+  <path d="M440 120 L480 160" stroke="#264653" stroke-width="14" stroke-linecap="round" />
+</svg>
+

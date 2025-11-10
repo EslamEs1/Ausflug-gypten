@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AusflugÄgypten | Weiterleitung</title>
+    <meta
+      name="description"
+      content="Weiterleitung zur deutschen Startseite von AusflugÄgypten. Wählen Sie Ihre bevorzugte Sprache."
+    />
+    <meta http-equiv="refresh" content="0; url=pages/de/index.html" />
+    <link rel="icon" type="image/png" href="/assets/icons/favicon.png" />
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/assets/css/main.css" />
+  </head>
+  <body class="bg-sand d-flex align-items-center" style="min-height: 100vh;">
+    <main class="container text-center">
+      <h1 class="display-5 fw-bold mb-3">AusflugÄgypten</h1>
+      <p class="lead mb-4">
+        Sie werden automatisch zur deutschen Startseite weitergeleitet. Bitte wählen Sie alternativ Ihre Sprache:
+      </p>
+      <div class="d-inline-flex flex-column flex-sm-row gap-3 justify-content-center">
+        <a class="btn btn-brand" href="/pages/de/index.html">Deutsch</a>
+        <a class="btn btn-outline-brand" href="/pages/en/index.html">English</a>
+        <a class="btn btn-outline-brand" href="/pages/ar/index.html">العربية</a>
+      </div>
+      <p class="text-muted mt-4 mb-0">
+        Falls keine automatische Weiterleitung erfolgt, klicken Sie bitte auf einen der obigen Buttons.
+      </p>
+    </main>
+    <script>
+      window.addEventListener("DOMContentLoaded", function () {
+        const target = "pages/de/index.html";
+        if (!window.location.pathname.includes(target)) {
+          window.location.replace(target);
+        }
+      });
+    </script>
+  </body>
+</html>
+
