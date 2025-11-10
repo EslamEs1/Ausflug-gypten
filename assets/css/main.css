@@ -2694,6 +2694,12 @@ html[dir="rtl"] .hero-carousel .carousel-caption {
 
   .offer-actions {
     flex-direction: column;
+    align-items: stretch;
+  }
+
+  .offer-actions .btn {
+    width: 100%;
+    flex: 1 1 auto;
   }
 
   .offer-card img {
