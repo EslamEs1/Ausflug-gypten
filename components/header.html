@@ -1,0 +1,126 @@
+<!-- Header Component -->
+<header class="header-sticky bg-white shadow-sm transition-all duration-300" id="mainHeader">
+  <div class="container mx-auto px-4">
+    <div class="flex items-center justify-between py-4">
+      <!-- Logo -->
+      <div class="flex items-center">
+        <a href="/index.html" class="flex items-center">
+          <img src="/img/logo/logo.png" alt="AusflugAgypten Logo" class="h-16 w-auto">
+        </a>
+      </div>
+
+      <!-- Desktop Navigation -->
+      <nav class="hidden lg:flex items-center space-x-8">
+        <!-- Ägypten Aktivitäten Dropdown -->
+        <div class="relative group">
+          <a href="/pages/activities/index.html" class="nav-link flex items-center gap-2">
+            Ägypten Aktivitäten
+            <svg class="w-4 h-4 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </a>
+          <div class="dropdown-menu">
+            <a href="/pages/activities/snorkeling.html" class="dropdown-item">Schnorchel Ausflüge und Boottouren</a>
+            <a href="/pages/activities/cultural.html" class="dropdown-item">Ägypten Kulturelle Ausflüge und Touren</a>
+            <a href="/pages/activities/safari.html" class="dropdown-item">Ägypten Wüsten Safari Ausflüge</a>
+          </div>
+        </div>
+
+        <!-- Ägypten Ausflüge Dropdown -->
+        <div class="relative group">
+          <a href="/pages/excursions/index.html" class="nav-link flex items-center gap-2">
+            Ägypten Ausflüge
+            <svg class="w-4 h-4 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </a>
+          <div class="dropdown-menu">
+            <a href="/pages/excursions/hurghada.html" class="dropdown-item">Hurghada Ausflüge</a>
+            <a href="/pages/excursions/el-gouna.html" class="dropdown-item">El Gouna Ausflüge</a>
+            <a href="/pages/excursions/makadi-bay.html" class="dropdown-item">Makadi Bay Ausflüge</a>
+            <a href="/pages/excursions/soma-bay.html" class="dropdown-item">Soma Bay Ausflüge</a>
+            <a href="/pages/excursions/marsa-alam.html" class="dropdown-item">Marsa Alam Ausflüge</a>
+          </div>
+        </div>
+
+        <a href="/pages/blog/index.html" class="nav-link">Blog</a>
+        <a href="/pages/transfer/index.html" class="nav-link">Transfer</a>
+        <a href="/pages/contact.html" class="nav-link">Kontakt</a>
+      </nav>
+
+      <!-- Language Switcher & Mobile Menu -->
+      <div class="flex items-center gap-4">
+        <!-- Language Switcher -->
+        <div class="flex items-center gap-2 border border-gray-300 rounded-lg px-3 py-2">
+          <button class="lang-btn active text-sm font-medium text-primary-gold" data-lang="de">DE</button>
+          <span class="text-gray-300">|</span>
+          <button class="lang-btn text-sm font-medium text-gray-600 hover:text-primary-gold" data-lang="en">EN</button>
+        </div>
+
+        <!-- Mobile Menu Button -->
+        <button class="lg:hidden p-2" id="mobileMenuBtn">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
+<div class="mobile-menu" id="mobileMenu">
+  <div class="p-6">
+    <div class="flex justify-between items-center mb-6">
+      <img src="/img/logo/logo.png" alt="AusflugAgypten" class="h-12">
+      <button id="closeMobileMenu" class="p-2">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      </button>
+    </div>
+
+    <nav class="space-y-4">
+      <div>
+        <button class="mobile-dropdown-btn w-full flex justify-between items-center py-2 font-medium text-gray-800">
+          Ägypten Aktivitäten
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+          </svg>
+        </button>
+        <div class="mobile-dropdown-content hidden pl-4 mt-2 space-y-2">
+          <a href="/pages/activities/snorkeling.html" class="block py-2 text-gray-600">Schnorchel Ausflüge</a>
+          <a href="/pages/activities/cultural.html" class="block py-2 text-gray-600">Kulturelle Touren</a>
+          <a href="/pages/activities/safari.html" class="block py-2 text-gray-600">Wüsten Safari</a>
+        </div>
+      </div>
+
+      <div>
+        <button class="mobile-dropdown-btn w-full flex justify-between items-center py-2 font-medium text-gray-800">
+          Ägypten Ausflüge
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+          </svg>
+        </button>
+        <div class="mobile-dropdown-content hidden pl-4 mt-2 space-y-2">
+          <a href="/pages/excursions/hurghada.html" class="block py-2 text-gray-600">Hurghada</a>
+          <a href="/pages/excursions/el-gouna.html" class="block py-2 text-gray-600">El Gouna</a>
+          <a href="/pages/excursions/marsa-alam.html" class="block py-2 text-gray-600">Marsa Alam</a>
+        </div>
+      </div>
+
+      <a href="/pages/blog/index.html" class="block py-2 font-medium text-gray-800">Blog</a>
+      <a href="/pages/transfer/index.html" class="block py-2 font-medium text-gray-800">Transfer</a>
+      <a href="/pages/contact.html" class="block py-2 font-medium text-gray-800">Kontakt</a>
+    </nav>
+  </div>
+</div>
+
+<!-- WhatsApp Float Button -->
+<a href="https://wa.me/yourphonenumber" target="_blank" class="whatsapp-float" aria-label="Contact us on WhatsApp">
+  <svg fill="currentColor" viewBox="0 0 24 24" class="w-8 h-8">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+  </svg>
+</a>
+

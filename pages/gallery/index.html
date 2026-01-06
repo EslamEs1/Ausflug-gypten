@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Galerie - Entdecken Sie die Schönheit Ägyptens in unseren Fotos">
+  <title>Galerie - Ägypten Fotos | AusflugÄgypten</title>
+  <link rel="icon" type="image/png" href="/img/logo/logo.png">
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="/css/components.css">
+</head>
+<body>
+  
+  <!-- HEADER -->
+  <header class="header-sticky bg-white shadow-sm" id="mainHeader">
+    <div class="container mx-auto px-4">
+      <div class="flex items-center justify-between py-4">
+        <a href="/index.html"><img src="/img/logo/logo.png" alt="Logo" class="h-16"></a>
+        <nav class="hidden lg:flex items-center space-x-8">
+          <a href="/pages/activities/index.html" class="nav-link">Ägypten Aktivitäten</a>
+          <a href="/pages/excursions/index.html" class="nav-link">Ägypten Ausflüge</a>
+          <a href="/pages/blog/index.html" class="nav-link">Blog</a>
+          <a href="/pages/transfer/index.html" class="nav-link">Transfer</a>
+          <a href="/pages/gallery/index.html" class="nav-link text-primary-gold">Galerie</a>
+          <a href="/pages/contact.html" class="nav-link">Kontakt</a>
+        </nav>
+        <div class="flex items-center gap-4">
+          <div class="flex items-center gap-2 border border-gray-300 rounded-lg px-3 py-2">
+            <button class="lang-btn active text-sm font-medium text-primary-gold" data-lang="de">DE</button>
+            <span class="text-gray-300">|</span>
+            <button class="lang-btn text-sm font-medium text-gray-600" data-lang="en">EN</button>
+          </div>
+          <button class="lg:hidden p-2" id="mobileMenuBtn">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
+  <div class="mobile-menu" id="mobileMenu">
+    <div class="p-6">
+      <div class="flex justify-between items-center mb-6">
+        <img src="/img/logo/logo.png" alt="AusflugAgypten" class="h-12">
+        <button id="closeMobileMenu" class="p-2">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+      <nav class="space-y-2">
+        <div class="mobile-menu-item">
+          <div class="flex items-center justify-between">
+            <a href="/pages/activities/index.html" class="flex-1 py-3 px-2 font-medium text-gray-800 hover:text-primary-gold transition-colors">Ägypten Aktivitäten</a>
+            <button class="mobile-dropdown-btn p-3 text-gray-800 hover:text-primary-gold transition-colors">
+              <svg class="w-5 h-5 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+              </svg>
+            </button>
+          </div>
+          <div class="mobile-dropdown-content hidden">
+            <a href="/pages/activities/snorkeling.html" class="block py-2 px-4 text-sm text-gray-600 hover:text-primary-gold hover:bg-gray-50">Schnorchel Ausflüge</a>
+            <a href="/pages/activities/cultural.html" class="block py-2 px-4 text-sm text-gray-600 hover:text-primary-gold hover:bg-gray-50">Kulturelle Touren</a>
+            <a href="/pages/activities/safari.html" class="block py-2 px-4 text-sm text-gray-600 hover:text-primary-gold hover:bg-gray-50">Wüsten Safari</a>
+          </div>
+        </div>
+        <div class="mobile-menu-item">
+          <div class="flex items-center justify-between">
+            <a href="/pages/excursions/index.html" class="flex-1 py-3 px-2 font-medium text-gray-800 hover:text-primary-gold transition-colors">Ägypten Ausflüge</a>
+            <button class="mobile-dropdown-btn p-3 text-gray-800 hover:text-primary-gold transition-colors">
+              <svg class="w-5 h-5 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+              </svg>
+            </button>
+          </div>
+          <div class="mobile-dropdown-content hidden">
+            <a href="/pages/excursions/hurghada.html" class="block py-2 px-4 text-sm text-gray-600 hover:text-primary-gold hover:bg-gray-50">Hurghada Ausflüge</a>
+            <a href="/pages/excursions/el-gouna.html" class="block py-2 px-4 text-sm text-gray-600 hover:text-primary-gold hover:bg-gray-50">El Gouna Ausflüge</a>
+            <a href="/pages/excursions/marsa-alam.html" class="block py-2 px-4 text-sm text-gray-600 hover:text-primary-gold hover:bg-gray-50">Marsa Alam Ausflüge</a>
+          </div>
+        </div>
+        <a href="/pages/blog/index.html" class="block py-3 px-2 font-medium text-gray-800 hover:text-primary-gold transition-colors">Blog</a>
+        <a href="/pages/transfer/index.html" class="block py-3 px-2 font-medium text-gray-800 hover:text-primary-gold transition-colors">Transfer</a>
+        <a href="/pages/gallery/index.html" class="block py-3 px-2 font-medium text-primary-gold">Galerie</a>
+        <a href="/pages/contact.html" class="block py-3 px-2 font-medium text-gray-800 hover:text-primary-gold transition-colors">Kontakt</a>
+      </nav>
+    </div>
+  </div>
+
+  <main>
+    <!-- Hero Section -->
+    <section class="relative h-[450px] bg-cover bg-center" style="background-image: linear-gradient(rgba(36, 93, 129, 0.8), rgba(200, 166, 110, 0.6)), url('/img/hero/hurghada.jpg');">
+      <div class="relative z-10 h-full flex items-center">
+        <div class="container mx-auto px-4">
+          <div class="max-w-3xl">
+            <div class="breadcrumb mb-6 text-white">
+              <a href="/index.html" class="hover:text-primary-gold">Home</a>
+              <span class="breadcrumb-separator">/</span>
+              <span>Galerie</span>
+            </div>
+            <h1 class="text-white font-heading font-bold mb-6 animate-fade-in text-4xl md:text-5xl">Galerie</h1>
+            <p class="text-white text-xl mb-8 animate-slide-up">Entdecken Sie die Schönheit Ägyptens in unseren Fotos</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Gallery Filters -->
+    <section class="py-8 bg-gray-50">
+      <div class="container mx-auto px-4">
+        <div class="flex flex-wrap gap-4 justify-center">
+          <button class="filter-btn active" data-filter="all">Alle</button>
+          <button class="filter-btn" data-filter="hurghada">Hurghada</button>
+          <button class="filter-btn" data-filter="luxor">Luxor</button>
+          <button class="filter-btn" data-filter="safari">Safari</button>
+          <button class="filter-btn" data-filter="snorkeling">Schnorcheln</button>
+          <button class="filter-btn" data-filter="pyramids">Pyramiden</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Gallery Grid -->
+    <section class="py-16 bg-white">
+      <div class="container mx-auto px-4">
+        <div class="gallery-grid grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          
+          <!-- Gallery Item 1 -->
+          <div class="gallery-item group" data-category="hurghada">
+            <div class="gallery-image-wrapper relative overflow-hidden rounded-xl cursor-pointer">
+              <img src="/img/hero/hurghada.jpg" alt="Hurghada" class="gallery-image w-full h-64 object-cover transform group-hover:scale-110 transition-transform duration-500">
+              <div class="gallery-overlay absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <div class="gallery-info absolute bottom-0 left-0 right-0 p-4 text-white transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 opacity-0 group-hover:opacity-100">
+                <h3 class="font-heading font-bold mb-1">Hurghada Strand</h3>
+                <p class="text-sm text-gray-200">Rotes Meer</p>
+              </div>
+              <div class="gallery-icon absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <div class="w-16 h-16 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center">
+                  <svg class="w-8 h-8 text-primary-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"/>
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Gallery Item 2 -->
+          <div class="gallery-item group" data-category="luxor">
+            <div class="gallery-image-wrapper relative overflow-hidden rounded-xl cursor-pointer">
+              <img src="/img/hero/luxor.jpg" alt="Luxor" class="gallery-image w-full h-64 object-cover transform group-hover:scale-110 transition-transform duration-500">
+              <div class="gallery-overlay absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <div class="gallery-info absolute bottom-0 left-0 right-0 p-4 text-white transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 opacity-0 group-hover:opacity-100">
+                <h3 class="font-heading font-bold mb-1">Luxor Tempel</h3>
+                <p class="text-sm text-gray-200">Tal der Könige</p>
+              </div>
+              <div class="gallery-icon absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <div class="w-16 h-16 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center">
+                  <svg class="w-8 h-8 text-primary-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"/>
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Gallery Item 3 -->
+          <div class="gallery-item group" data-category="safari">
+            <div class="gallery-image-wrapper relative overflow-hidden rounded-xl cursor-pointer">
+              <img src="/img/tours/safari.webp" alt="Safari" class="gallery-image w-full h-64 object-cover transform group-hover:scale-110 transition-transform duration-500">
+              <div class="gallery-overlay absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <div class="gallery-info absolute bottom-0 left-0 right-0 p-4 text-white transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 opacity-0 group-hover:opacity-100">
+                <h3 class="font-heading font-bold mb-1">Wüsten Safari</h3>
+                <p class="text-sm text-gray-200">Quad Tour</p>
+              </div>
+              <div class="gallery-icon absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <div class="w-16 h-16 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center">
+                  <svg class="w-8 h-8 text-primary-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"/>
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Gallery Item 4 -->
+          <div class="gallery-item group" data-category="snorkeling">
+            <div class="gallery-image-wrapper relative overflow-hidden rounded-xl cursor-pointer">
+              <img src="/img/hero/hurghada.jpg" alt="Schnorcheln" class="gallery-image w-full h-64 object-cover transform group-hover:scale-110 transition-transform duration-500">
+              <div class="gallery-overlay absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <div class="gallery-info absolute bottom-0 left-0 right-0 p-4 text-white transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 opacity-0 group-hover:opacity-100">
+                <h3 class="font-heading font-bold mb-1">Schnorcheln</h3>
+                <p class="text-sm text-gray-200">Rotes Meer</p>
+              </div>
+              <div class="gallery-icon absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <div class="w-16 h-16 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center">
+                  <svg class="w-8 h-8 text-primary-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"/>
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Gallery Item 5 -->
+          <div class="gallery-item group" data-category="pyramids">
+            <div class="gallery-image-wrapper relative overflow-hidden rounded-xl cursor-pointer">
+              <img src="/img/hero/luxor.jpg" alt="Pyramiden" class="gallery-image w-full h-64 object-cover transform group-hover:scale-110 transition-transform duration-500">
+              <div class="gallery-overlay absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <div class="gallery-info absolute bottom-0 left-0 right-0 p-4 text-white transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 opacity-0 group-hover:opacity-100">
+                <h3 class="font-heading font-bold mb-1">Pyramiden von Gizeh</h3>
+                <p class="text-sm text-gray-200">Kairo</p>
+              </div>
+              <div class="gallery-icon absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <div class="w-16 h-16 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center">
+                  <svg class="w-8 h-8 text-primary-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"/>
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Gallery Item 6 -->
+          <div class="gallery-item group" data-category="hurghada">
+            <div class="gallery-image-wrapper relative overflow-hidden rounded-xl cursor-pointer">
+              <img src="/img/hero/hurghada.jpg" alt="Bootstour" class="gallery-image w-full h-64 object-cover transform group-hover:scale-110 transition-transform duration-500">
+              <div class="gallery-overlay absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <div class="gallery-info absolute bottom-0 left-0 right-0 p-4 text-white transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 opacity-0 group-hover:opacity-100">
+                <h3 class="font-heading font-bold mb-1">Bootstour</h3>
+                <p class="text-sm text-gray-200">Giftun Island</p>
+              </div>
+              <div class="gallery-icon absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <div class="w-16 h-16 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center">
+                  <svg class="w-8 h-8 text-primary-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"/>
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Gallery Item 7 -->
+          <div class="gallery-item group" data-category="luxor">
+            <div class="gallery-image-wrapper relative overflow-hidden rounded-xl cursor-pointer">
+              <img src="/img/hero/luxor.jpg" alt="Karnak Tempel" class="gallery-image w-full h-64 object-cover transform group-hover:scale-110 transition-transform duration-500">
+              <div class="gallery-overlay absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <div class="gallery-info absolute bottom-0 left-0 right-0 p-4 text-white transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 opacity-0 group-hover:opacity-100">
+                <h3 class="font-heading font-bold mb-1">Karnak Tempel</h3>
+                <p class="text-sm text-gray-200">Luxor</p>
+              </div>
+              <div class="gallery-icon absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <div class="w-16 h-16 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center">
+                  <svg class="w-8 h-8 text-primary-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"/>
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Gallery Item 8 -->
+          <div class="gallery-item group" data-category="safari">
+            <div class="gallery-image-wrapper relative overflow-hidden rounded-xl cursor-pointer">
+              <img src="/img/tours/safari.webp" alt="Beduinen" class="gallery-image w-full h-64 object-cover transform group-hover:scale-110 transition-transform duration-500">
+              <div class="gallery-overlay absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <div class="gallery-info absolute bottom-0 left-0 right-0 p-4 text-white transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 opacity-0 group-hover:opacity-100">
+                <h3 class="font-heading font-bold mb-1">Beduinen-Dorf</h3>
+                <p class="text-sm text-gray-200">Wüste</p>
+              </div>
+              <div class="gallery-icon absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <div class="w-16 h-16 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center">
+                  <svg class="w-8 h-8 text-primary-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"/>
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Gallery Item 9 -->
+          <div class="gallery-item group" data-category="snorkeling">
+            <div class="gallery-image-wrapper relative overflow-hidden rounded-xl cursor-pointer">
+              <img src="/img/hero/hurghada.jpg" alt="Delfine" class="gallery-image w-full h-64 object-cover transform group-hover:scale-110 transition-transform duration-500">
+              <div class="gallery-overlay absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <div class="gallery-info absolute bottom-0 left-0 right-0 p-4 text-white transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 opacity-0 group-hover:opacity-100">
+                <h3 class="font-heading font-bold mb-1">Delfine</h3>
+                <p class="text-sm text-gray-200">Rotes Meer</p>
+              </div>
+              <div class="gallery-icon absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <div class="w-16 h-16 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center">
+                  <svg class="w-8 h-8 text-primary-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"/>
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Gallery Item 10 -->
+          <div class="gallery-item group" data-category="pyramids">
+            <div class="gallery-image-wrapper relative overflow-hidden rounded-xl cursor-pointer">
+              <img src="/img/hero/luxor.jpg" alt="Sphinx" class="gallery-image w-full h-64 object-cover transform group-hover:scale-110 transition-transform duration-500">
+              <div class="gallery-overlay absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <div class="gallery-info absolute bottom-0 left-0 right-0 p-4 text-white transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 opacity-0 group-hover:opacity-100">
+                <h3 class="font-heading font-bold mb-1">Sphinx von Gizeh</h3>
+                <p class="text-sm text-gray-200">Kairo</p>
+              </div>
+              <div class="gallery-icon absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <div class="w-16 h-16 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center">
+                  <svg class="w-8 h-8 text-primary-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"/>
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Gallery Item 11 -->
+          <div class="gallery-item group" data-category="hurghada">
+            <div class="gallery-image-wrapper relative overflow-hidden rounded-xl cursor-pointer">
+              <img src="/img/hero/hurghada.jpg" alt="Strand" class="gallery-image w-full h-64 object-cover transform group-hover:scale-110 transition-transform duration-500">
+              <div class="gallery-overlay absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <div class="gallery-info absolute bottom-0 left-0 right-0 p-4 text-white transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 opacity-0 group-hover:opacity-100">
+                <h3 class="font-heading font-bold mb-1">Paradiesischer Strand</h3>
+                <p class="text-sm text-gray-200">Hurghada</p>
+              </div>
+              <div class="gallery-icon absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <div class="w-16 h-16 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center">
+                  <svg class="w-8 h-8 text-primary-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"/>
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Gallery Item 12 -->
+          <div class="gallery-item group" data-category="luxor">
+            <div class="gallery-image-wrapper relative overflow-hidden rounded-xl cursor-pointer">
+              <img src="/img/hero/luxor.jpg" alt="Tal der Könige" class="gallery-image w-full h-64 object-cover transform group-hover:scale-110 transition-transform duration-500">
+              <div class="gallery-overlay absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <div class="gallery-info absolute bottom-0 left-0 right-0 p-4 text-white transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 opacity-0 group-hover:opacity-100">
+                <h3 class="font-heading font-bold mb-1">Tal der Könige</h3>
+                <p class="text-sm text-gray-200">Luxor</p>
+              </div>
+              <div class="gallery-icon absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <div class="w-16 h-16 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center">
+                  <svg class="w-8 h-8 text-primary-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"/>
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Lightbox Modal -->
+  <div id="lightboxModal" class="lightbox-modal">
+    <div class="lightbox-overlay"></div>
+    <div class="lightbox-content">
+      <button class="lightbox-close" aria-label="Close lightbox">
+        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+        </svg>
+      </button>
+      <button class="lightbox-prev" aria-label="Previous image">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+        </svg>
+      </button>
+      <button class="lightbox-next" aria-label="Next image">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+        </svg>
+      </button>
+      <img id="lightboxImage" src="" alt="Gallery Image" class="lightbox-image">
+      <div class="lightbox-info">
+        <h3 id="lightboxTitle" class="font-heading font-bold text-white text-xl"></h3>
+        <p id="lightboxDescription" class="text-gray-200"></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="bg-gray-900 text-white pt-16 pb-8">
+    <div class="container mx-auto px-4">
+      <div class="text-center text-gray-400 text-sm">
+        © 2024 AusflugÄgypten. Alle Rechte vorbehalten.
+      </div>
+    </div>
+  </footer>
+
+  <!-- WhatsApp Float -->
+  <a href="https://wa.me/201234567890" target="_blank" class="whatsapp-float">
+    <svg fill="currentColor" viewBox="0 0 24 24" class="w-8 h-8">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+    </svg>
+  </a>
+
+  <script src="/js/main.js"></script>
+  <script src="/js/gallery.js"></script>
+</body>
+</html>
+
