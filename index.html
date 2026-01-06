@@ -24,12 +24,12 @@
 <body>
   
   <!-- HEADER -->
-  <header class="header-sticky bg-white shadow-sm transition-all duration-300" id="mainHeader">
+  <header class="header-sticky" id="mainHeader">
     <div class="container mx-auto px-4">
       <div class="flex items-center justify-between py-4">
         <div class="flex items-center">
-          <a href="/index.html" class="flex items-center">
-            <img src="/img/logo/logo.png" alt="AusflugAgypten Logo" class="h-16 w-auto">
+          <a href="/index.html" class="flex items-center header-logo">
+            <img src="/img/logo/logo.png" alt="AusflugAgypten Logo" class="h-16 w-auto transition-transform duration-300">
           </a>
         </div>
 
@@ -69,10 +69,10 @@
         </nav>
 
         <div class="flex items-center gap-4">
-          <div class="flex items-center gap-2 border border-gray-300 rounded-lg px-3 py-2">
-            <button class="lang-btn active text-sm font-medium text-primary-gold" data-lang="de">DE</button>
-            <span class="text-gray-300">|</span>
-            <button class="lang-btn text-sm font-medium text-gray-600 hover:text-primary-gold" data-lang="en">EN</button>
+          <div class="lang-switcher">
+            <button class="lang-btn active" data-lang="de">DE</button>
+            <span class="lang-separator"></span>
+            <button class="lang-btn" data-lang="en">EN</button>
           </div>
 
           <button class="lg:hidden p-2" id="mobileMenuBtn">
@@ -99,45 +99,46 @@
       </div>
 
       <nav class="space-y-2">
-        <!-- Activities Dropdown -->
         <div class="mobile-menu-item">
-          <div class="flex items-center justify-between">
-            <a href="/pages/activities/index.html" class="flex-1 py-3 px-2 font-medium text-gray-800 hover:text-primary-gold transition-colors">Ägypten Aktivitäten</a>
-            <button class="mobile-dropdown-btn p-3 text-gray-800 hover:text-primary-gold transition-colors" aria-label="Toggle dropdown">
-              <svg class="w-5 h-5 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-              </svg>
-            </button>
-          </div>
+          <button class="mobile-dropdown-btn">
+            Ägypten Aktivitäten
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </button>
           <div class="mobile-dropdown-content hidden">
-            <a href="/pages/activities/snorkeling.html" class="block py-2 px-4 text-sm text-gray-600 hover:text-primary-gold hover:bg-gray-50 transition-colors">Schnorchel Ausflüge</a>
-            <a href="/pages/activities/cultural.html" class="block py-2 px-4 text-sm text-gray-600 hover:text-primary-gold hover:bg-gray-50 transition-colors">Kulturelle Touren</a>
-            <a href="/pages/activities/safari.html" class="block py-2 px-4 text-sm text-gray-600 hover:text-primary-gold hover:bg-gray-50 transition-colors">Wüsten Safari</a>
+            <a href="/pages/activities/snorkeling.html">Schnorchel Ausflüge</a>
+            <a href="/pages/activities/cultural.html">Kulturelle Touren</a>
+            <a href="/pages/activities/safari.html">Wüsten Safari</a>
           </div>
         </div>
 
-        <!-- Excursions Dropdown -->
         <div class="mobile-menu-item">
-          <div class="flex items-center justify-between">
-            <a href="/pages/excursions/index.html" class="flex-1 py-3 px-2 font-medium text-gray-800 hover:text-primary-gold transition-colors">Ägypten Ausflüge</a>
-            <button class="mobile-dropdown-btn p-3 text-gray-800 hover:text-primary-gold transition-colors" aria-label="Toggle dropdown">
-              <svg class="w-5 h-5 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-              </svg>
-            </button>
-          </div>
+          <button class="mobile-dropdown-btn">
+            Ägypten Ausflüge
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </button>
           <div class="mobile-dropdown-content hidden">
-            <a href="/pages/excursions/hurghada.html" class="block py-2 px-4 text-sm text-gray-600 hover:text-primary-gold hover:bg-gray-50 transition-colors">Hurghada Ausflüge</a>
-            <a href="/pages/excursions/el-gouna.html" class="block py-2 px-4 text-sm text-gray-600 hover:text-primary-gold hover:bg-gray-50 transition-colors">El Gouna Ausflüge</a>
-            <a href="/pages/excursions/marsa-alam.html" class="block py-2 px-4 text-sm text-gray-600 hover:text-primary-gold hover:bg-gray-50 transition-colors">Marsa Alam Ausflüge</a>
+            <a href="/pages/excursions/hurghada.html">Hurghada</a>
+            <a href="/pages/excursions/el-gouna.html">El Gouna</a>
+            <a href="/pages/excursions/marsa-alam.html">Marsa Alam</a>
           </div>
         </div>
 
-        <!-- Simple Links -->
-        <a href="/pages/blog/index.html" class="block py-3 px-2 font-medium text-gray-800 hover:text-primary-gold transition-colors">Blog</a>
-        <a href="/pages/transfer/index.html" class="block py-3 px-2 font-medium text-gray-800 hover:text-primary-gold transition-colors">Transfer</a>
-        <a href="/pages/gallery/index.html" class="block py-3 px-2 font-medium text-gray-800 hover:text-primary-gold transition-colors">Galerie</a>
-        <a href="/pages/contact.html" class="block py-3 px-2 font-medium text-gray-800 hover:text-primary-gold transition-colors">Kontakt</a>
+        <div class="mobile-menu-item">
+          <a href="/pages/blog/index.html">Blog</a>
+        </div>
+        <div class="mobile-menu-item">
+          <a href="/pages/transfer/index.html">Transfer</a>
+        </div>
+        <div class="mobile-menu-item">
+          <a href="/pages/gallery/index.html">Galerie</a>
+        </div>
+        <div class="mobile-menu-item">
+          <a href="/pages/contact.html">Kontakt</a>
+        </div>
       </nav>
     </div>
   </div>
@@ -215,27 +216,27 @@
           </div>
         </div>
       </div>
-    </section>
 
-    <!-- 2. TRUST BAR -->
-    <section class="py-12 bg-primary-blue text-white">
-      <div class="container mx-auto px-4">
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-          <div class="animate-on-scroll">
-            <div class="text-4xl md:text-5xl font-heading font-bold text-primary-gold mb-2">500+</div>
-            <div class="text-gray-200">Touren & Ausflüge</div>
-          </div>
-          <div class="animate-on-scroll">
-            <div class="text-4xl md:text-5xl font-heading font-bold text-primary-gold mb-2">10,000+</div>
-            <div class="text-gray-200">Glückliche Kunden</div>
-          </div>
-          <div class="animate-on-scroll">
-            <div class="text-4xl md:text-5xl font-heading font-bold text-primary-gold mb-2">15+</div>
-            <div class="text-gray-200">Jahre Erfahrung</div>
-          </div>
-          <div class="animate-on-scroll">
-            <div class="text-4xl md:text-5xl font-heading font-bold text-primary-gold mb-2">4.9★</div>
-            <div class="text-gray-200">Kundenbewertung</div>
+      <!-- TRUST BAR INSIDE HERO -->
+      <div class="hero-trust-bar absolute bottom-0 left-0 right-0 py-8">
+        <div class="container mx-auto px-4">
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+            <div class="animate-on-scroll">
+              <div class="text-4xl md:text-5xl font-heading font-bold text-primary-gold mb-2">500+</div>
+              <div class="text-white">Touren & Ausflüge</div>
+            </div>
+            <div class="animate-on-scroll">
+              <div class="text-4xl md:text-5xl font-heading font-bold text-primary-gold mb-2">10,000+</div>
+              <div class="text-white">Glückliche Kunden</div>
+            </div>
+            <div class="animate-on-scroll">
+              <div class="text-4xl md:text-5xl font-heading font-bold text-primary-gold mb-2">15+</div>
+              <div class="text-white">Jahre Erfahrung</div>
+            </div>
+            <div class="animate-on-scroll">
+              <div class="text-4xl md:text-5xl font-heading font-bold text-primary-gold mb-2">4.9★</div>
+              <div class="text-white">Kundenbewertung</div>
+            </div>
           </div>
         </div>
       </div>

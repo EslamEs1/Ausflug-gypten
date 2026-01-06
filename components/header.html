@@ -4,8 +4,8 @@
     <div class="flex items-center justify-between py-4">
       <!-- Logo -->
       <div class="flex items-center">
-        <a href="/index.html" class="flex items-center">
-          <img src="/img/logo/logo.png" alt="AusflugAgypten Logo" class="h-16 w-auto">
+        <a href="/index.html" class="flex items-center header-logo">
+          <img src="/img/logo/logo.png" alt="AusflugAgypten Logo" class="h-16 w-auto transition-transform duration-300">
         </a>
       </div>
 
@@ -51,10 +51,10 @@
       <!-- Language Switcher & Mobile Menu -->
       <div class="flex items-center gap-4">
         <!-- Language Switcher -->
-        <div class="flex items-center gap-2 border border-gray-300 rounded-lg px-3 py-2">
-          <button class="lang-btn active text-sm font-medium text-primary-gold" data-lang="de">DE</button>
-          <span class="text-gray-300">|</span>
-          <button class="lang-btn text-sm font-medium text-gray-600 hover:text-primary-gold" data-lang="en">EN</button>
+        <div class="lang-switcher">
+          <button class="lang-btn active" data-lang="de">DE</button>
+          <span class="lang-separator"></span>
+          <button class="lang-btn" data-lang="en">EN</button>
         </div>
 
         <!-- Mobile Menu Button -->
@@ -81,38 +81,44 @@
       </button>
     </div>
 
-    <nav class="space-y-4">
-      <div>
-        <button class="mobile-dropdown-btn w-full flex justify-between items-center py-2 font-medium text-gray-800">
+    <nav class="space-y-2">
+      <div class="mobile-menu-item">
+        <button class="mobile-dropdown-btn">
           Ägypten Aktivitäten
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
           </svg>
         </button>
-        <div class="mobile-dropdown-content hidden pl-4 mt-2 space-y-2">
-          <a href="/pages/activities/snorkeling.html" class="block py-2 text-gray-600">Schnorchel Ausflüge</a>
-          <a href="/pages/activities/cultural.html" class="block py-2 text-gray-600">Kulturelle Touren</a>
-          <a href="/pages/activities/safari.html" class="block py-2 text-gray-600">Wüsten Safari</a>
+        <div class="mobile-dropdown-content hidden">
+          <a href="/pages/activities/snorkeling.html">Schnorchel Ausflüge</a>
+          <a href="/pages/activities/cultural.html">Kulturelle Touren</a>
+          <a href="/pages/activities/safari.html">Wüsten Safari</a>
         </div>
       </div>
 
-      <div>
-        <button class="mobile-dropdown-btn w-full flex justify-between items-center py-2 font-medium text-gray-800">
+      <div class="mobile-menu-item">
+        <button class="mobile-dropdown-btn">
           Ägypten Ausflüge
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
           </svg>
         </button>
-        <div class="mobile-dropdown-content hidden pl-4 mt-2 space-y-2">
-          <a href="/pages/excursions/hurghada.html" class="block py-2 text-gray-600">Hurghada</a>
-          <a href="/pages/excursions/el-gouna.html" class="block py-2 text-gray-600">El Gouna</a>
-          <a href="/pages/excursions/marsa-alam.html" class="block py-2 text-gray-600">Marsa Alam</a>
+        <div class="mobile-dropdown-content hidden">
+          <a href="/pages/excursions/hurghada.html">Hurghada</a>
+          <a href="/pages/excursions/el-gouna.html">El Gouna</a>
+          <a href="/pages/excursions/marsa-alam.html">Marsa Alam</a>
         </div>
       </div>
 
-      <a href="/pages/blog/index.html" class="block py-2 font-medium text-gray-800">Blog</a>
-      <a href="/pages/transfer/index.html" class="block py-2 font-medium text-gray-800">Transfer</a>
-      <a href="/pages/contact.html" class="block py-2 font-medium text-gray-800">Kontakt</a>
+      <div class="mobile-menu-item">
+        <a href="/pages/blog/index.html">Blog</a>
+      </div>
+      <div class="mobile-menu-item">
+        <a href="/pages/transfer/index.html">Transfer</a>
+      </div>
+      <div class="mobile-menu-item">
+        <a href="/pages/contact.html">Kontakt</a>
+      </div>
     </nav>
   </div>
 </div>
