@@ -1,0 +1,310 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}
+<title>{% trans "Transfer Service Ägypten" %} | AusflugÄgypten</title>
+{% endblock title %}
+
+{% block content %}
+  <main>
+    <!-- Hero Section -->
+    <section class="relative h-[500px] bg-cover bg-center" style="background-image: linear-gradient(rgba(36, 93, 129, 0.8), rgba(200, 166, 110, 0.6)), url('{% if featured_transfers.first.featured_image %}{{ featured_transfers.first.featured_image.url }}{% else %}/static/img/hero/hurghada.jpg{% endif %}');">
+      <div class="relative z-10 h-full flex items-center">
+        <div class="container mx-auto px-4">
+          <div class="max-w-3xl">
+            <div class="breadcrumb mb-6 text-white">
+              <a href="{% url 'core:home' %}" class="hover:text-primary-gold">Home</a>
+              <span class="breadcrumb-separator">/</span>
+              <span>Transfer</span>
+            </div>
+            <h1 class="text-white font-heading font-bold mb-6 animate-fade-in text-4xl md:text-5xl">Transfer Service in Ägypten</h1>
+            <p class="text-white text-xl mb-8 animate-slide-up">Zuverlässig, komfortabel und pünktlich - Ihr Transfer-Partner in Ägypten</p>
+            <div class="flex flex-wrap gap-4 animate-slide-up">
+              {% for transfer_type in transfer_types|slice:":3" %}
+                <span class="bg-white/20 backdrop-blur-sm px-6 py-3 rounded-full text-white">
+                  {% if transfer_type.icon %}{{ transfer_type.icon }}{% endif %} {{ transfer_type.name }}
+                </span>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features -->
+    <section class="py-16 bg-white">
+      <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-16">
+          <div class="text-center animate-on-scroll">
+            <div class="w-20 h-20 bg-gradient-to-br from-primary-blue to-primary-gold rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+              </svg>
+            </div>
+            <h3 class="font-heading font-bold text-lg mb-2">Pünktlich</h3>
+            <p class="text-gray-600 text-sm">Garantierte Pünktlichkeit für alle Transfers</p>
+          </div>
+
+          <div class="text-center animate-on-scroll">
+            <div class="w-20 h-20 bg-gradient-to-br from-primary-blue to-primary-gold rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+              </svg>
+            </div>
+            <h3 class="font-heading font-bold text-lg mb-2">Sicher</h3>
+            <p class="text-gray-600 text-sm">Lizenzierte Fahrer & versicherte Fahrzeuge</p>
+          </div>
+
+          <div class="text-center animate-on-scroll">
+            <div class="w-20 h-20 bg-gradient-to-br from-primary-blue to-primary-gold rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5"/>
+              </svg>
+            </div>
+            <h3 class="font-heading font-bold text-lg mb-2">Komfortabel</h3>
+            <p class="text-gray-600 text-sm">Moderne, klimatisierte Fahrzeuge</p>
+          </div>
+
+          <div class="text-center animate-on-scroll">
+            <div class="w-20 h-20 bg-gradient-to-br from-primary-blue to-primary-gold rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+              </svg>
+            </div>
+            <h3 class="font-heading font-bold text-lg mb-2">Faire Preise</h3>
+            <p class="text-gray-600 text-sm">Transparente Preise ohne versteckte Kosten</p>
+          </div>
+        </div>
+
+        <!-- Filter & Sort -->
+        <div class="mb-8 flex flex-col md:flex-row gap-4 items-center justify-between">
+          <div class="text-gray-600">
+            <strong>{{ total_transfers }}</strong> Transfers verfügbar
+          </div>
+          <div class="flex flex-wrap gap-4">
+            <select id="typeFilter" class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-gold">
+              <option value="">Alle Typen</option>
+              {% for type in transfer_types %}
+                <option value="{{ type.slug }}" {% if current_type == type.slug %}selected{% endif %}>
+                  {{ type.name }}
+                </option>
+              {% endfor %}
+            </select>
+            <select id="vehicleFilter" class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-gold">
+              <option value="">Alle Fahrzeuge</option>
+              {% for vehicle in vehicle_types %}
+                <option value="{{ vehicle.slug }}" {% if current_vehicle == vehicle.slug %}selected{% endif %}>
+                  {{ vehicle.name }}
+                </option>
+              {% endfor %}
+            </select>
+            <select id="orderingFilter" class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-gold">
+              <option value="featured" {% if current_ordering == 'featured' %}selected{% endif %}>Empfohlen</option>
+              <option value="popular" {% if current_ordering == 'popular' %}selected{% endif %}>Beliebt</option>
+              <option value="price_low" {% if current_ordering == 'price_low' %}selected{% endif %}>Preis: Niedrig bis Hoch</option>
+              <option value="price_high" {% if current_ordering == 'price_high' %}selected{% endif %}>Preis: Hoch bis Niedrig</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- All Transfers Grid -->
+        <h2 class="text-3xl font-heading font-bold text-primary-blue mb-8 text-center">Alle Transfers</h2>
+        
+        {% if transfers %}
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {% for transfer in transfers %}
+          <div class="card bg-white overflow-hidden animate-on-scroll">
+            <div class="relative h-64">
+              {% if transfer.featured_image %}
+                <img src="{{ transfer.featured_image.url }}" alt="{{ transfer.title }}" class="w-full h-full object-cover">
+              {% else %}
+                <img src="/static/img/hero/hurghada.jpg" alt="{{ transfer.title }}" class="w-full h-full object-cover">
+              {% endif %}
+              <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+              <div class="absolute bottom-0 left-0 right-0 p-6 text-white">
+                {% if transfer.transfer_type.icon %}
+                  <div class="text-4xl mb-2">{{ transfer.transfer_type.icon }}</div>
+                {% endif %}
+                <h3 class="text-2xl font-heading font-bold">{{ transfer.title }}</h3>
+                {% if transfer.transfer_type %}
+                  <p class="text-sm text-gray-200 mt-1">{{ transfer.transfer_type.name }}</p>
+                {% endif %}
+              </div>
+              {% if transfer.is_popular %}
+                <span class="badge-featured absolute top-4 left-4">Beliebt</span>
+              {% elif transfer.is_featured %}
+                <span class="badge-featured absolute top-4 left-4">Empfohlen</span>
+              {% endif %}
+            </div>
+            
+            <div class="p-6">
+              <p class="text-gray-600 mb-4">{{ transfer.short_description|truncatewords:20 }}</p>
+              
+              <ul class="space-y-2 mb-6">
+                {% if transfer.vehicle_type %}
+                <li class="flex items-start gap-2 text-sm">
+                  <svg class="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                  </svg>
+                  <span>{{ transfer.vehicle_type.name }} ({{ transfer.vehicle_type.capacity }} Pers.)</span>
+                </li>
+                {% endif %}
+                {% if transfer.meet_greet %}
+                <li class="flex items-start gap-2 text-sm">
+                  <svg class="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                  </svg>
+                  <span>Meet & Greet Service</span>
+                </li>
+                {% endif %}
+                {% if transfer.flight_monitoring %}
+                <li class="flex items-start gap-2 text-sm">
+                  <svg class="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                  </svg>
+                  <span>Flugüberwachung</span>
+                </li>
+                {% endif %}
+                {% if transfer.free_cancellation %}
+                <li class="flex items-start gap-2 text-sm">
+                  <svg class="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                  </svg>
+                  <span>Kostenlose Stornierung</span>
+                </li>
+                {% endif %}
+              </ul>
+              
+              <div class="flex items-center justify-between pt-4 border-t border-gray-200">
+                <div>
+                  <span class="text-sm text-gray-600">Ab</span>
+                  <div class="price-tag">
+                    {% if transfer.has_discount %}
+                      <span class="line-through text-gray-400 text-lg">€{{ transfer.base_price }}</span>
+                      <span class="ml-2">€{{ transfer.display_price }}</span>
+                    {% else %}
+                      €{{ transfer.display_price }}
+                    {% endif %}
+                  </div>
+                  <span class="text-xs text-gray-500">
+                    {% if transfer.price_per_person %}pro Person{% elif transfer.price_per_km %}pro km{% else %}pro Fahrzeug{% endif %}
+                  </span>
+                </div>
+                <a href="{{ transfer.get_absolute_url }}" class="btn-primary text-sm px-6 py-2">Buchen</a>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+
+        <!-- Pagination -->
+        {% if is_paginated %}
+        <div class="flex justify-center items-center gap-2 mt-12">
+          {% if page_obj.has_previous %}
+            <a href="?page={{ page_obj.previous_page_number }}{% if current_type %}&type={{ current_type }}{% endif %}{% if current_vehicle %}&vehicle={{ current_vehicle }}{% endif %}{% if current_ordering %}&ordering={{ current_ordering }}{% endif %}" class="pagination-btn-modern">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+              </svg>
+            </a>
+          {% endif %}
+          
+          {% for num in page_obj.paginator.page_range %}
+            {% if page_obj.number == num %}
+              <button class="pagination-btn-modern active">{{ num }}</button>
+            {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+              <a href="?page={{ num }}{% if current_type %}&type={{ current_type }}{% endif %}{% if current_vehicle %}&vehicle={{ current_vehicle }}{% endif %}{% if current_ordering %}&ordering={{ current_ordering }}{% endif %}" class="pagination-btn-modern">{{ num }}</a>
+            {% endif %}
+          {% endfor %}
+          
+          {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}{% if current_type %}&type={{ current_type }}{% endif %}{% if current_vehicle %}&vehicle={{ current_vehicle }}{% endif %}{% if current_ordering %}&ordering={{ current_ordering }}{% endif %}" class="pagination-btn-modern">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+              </svg>
+            </a>
+          {% endif %}
+        </div>
+        {% endif %}
+
+        {% else %}
+        <div class="text-center py-12">
+          <p class="text-gray-600 text-lg mb-4">Keine Transfers gefunden.</p>
+          <a href="{% url 'transfers:list' %}" class="btn-primary">Alle Transfers anzeigen</a>
+        </div>
+        {% endif %}
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-16 bg-gradient-to-r from-primary-blue to-primary-gold text-white">
+      <div class="container mx-auto px-4 text-center">
+        <h2 class="text-3xl font-heading font-bold mb-4">Brauchen Sie einen individuellen Transfer?</h2>
+        <p class="text-xl mb-8">Kontaktieren Sie uns für maßgeschneiderte Transfer-Lösungen!</p>
+        <a href="{% url 'core:contact' %}" class="btn-secondary bg-white text-primary-blue hover:bg-gray-100">
+          Kontakt aufnehmen
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    // Filter functionality
+    document.getElementById('typeFilter')?.addEventListener('change', function() {
+      const type = this.value;
+      const vehicle = document.getElementById('vehicleFilter')?.value || '';
+      const ordering = document.getElementById('orderingFilter')?.value || 'featured';
+      const url = new URL(window.location);
+      if (type) {
+        url.searchParams.set('type', type);
+      } else {
+        url.searchParams.delete('type');
+      }
+      if (vehicle) {
+        url.searchParams.set('vehicle', vehicle);
+      } else {
+        url.searchParams.delete('vehicle');
+      }
+      url.searchParams.set('ordering', ordering);
+      window.location.href = url.toString();
+    });
+
+    document.getElementById('vehicleFilter')?.addEventListener('change', function() {
+      const vehicle = this.value;
+      const type = document.getElementById('typeFilter')?.value || '';
+      const ordering = document.getElementById('orderingFilter')?.value || 'featured';
+      const url = new URL(window.location);
+      if (vehicle) {
+        url.searchParams.set('vehicle', vehicle);
+      } else {
+        url.searchParams.delete('vehicle');
+      }
+      if (type) {
+        url.searchParams.set('type', type);
+      } else {
+        url.searchParams.delete('type');
+      }
+      url.searchParams.set('ordering', ordering);
+      window.location.href = url.toString();
+    });
+
+    document.getElementById('orderingFilter')?.addEventListener('change', function() {
+      const ordering = this.value;
+      const type = document.getElementById('typeFilter')?.value || '';
+      const vehicle = document.getElementById('vehicleFilter')?.value || '';
+      const url = new URL(window.location);
+      url.searchParams.set('ordering', ordering);
+      if (type) {
+        url.searchParams.set('type', type);
+      } else {
+        url.searchParams.delete('type');
+      }
+      if (vehicle) {
+        url.searchParams.set('vehicle', vehicle);
+      } else {
+        url.searchParams.delete('vehicle');
+      }
+      window.location.href = url.toString();
+    });
+  </script>
+{% endblock content %}

@@ -10,6 +10,8 @@ from django.conf.urls.i18n import i18n_patterns
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    # CKEditor URLs
+    path('ckeditor/', include('ckeditor_uploader.urls')),
 ]
 
 # Internationalized URLs
@@ -17,8 +19,10 @@ urlpatterns += i18n_patterns(
     path('', include('apps.core.urls')),
     path('touren/', include('apps.tours.urls', namespace='tours')),
     path('aktivitaeten/', include('apps.activities.urls', namespace='activities')),
+    path('ausfluege/', include('apps.excursions.urls', namespace='excursions')),
     path('blog/', include('apps.blog.urls', namespace='blog')),
     path('transfer/', include('apps.transfers.urls', namespace='transfers')),
+    path('galerie/', include('apps.gallery.urls', namespace='gallery')),
     path('buchungen/', include('apps.bookings.urls', namespace='bookings')),
     prefix_default_language=True,
 )
@@ -27,4 +31,11 @@ urlpatterns += i18n_patterns(
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
+
+# Error Handlers
+handler400 = 'apps.core.views.bad_request_view'
+handler403 = 'apps.core.views.permission_denied_view'
+handler404 = 'apps.core.views.page_not_found_view'
+handler500 = 'apps.core.views.server_error_view'
 

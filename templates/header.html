@@ -1,0 +1,119 @@
+  <!-- HEADER -->
+  <header class="header-sticky" id="mainHeader">
+    <div class="container mx-auto px-4">
+      <div class="flex items-center justify-between py-4">
+        <div class="flex items-center">
+          <a href="{% url 'core:home' %}" class="flex items-center header-logo">
+            <img src="{% if site_settings.logo %}{{ site_settings.logo.url }}{% else %}/static/img/logo/logo.png{% endif %}" alt="{{ site_settings.logo_alt }}" class="h-16 w-auto transition-transform duration-300">
+          </a>
+        </div>
+
+        <nav class="hidden lg:flex items-center space-x-8">
+          <div class="relative group">
+            <a href="{% url 'activities:list' %}" class="nav-link flex items-center gap-2">
+              Ägypten Aktivitäten
+              <svg class="w-4 h-4 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+              </svg>
+            </a>
+            <div class="dropdown-menu">
+              <a href="{% url 'activities:list' %}?category=snorkeling" class="dropdown-item">Schnorchel Ausflüge und Boottouren</a>
+              <a href="{% url 'activities:list' %}?category=cultural" class="dropdown-item">Ägypten Kulturelle Ausflüge</a>
+              <a href="{% url 'activities:list' %}?category=safari" class="dropdown-item">Wüsten Safari Ausflüge</a>
+            </div>
+          </div>
+
+          <div class="relative group">
+            <a href="{% url 'excursions:list' %}" class="nav-link flex items-center gap-2">
+              Ägypten Ausflüge
+              <svg class="w-4 h-4 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+              </svg>
+            </a>
+            <div class="dropdown-menu">
+              <a href="{% url 'excursions:list' %}?location=hurghada" class="dropdown-item">Hurghada Ausflüge</a>
+              <a href="{% url 'excursions:list' %}?location=el-gouna" class="dropdown-item">El Gouna Ausflüge</a>
+              <a href="{% url 'excursions:list' %}?location=marsa-alam" class="dropdown-item">Marsa Alam Ausflüge</a>
+            </div>
+          </div>
+
+          <a href="{% url 'blog:list' %}" class="nav-link">Blog</a>
+          <a href="{% url 'transfers:list' %}" class="nav-link">Transfer</a>
+          <a href="{% url 'gallery:list' %}" class="nav-link">Galerie</a>
+          <a href="{% url 'core:contact' %}" class="nav-link">Kontakt</a>
+        </nav>
+
+        <div class="flex items-center gap-4">
+          <div class="lang-switcher">
+            <button class="lang-btn active" data-lang="de">DE</button>
+            <span class="lang-separator"></span>
+            <button class="lang-btn" data-lang="en">EN</button>
+          </div>
+
+          <button class="lg:hidden p-2" id="mobileMenuBtn">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
+  <div class="mobile-menu" id="mobileMenu">
+    <div class="p-6">
+      <div class="flex justify-between items-center mb-6">
+        <img src="{% if site_settings.logo %}{{ site_settings.logo.url }}{% else %}/static/img/logo/logo.png{% endif %}" alt="{{ site_settings.logo_alt }}" class="h-12">
+        <button id="closeMobileMenu" class="p-2">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+
+      <nav class="space-y-2">
+        <div class="mobile-menu-item">
+          <button class="mobile-dropdown-btn">
+            Ägypten Aktivitäten
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </button>
+          <div class="mobile-dropdown-content hidden">
+            <a href="{% url 'activities:list' %}?category=snorkeling">Schnorchel Ausflüge</a>
+            <a href="{% url 'activities:list' %}?category=cultural">Kulturelle Touren</a>
+            <a href="{% url 'activities:list' %}?category=safari">Wüsten Safari</a>
+          </div>
+        </div>
+
+        <div class="mobile-menu-item">
+          <button class="mobile-dropdown-btn">
+            Ägypten Ausflüge
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </button>
+          <div class="mobile-dropdown-content hidden">
+            <a href="{% url 'excursions:list' %}?location=hurghada">Hurghada</a>
+            <a href="{% url 'excursions:list' %}?location=el-gouna">El Gouna</a>
+            <a href="{% url 'excursions:list' %}?location=marsa-alam">Marsa Alam</a>
+          </div>
+        </div>
+
+        <div class="mobile-menu-item">
+          <a href="{% url 'blog:list' %}">Blog</a>
+        </div>
+        <div class="mobile-menu-item">
+          <a href="{% url 'transfers:list' %}">Transfer</a>
+        </div>
+        <div class="mobile-menu-item">
+          <a href="{% url 'gallery:list' %}">Galerie</a>
+        </div>
+        <div class="mobile-menu-item">
+          <a href="{% url 'core:contact' %}">Kontakt</a>
+        </div>
+      </nav>
+    </div>
+  </div>

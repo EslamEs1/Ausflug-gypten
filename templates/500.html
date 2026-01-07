@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 via-white to-gray-50 py-20 px-4 relative overflow-hidden">
+  <!-- Background Decorative Elements -->
+  <div class="absolute inset-0 opacity-5">
+    <div class="absolute top-0 left-0 w-96 h-96 bg-red-500 rounded-full blur-3xl"></div>
+    <div class="absolute bottom-0 right-0 w-96 h-96 bg-primary-blue rounded-full blur-3xl"></div>
+  </div>
+
+  <div class="container mx-auto text-center relative z-10">
+    <div class="max-w-2xl mx-auto">
+      <!-- 500 Number -->
+      <div class="mb-8 animate-fade-scale">
+        <h1 class="text-9xl md:text-[12rem] font-heading font-bold gradient-text leading-none mb-4">
+          500
+        </h1>
+        <div class="w-32 h-1 bg-gradient-to-r from-red-500 to-primary-blue mx-auto rounded-full"></div>
+      </div>
+
+      <!-- Error Message -->
+      <div class="mb-8 animate-fade-scale" style="animation-delay: 0.2s;">
+        <h2 class="text-3xl md:text-4xl font-heading font-bold text-primary-blue mb-4">
+          Serverfehler
+        </h2>
+        <p class="text-lg text-gray-600 mb-6">
+          Entschuldigung, es ist ein Fehler auf unserem Server aufgetreten.
+        </p>
+        <p class="text-gray-500">
+          Unser Team wurde bereits benachrichtigt und arbeitet an der Lösung. Bitte versuchen Sie es später erneut.
+        </p>
+      </div>
+
+      <!-- Illustration -->
+      <div class="mb-12 animate-fade-scale" style="animation-delay: 0.4s;">
+        <div class="inline-block p-8 bg-white rounded-2xl shadow-xl border border-gray-100">
+          <svg class="w-48 h-48 md:w-64 md:h-64 text-red-500 opacity-80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="flex flex-col sm:flex-row gap-4 justify-center items-center animate-fade-scale" style="animation-delay: 0.6s;">
+        <a href="/" class="btn-primary">
+          <svg class="w-5 h-5 inline-block mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+          </svg>
+          Zur Startseite
+        </a>
+        <button onclick="window.location.reload()" class="btn-outline">
+          <svg class="w-5 h-5 inline-block mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+          </svg>
+          Seite neu laden
+        </button>
+      </div>
+
+      <!-- Help Text -->
+      <div class="mt-12 pt-8 border-t border-gray-200 animate-fade-scale" style="animation-delay: 0.8s;">
+        <p class="text-sm text-gray-500 mb-4">
+          Wenn das Problem weiterhin besteht, kontaktieren Sie uns bitte:
+        </p>
+        <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
+          <a href="mailto:info@ausflugagypten.com" class="text-primary-gold hover:text-primary-blue transition-colors text-sm font-medium">
+            <svg class="w-4 h-4 inline-block mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+            </svg>
+            info@ausflugagypten.com
+          </a>
+          <a href="tel:+201234567890" class="text-primary-gold hover:text-primary-blue transition-colors text-sm font-medium">
+            <svg class="w-4 h-4 inline-block mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+            </svg>
+            +20 123 456 7890
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
+

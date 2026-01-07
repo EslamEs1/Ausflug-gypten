@@ -3,7 +3,18 @@ Admin configuration for Blog app
 """
 
 from django.contrib import admin
+from ckeditor_uploader.widgets import CKEditorUploadingWidget
+from django import forms
 from .models import BlogCategory, BlogPost
+
+
+class BlogPostAdminForm(forms.ModelForm):
+    content = forms.CharField(widget=CKEditorUploadingWidget(), required=False)
+    content_en = forms.CharField(widget=CKEditorUploadingWidget(), required=False)
+    
+    class Meta:
+        model = BlogPost
+        fields = '__all__'
 
 
 @admin.register(BlogCategory)
@@ -17,6 +28,7 @@ class BlogCategoryAdmin(admin.ModelAdmin):
 
 @admin.register(BlogPost)
 class BlogPostAdmin(admin.ModelAdmin):
+    form = BlogPostAdminForm
     list_display = ['title', 'category', 'author', 'is_published', 'published_at', 'created_at']
     list_filter = ['is_published', 'category', 'created_at']
     list_editable = ['is_published']

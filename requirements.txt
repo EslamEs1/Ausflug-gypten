@@ -20,7 +20,13 @@ crispy-tailwind==0.5.0
 stripe==7.7.0
 
 # Admin Enhancements
-django-admin-interface==0.26.0
+django-jazzmin==2.7.0
+
+# File Cleanup
+django-cleanup==8.0.0
+
+# Rich Text Editor
+django-ckeditor==6.7.0
 
 # SEO and Meta Tags
 django-meta==2.3.0

@@ -1,0 +1,312 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}
+<title>{% trans "Ägypten Ausflüge & Touren" %} | AusflugÄgypten</title>
+{% endblock title %}
+
+{% block content %}
+  <main>
+    <!-- Hero Banner -->
+    <section class="relative h-[450px] bg-cover bg-center" style="background-image: linear-gradient(rgba(36, 93, 129, 0.7), rgba(200, 166, 110, 0.6)), url('{% if excursions.first.featured_image %}{{ excursions.first.featured_image.url }}{% else %}/static/img/hero/hurghada.jpg{% endif %}');">
+      <div class="hero-overlay"></div>
+      <div class="relative z-10 h-full flex items-center py-12">
+        <div class="container mx-auto px-4 md:px-6 lg:px-8">
+          <div class="breadcrumb mb-6 text-white">
+            <a href="{% url 'core:home' %}" class="hover:text-primary-gold">Home</a>
+            <span class="breadcrumb-separator">/</span>
+            <span>Ägypten Ausflüge</span>
+          </div>
+          <h1 class="text-white font-heading font-bold mb-5 text-4xl md:text-5xl lg:text-6xl">Ägypten Ausflüge & Touren</h1>
+          <p class="text-white text-lg md:text-xl max-w-2xl mb-10">Entdecken Sie die besten Ausflüge in Ägypten - von historischen Stätten bis zu Wüstenabenteuern</p>
+          
+          <!-- 3 Words with Icons -->
+          <div class="flex flex-wrap gap-4 md:gap-6 animate-slide-up">
+            <div class="flex items-center gap-3 bg-white/20 backdrop-blur-sm px-6 py-3 rounded-full">
+              <svg class="w-6 h-6 text-primary-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/>
+              </svg>
+              <span class="text-white font-medium">Zertifiziert</span>
+            </div>
+            
+            <div class="flex items-center gap-3 bg-white/20 backdrop-blur-sm px-6 py-3 rounded-full">
+              <svg class="w-6 h-6 text-primary-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+              </svg>
+              <span class="text-white font-medium">Sofortige Bestätigung</span>
+            </div>
+            
+            <div class="flex items-center gap-3 bg-white/20 backdrop-blur-sm px-6 py-3 rounded-full">
+              <svg class="w-6 h-6 text-primary-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+              </svg>
+              <span class="text-white font-medium">Beste Preise</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Listing Section with Filters -->
+    <section class="py-16 bg-gray-50">
+      <div class="container mx-auto px-4">
+        <div class="flex flex-col lg:flex-row gap-8">
+          
+          <!-- Filter Sidebar -->
+          <aside class="lg:w-1/4">
+            <div class="sticky top-24 space-y-6">
+              <!-- Category Filter -->
+              <div class="filter-section-modern bg-white rounded-xl p-6 shadow-lg border border-gray-100">
+                <div class="flex items-center gap-3 mb-4">
+                  <svg class="w-5 h-5 text-primary-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/>
+                  </svg>
+                  <h3 class="filter-title-modern font-heading font-bold text-lg text-primary-blue">Kategorien</h3>
+                </div>
+                <div class="space-y-3">
+                  <label class="filter-checkbox-modern flex items-center gap-3 cursor-pointer group">
+                    <input type="checkbox" class="filter-category w-5 h-5 text-primary-gold rounded border-gray-300 focus:ring-primary-gold" value="" {% if not current_category %}checked{% endif %} onchange="filterByCategory('')">
+                    <span class="text-gray-700 group-hover:text-primary-gold transition-colors">Alle</span>
+                  </label>
+                  {% for category in categories %}
+                  <label class="filter-checkbox-modern flex items-center gap-3 cursor-pointer group">
+                    <input type="checkbox" class="filter-category w-5 h-5 text-primary-gold rounded border-gray-300 focus:ring-primary-gold" value="{{ category.slug }}" {% if current_category == category.slug %}checked{% endif %} onchange="filterByCategory('{{ category.slug }}')">
+                    <span class="text-gray-700 group-hover:text-primary-gold transition-colors">
+                      {% if category.icon %}{{ category.icon }}{% endif %} {{ category.name }}
+                    </span>
+                  </label>
+                  {% endfor %}
+                </div>
+              </div>
+
+              <!-- Location Filter -->
+              <div class="filter-section-modern bg-white rounded-xl p-6 shadow-lg border border-gray-100">
+                <div class="flex items-center gap-3 mb-4">
+                  <svg class="w-5 h-5 text-primary-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                  </svg>
+                  <h3 class="filter-title-modern font-heading font-bold text-lg text-primary-blue">Standort</h3>
+                </div>
+                <div class="space-y-3">
+                  <label class="filter-checkbox-modern flex items-center gap-3 cursor-pointer group">
+                    <input type="checkbox" class="filter-location w-5 h-5 text-primary-gold rounded border-gray-300 focus:ring-primary-gold" value="" {% if not current_location %}checked{% endif %} onchange="filterByLocation('')">
+                    <span class="text-gray-700 group-hover:text-primary-gold transition-colors">Alle</span>
+                  </label>
+                  {% for location in locations %}
+                  <label class="filter-checkbox-modern flex items-center gap-3 cursor-pointer group">
+                    <input type="checkbox" class="filter-location w-5 h-5 text-primary-gold rounded border-gray-300 focus:ring-primary-gold" value="{{ location.slug }}" {% if current_location == location.slug %}checked{% endif %} onchange="filterByLocation('{{ location.slug }}')">
+                    <span class="text-gray-700 group-hover:text-primary-gold transition-colors">📍 {{ location.name }}</span>
+                  </label>
+                  {% endfor %}
+                </div>
+              </div>
+
+              <!-- Price Range -->
+              <div class="filter-section-modern bg-white rounded-xl p-6 shadow-lg border border-gray-100">
+                <div class="flex items-center gap-3 mb-4">
+                  <svg class="w-5 h-5 text-primary-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                  </svg>
+                  <h3 class="filter-title-modern font-heading font-bold text-lg text-primary-blue">Preis</h3>
+                </div>
+                <div class="space-y-6">
+                  <div>
+                    <div class="flex justify-between items-center mb-2">
+                      <label class="text-sm font-medium text-gray-700">Min</label>
+                      <span class="text-sm font-bold text-primary-gold">€<span id="minPriceDisplay">{{ current_min_price }}</span></span>
+                    </div>
+                    <input type="range" id="priceMin" min="0" max="500" value="{{ current_min_price }}" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer slider" oninput="updatePriceFilter()">
+                  </div>
+                  <div>
+                    <div class="flex justify-between items-center mb-2">
+                      <label class="text-sm font-medium text-gray-700">Max</label>
+                      <span class="text-sm font-bold text-primary-gold">€<span id="maxPriceDisplay">{{ current_max_price }}</span></span>
+                    </div>
+                    <input type="range" id="priceMax" min="0" max="500" value="{{ current_max_price }}" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer slider" oninput="updatePriceFilter()">
+                  </div>
+                </div>
+              </div>
+
+              <!-- Reset Filters Button -->
+              <button onclick="resetFilters()" class="w-full btn-secondary py-3 rounded-xl font-medium">
+                Filter zurücksetzen
+              </button>
+            </div>
+          </aside>
+
+          <!-- Excursions Grid -->
+          <div class="lg:w-3/4">
+            <div class="flex justify-between items-center mb-6">
+              <h2 class="text-2xl font-heading font-bold text-primary-blue">
+                {{ page_obj.paginator.count|default:excursions.count }} Ausflüge gefunden
+              </h2>
+              <select id="sortSelect" class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-gold" onchange="updateSort()">
+                <option value="featured" {% if current_sort == 'featured' %}selected{% endif %}>Empfohlen</option>
+                <option value="price_low" {% if current_sort == 'price_low' %}selected{% endif %}>Preis: Niedrig bis Hoch</option>
+                <option value="price_high" {% if current_sort == 'price_high' %}selected{% endif %}>Preis: Hoch bis Niedrig</option>
+                <option value="popular" {% if current_sort == 'popular' %}selected{% endif %}>Beliebtheit</option>
+              </select>
+            </div>
+
+            <!-- Excursions Grid -->
+            {% if excursions %}
+            <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 mb-8">
+              {% for excursion in excursions %}
+              <div class="tour-card card" data-price="{{ excursion.price }}" data-category="{% if excursion.category %}{{ excursion.category.slug }}{% endif %}">
+                <div class="tour-card-image-wrapper">
+                  <img src="{{ excursion.featured_image.url }}" alt="{{ excursion.title }}" class="tour-card-image" loading="lazy">
+                  <div class="tour-card-overlay"></div>
+                  <button class="wishlist-btn" data-id="excursion-{{ excursion.id }}">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+                    </svg>
+                  </button>
+                  {% if excursion.is_bestseller %}
+                    <span class="badge-featured absolute top-4 left-4">Bestseller</span>
+                  {% elif excursion.is_popular %}
+                    <span class="badge-featured absolute top-4 left-4">Beliebt</span>
+                  {% elif excursion.is_featured %}
+                    <span class="badge-featured absolute top-4 left-4">Empfohlen</span>
+                  {% endif %}
+                </div>
+                
+                <div class="p-6">
+                  <div class="flex items-center gap-2 mb-3">
+                    <svg class="w-4 h-4 text-primary-blue" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/>
+                    </svg>
+                    <span class="text-sm text-gray-600">{{ excursion.location.name }}</span>
+                  </div>
+                  
+                  <h3 class="text-xl font-heading font-bold text-gray-800 mb-3">
+                    <a href="{{ excursion.get_absolute_url }}" class="hover:text-primary-gold transition-colors">{{ excursion.title }}</a>
+                  </h3>
+                  
+                  <div class="flex items-center gap-2 mb-4">
+                    <div class="rating-stars text-sm">★★★★★</div>
+                    <span class="text-sm text-gray-600">({{ excursion.review_count }} Bewertungen)</span>
+                  </div>
+                  
+                  <div class="flex items-center justify-between text-sm text-gray-600 mb-4">
+                    <div class="flex items-center gap-2">
+                      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                      </svg>
+                      <span>{{ excursion.duration }}</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                      <span class="{% if excursion.group_type == 'private' %}text-primary-gold{% else %}text-gray-600{% endif %} font-medium">{{ excursion.get_group_type_display }}</span>
+                    </div>
+                  </div>
+                  
+                  <div class="flex items-center justify-between pt-4 border-t border-gray-200">
+                    <div>
+                      <span class="text-sm text-gray-600">Ab</span>
+                      <div class="price-tag">
+                        {% if excursion.has_discount %}
+                          <span class="line-through text-gray-400 text-lg">€{{ excursion.original_price }}</span>
+                          <span class="ml-2">€{{ excursion.price }}</span>
+                        {% else %}
+                          €{{ excursion.price }}
+                        {% endif %}
+                      </div>
+                    </div>
+                    <a href="{{ excursion.get_absolute_url }}" class="btn-primary text-sm px-6 py-2">Buchen</a>
+                  </div>
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+
+            <!-- Pagination -->
+            {% if is_paginated %}
+            <div class="flex justify-center items-center gap-2 mt-12">
+              {% if page_obj.has_previous %}
+                <a href="?page={{ page_obj.previous_page_number }}{% if current_category %}&category={{ current_category }}{% endif %}{% if current_location %}&location={{ current_location }}{% endif %}{% if current_min_price %}&min_price={{ current_min_price }}{% endif %}{% if current_max_price %}&max_price={{ current_max_price }}{% endif %}{% if current_sort %}&sort={{ current_sort }}{% endif %}" class="pagination-btn-modern">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                  </svg>
+                </a>
+              {% endif %}
+              
+              {% for num in page_obj.paginator.page_range %}
+                {% if page_obj.number == num %}
+                  <button class="pagination-btn-modern active">{{ num }}</button>
+                {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                  <a href="?page={{ num }}{% if current_category %}&category={{ current_category }}{% endif %}{% if current_location %}&location={{ current_location }}{% endif %}{% if current_min_price %}&min_price={{ current_min_price }}{% endif %}{% if current_max_price %}&max_price={{ current_max_price }}{% endif %}{% if current_sort %}&sort={{ current_sort }}{% endif %}" class="pagination-btn-modern">{{ num }}</a>
+                {% endif %}
+              {% endfor %}
+              
+              {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}{% if current_category %}&category={{ current_category }}{% endif %}{% if current_location %}&location={{ current_location }}{% endif %}{% if current_min_price %}&min_price={{ current_min_price }}{% endif %}{% if current_max_price %}&max_price={{ current_max_price }}{% endif %}{% if current_sort %}&sort={{ current_sort }}{% endif %}" class="pagination-btn-modern">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                  </svg>
+                </a>
+              {% endif %}
+            </div>
+            {% endif %}
+
+            {% else %}
+            <div class="text-center py-12">
+              <p class="text-gray-600 text-lg mb-4">Keine Ausflüge gefunden.</p>
+              <a href="{% url 'excursions:list' %}" class="btn-primary">Alle Ausflüge anzeigen</a>
+            </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    function filterByCategory(slug) {
+      const url = new URL(window.location);
+      if (slug) {
+        url.searchParams.set('category', slug);
+      } else {
+        url.searchParams.delete('category');
+      }
+      url.searchParams.delete('page');
+      window.location.href = url.toString();
+    }
+
+    function filterByLocation(slug) {
+      const url = new URL(window.location);
+      if (slug) {
+        url.searchParams.set('location', slug);
+      } else {
+        url.searchParams.delete('location');
+      }
+      url.searchParams.delete('page');
+      window.location.href = url.toString();
+    }
+
+    function updatePriceFilter() {
+      const minPrice = document.getElementById('priceMin').value;
+      const maxPrice = document.getElementById('priceMax').value;
+      document.getElementById('minPriceDisplay').textContent = minPrice;
+      document.getElementById('maxPriceDisplay').textContent = maxPrice;
+      
+      const url = new URL(window.location);
+      url.searchParams.set('min_price', minPrice);
+      url.searchParams.set('max_price', maxPrice);
+      url.searchParams.delete('page');
+      window.location.href = url.toString();
+    }
+
+    function updateSort() {
+      const sort = document.getElementById('sortSelect').value;
+      const url = new URL(window.location);
+      url.searchParams.set('sort', sort);
+      url.searchParams.delete('page');
+      window.location.href = url.toString();
+    }
+
+    function resetFilters() {
+      window.location.href = "{% url 'excursions:list' %}";
+    }
+  </script>
+{% endblock content %}

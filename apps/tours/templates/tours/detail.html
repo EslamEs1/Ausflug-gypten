@@ -1,0 +1,355 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}
+<title>{{ tour.title }} | AusflugÄgypten</title>
+{% endblock title %}
+
+{% block content %}
+  <main>
+    <!-- Breadcrumb -->
+    <section class="py-4 bg-gray-50">
+      <div class="container mx-auto px-4">
+        <div class="breadcrumb">
+          <a href="{% url 'core:home' %}">Home</a>
+          <span class="breadcrumb-separator">/</span>
+          <a href="{% url 'tours:list' %}">Ausflüge</a>
+          <span class="breadcrumb-separator">/</span>
+          <span>{{ tour.title }}</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tour Detail -->
+    <section class="py-12">
+      <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          
+          <!-- Main Content -->
+          <div class="lg:col-span-2">
+            <!-- Image Gallery -->
+            <div class="mb-8">
+              <div class="relative h-[500px] rounded-xl overflow-hidden mb-4">
+                <img src="{{ tour.featured_image.url }}" alt="{{ tour.title }}" class="w-full h-full object-cover">
+                <button class="wishlist-btn" data-id="tour-{{ tour.id }}">
+                  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+                  </svg>
+                </button>
+                {% if tour.is_featured %}
+                  <span class="badge-featured absolute top-4 left-4">Empfohlen</span>
+                {% endif %}
+              </div>
+              
+              <!-- Additional Images -->
+              {% if tour.images.all %}
+              <div class="grid grid-cols-4 gap-4">
+                {% for image in tour.images.all|slice:":4" %}
+                <div class="gallery-item relative h-24 rounded-lg overflow-hidden cursor-pointer hover:opacity-80 transition-opacity">
+                  <img src="{{ image.image.url }}" alt="{{ image.caption|default:tour.title }}" loading="lazy" class="w-full h-full object-cover">
+                </div>
+                {% endfor %}
+              </div>
+              {% endif %}
+            </div>
+
+            <!-- Title & Rating -->
+            <div class="mb-6">
+              <div class="flex items-center gap-3 mb-3">
+                {% if tour.category %}
+                  <span class="badge">{{ tour.category.name }}</span>
+                {% endif %}
+                <div class="flex items-center gap-2">
+                  <svg class="w-5 h-5 text-primary-blue" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/>
+                  </svg>
+                  <span class="text-gray-600">{{ tour.location.name }}</span>
+                </div>
+              </div>
+              
+              <h1 class="font-heading font-bold text-primary-blue mb-4 text-3xl md:text-4xl">
+                {{ tour.title }}
+              </h1>
+              
+              <div class="flex items-center gap-4">
+                <div class="rating-stars text-xl">★★★★★</div>
+                <span class="text-gray-600">
+                  {% if tour.average_rating %}
+                    {{ tour.average_rating|floatformat:1 }} ({{ tour.review_count }} Bewertungen)
+                  {% else %}
+                    ({{ tour.review_count }} Bewertungen)
+                  {% endif %}
+                </span>
+              </div>
+            </div>
+
+            <!-- Quick Facts -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8 p-6 bg-gray-50 rounded-xl">
+              <div class="text-center">
+                <svg class="w-8 h-8 mx-auto mb-2 text-primary-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+                <div class="text-sm text-gray-600">Dauer</div>
+                <div class="font-bold">{{ tour.duration }}</div>
+              </div>
+              
+              <div class="text-center">
+                <svg class="w-8 h-8 mx-auto mb-2 text-primary-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+                </svg>
+                <div class="text-sm text-gray-600">Gruppe</div>
+                <div class="font-bold">{{ tour.get_group_type_display }}</div>
+              </div>
+              
+              <div class="text-center">
+                <svg class="w-8 h-8 mx-auto mb-2 text-primary-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"/>
+                </svg>
+                <div class="text-sm text-gray-600">Sprachen</div>
+                <div class="font-bold">{{ tour.languages }}</div>
+              </div>
+              
+              <div class="text-center">
+                <svg class="w-8 h-8 mx-auto mb-2 text-primary-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                </svg>
+                <div class="text-sm text-gray-600">Abholung</div>
+                <div class="font-bold">{% if tour.pickup_included %}Inklusive{% else %}Nicht inklusive{% endif %}</div>
+              </div>
+            </div>
+
+            <!-- Description -->
+            <div class="mb-8">
+              <h2 class="text-2xl font-heading font-bold text-primary-blue mb-4">Beschreibung</h2>
+              <div class="prose max-w-none text-gray-700 leading-relaxed space-y-4">
+                {{ tour.description|linebreaks }}
+              </div>
+            </div>
+
+            <!-- Itinerary -->
+            {% if tour.itinerary.all %}
+            <div class="mb-8">
+              <h2 class="text-2xl font-heading font-bold text-primary-blue mb-4">Reiseverlauf</h2>
+              <div class="timeline">
+                {% for item in tour.itinerary.all %}
+                <div class="timeline-item">
+                  <div class="timeline-time">{{ item.time }}</div>
+                  <h3 class="font-bold text-lg mb-2">{{ item.title }}</h3>
+                  <p class="text-gray-700">{{ item.description }}</p>
+                </div>
+                {% endfor %}
+              </div>
+            </div>
+            {% endif %}
+
+            <!-- Included/Excluded -->
+            {% if tour.inclusions.all %}
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+              <div class="bg-green-50 p-6 rounded-xl">
+                <h3 class="font-heading font-bold text-lg mb-4 text-green-700 flex items-center gap-2">
+                  <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                  </svg>
+                  Inklusive
+                </h3>
+                <ul class="space-y-2 text-gray-700">
+                  {% for inclusion in tour.inclusions.all %}
+                    {% if inclusion.is_included %}
+                    <li class="flex items-start gap-2">
+                      <svg class="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                      </svg>
+                      <span>{{ inclusion.item }}</span>
+                    </li>
+                    {% endif %}
+                  {% endfor %}
+                </ul>
+              </div>
+
+              <div class="bg-red-50 p-6 rounded-xl">
+                <h3 class="font-heading font-bold text-lg mb-4 text-red-700 flex items-center gap-2">
+                  <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
+                  </svg>
+                  Nicht Inklusive
+                </h3>
+                <ul class="space-y-2 text-gray-700">
+                  {% for inclusion in tour.inclusions.all %}
+                    {% if not inclusion.is_included %}
+                    <li class="flex items-start gap-2">
+                      <svg class="w-5 h-5 text-red-600 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
+                      </svg>
+                      <span>{{ inclusion.item }}</span>
+                    </li>
+                    {% endif %}
+                  {% endfor %}
+                </ul>
+              </div>
+            </div>
+            {% endif %}
+
+            <!-- Reviews Section -->
+            {% if reviews %}
+            <div class="mb-8">
+              <h2 class="text-2xl font-heading font-bold text-primary-blue mb-6">Kundenbewertungen</h2>
+              
+              <div class="space-y-6">
+                {% for review in reviews %}
+                <div class="border border-gray-200 rounded-xl p-6">
+                  <div class="flex items-start gap-4 mb-4">
+                    <div class="w-12 h-12 bg-primary-gold rounded-full flex items-center justify-center text-white font-bold">
+                      {{ review.name|slice:":2"|upper }}
+                    </div>
+                    <div class="flex-1">
+                      <div class="flex items-center justify-between mb-2">
+                        <h4 class="font-bold">{{ review.name }}</h4>
+                        <span class="text-sm text-gray-600">{{ review.created_at|date:"d. M Y" }}</span>
+                      </div>
+                      <div class="rating-stars text-sm mb-2">
+                        {% for i in "12345"|make_list %}
+                          {% if forloop.counter <= review.rating %}★{% else %}☆{% endif %}
+                        {% endfor %}
+                      </div>
+                      <p class="text-gray-700">{{ review.comment }}</p>
+                    </div>
+                  </div>
+                </div>
+                {% endfor %}
+              </div>
+            </div>
+            {% endif %}
+
+            <!-- Related Tours -->
+            {% if related_tours %}
+            <div class="mb-8">
+              <h2 class="text-2xl font-heading font-bold text-primary-blue mb-6">Ähnliche Touren</h2>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {% for related in related_tours %}
+                <div class="card overflow-hidden">
+                  <div class="flex">
+                    <div class="w-32 h-32 flex-shrink-0">
+                      <img src="{{ related.featured_image.url }}" alt="{{ related.title }}" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-4 flex-1">
+                      <h3 class="font-heading font-bold text-lg mb-2">
+                        <a href="{{ related.get_absolute_url }}" class="hover:text-primary-gold transition-colors">
+                          {{ related.title }}
+                        </a>
+                      </h3>
+                      <p class="text-sm text-gray-600 mb-3">{{ related.short_description|truncatewords:10|default:related.description|truncatewords:10 }}</p>
+                      <div class="flex items-center justify-between">
+                        <div class="price-tag text-lg">€{{ related.price }}</div>
+                        <a href="{{ related.get_absolute_url }}" class="btn-primary text-sm px-4 py-2">Details</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                {% endfor %}
+              </div>
+            </div>
+            {% endif %}
+          </div>
+
+          <!-- Booking Sidebar -->
+          <div class="lg:col-span-1">
+            <div class="sticky top-24">
+              <div class="bg-white border-2 border-primary-gold rounded-xl p-6 shadow-lg">
+                <div class="mb-6">
+                  <span class="text-gray-600 text-sm">Ab</span>
+                  <div class="flex items-baseline gap-2">
+                    {% if tour.original_price %}
+                      <span class="text-2xl line-through text-gray-400">€{{ tour.original_price }}</span>
+                      <span class="text-4xl font-heading font-bold text-primary-gold">€{{ tour.price }}</span>
+                    {% else %}
+                      <span class="text-4xl font-heading font-bold text-primary-gold">€{{ tour.price }}</span>
+                    {% endif %}
+                    <span class="text-gray-600">pro Person</span>
+                  </div>
+                  {% if tour.original_price %}
+                  <div class="mt-2">
+                    <span class="bg-red-100 text-red-700 text-xs font-bold px-2 py-1 rounded">Sonderangebot!</span>
+                  </div>
+                  {% endif %}
+                </div>
+
+                <form id="bookingForm" class="space-y-4" action="{% url 'bookings:create_checkout' %}" method="post">
+                  {% csrf_token %}
+                  <input type="hidden" name="tour_id" value="{{ tour.id }}">
+                  
+                  <div>
+                    <label class="input-label">Datum wählen</label>
+                    <input type="date" name="date" required class="input-field">
+                  </div>
+
+                  <div>
+                    <label class="input-label">Anzahl Personen</label>
+                    <select name="persons" required class="input-field">
+                      {% if tour.max_participants %}
+                        {% for i in "123456789"|make_list %}
+                          {% if forloop.counter <= tour.max_participants %}
+                            <option value="{{ forloop.counter }}" {% if forloop.counter == 2 %}selected{% endif %}>
+                              {{ forloop.counter }} Person{% if forloop.counter > 1 %}en{% endif %}
+                            </option>
+                          {% endif %}
+                        {% endfor %}
+                      {% else %}
+                        <option value="1">1 Person</option>
+                        <option value="2" selected>2 Personen</option>
+                        <option value="3">3 Personen</option>
+                        <option value="4">4 Personen</option>
+                        <option value="5+">5+ Personen</option>
+                      {% endif %}
+                    </select>
+                  </div>
+
+                  <div>
+                    <label class="input-label">Name</label>
+                    <input type="text" name="name" required class="input-field" placeholder="Ihr Name">
+                  </div>
+
+                  <div>
+                    <label class="input-label">E-Mail</label>
+                    <input type="email" name="email" required class="input-field" placeholder="ihre@email.com">
+                  </div>
+
+                  <div>
+                    <label class="input-label">Telefon</label>
+                    <input type="tel" name="phone" required class="input-field" placeholder="+49 ">
+                  </div>
+
+                  <button type="submit" class="btn-primary w-full">
+                    Jetzt Buchen
+                  </button>
+                </form>
+
+                <div class="mt-6 pt-6 border-t border-gray-200">
+                  <div class="flex items-center gap-3 text-sm text-gray-600 mb-3">
+                    <svg class="w-5 h-5 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                    </svg>
+                    <span>Kostenlose Stornierung</span>
+                  </div>
+                  <div class="flex items-center gap-3 text-sm text-gray-600">
+                    <svg class="w-5 h-5 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                    </svg>
+                    <span>Sofortige Bestätigung</span>
+                  </div>
+                  {% if tour.pickup_time %}
+                  <div class="flex items-center gap-3 text-sm text-gray-600 mt-3">
+                    <svg class="w-5 h-5 text-primary-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    <span>Abholzeit: {{ tour.pickup_time }}</span>
+                  </div>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+{% endblock content %}

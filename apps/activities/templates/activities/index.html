@@ -1,0 +1,237 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}
+<title>{% trans "Ägypten Aktivitäten & Sehenswürdigkeiten" %} | AusflugÄgypten</title>
+{% endblock title %}
+
+{% block content %}
+  <!-- MAIN CONTENT -->
+  <main>
+    
+    <!-- Hero Section -->
+    <section class="relative h-[500px] bg-cover bg-center" style="background-image: linear-gradient(rgba(36, 93, 129, 0.7), rgba(36, 93, 129, 0.5)), url('{% if featured_categories.first.image %}{{ featured_categories.first.image.url }}{% else %}/static/img/hero/hurghada.jpg{% endif %}');">
+      <div class="relative z-10 h-full flex items-center">
+        <div class="container mx-auto px-4">
+          <div class="max-w-3xl">
+            <div class="breadcrumb mb-6 text-white">
+              <a href="{% url 'core:home' %}" class="hover:text-primary-gold">Home</a>
+              <span class="breadcrumb-separator">/</span>
+              <span>Ägypten Aktivitäten</span>
+            </div>
+            <h1 class="text-white font-heading font-bold mb-6 animate-fade-in">Ägypten Aktivitäten & Sehenswürdigkeiten</h1>
+            <p class="text-white text-xl mb-8 animate-slide-up">Erleben Sie unvergessliche Abenteuer - von Schnorcheln im Roten Meer bis zu Wüsten-Safaris</p>
+            <div class="flex flex-wrap gap-4 animate-slide-up">
+              {% for category in featured_categories %}
+                <span class="bg-white/20 backdrop-blur-sm px-6 py-3 rounded-full text-white">
+                  {% if category.icon %}{{ category.icon }}{% endif %} {{ category.name }}
+                </span>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Activity Categories -->
+    <section class="py-16 bg-white">
+      <div class="container mx-auto px-4">
+        {% if featured_categories %}
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+          {% for category in featured_categories %}
+          <a href="?category={{ category.slug }}" class="group">
+            <div class="relative h-80 rounded-2xl overflow-hidden shadow-xl transform transition-all duration-300 group-hover:scale-105 group-hover:shadow-2xl">
+              {% if category.image %}
+                <img src="{{ category.image.url }}" alt="{{ category.name }}" class="w-full h-full object-cover">
+              {% else %}
+                <img src="/static/img/hero/hurghada.jpg" alt="{{ category.name }}" class="w-full h-full object-cover">
+              {% endif %}
+              <div class="absolute inset-0 bg-gradient-to-t {% if category.gradient_color == 'primary-blue' %}from-primary-blue via-primary-blue/50{% elif category.gradient_color == 'primary-gold' %}from-primary-gold via-primary-gold/50{% elif category.gradient_color == 'orange-600' %}from-orange-600 via-orange-600/50{% else %}from-primary-blue via-primary-blue/50{% endif %} to-transparent"></div>
+              <div class="absolute bottom-0 left-0 right-0 p-8 text-white">
+                <div class="text-5xl mb-4">{% if category.icon %}{{ category.icon }}{% else %}✨{% endif %}</div>
+                <h3 class="text-3xl font-heading font-bold mb-3">{{ category.name }}</h3>
+                <p class="text-gray-200 mb-4">{{ category.description|truncatewords:15 }}</p>
+                <div class="flex items-center gap-2 text-primary-gold font-bold">
+                  <span>Mehr erfahren</span>
+                  <svg class="w-5 h-5 transform group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </a>
+          {% endfor %}
+        </div>
+        {% endif %}
+
+        <!-- Filter & Sort -->
+        <div class="mb-8 flex flex-col md:flex-row gap-4 items-center justify-between">
+          <div class="text-gray-600">
+            <strong>{{ total_activities }}</strong> Aktivitäten gefunden
+          </div>
+          <div class="flex gap-4">
+            <select id="categoryFilter" class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-gold">
+              <option value="">Alle Kategorien</option>
+              {% for category in categories %}
+                <option value="{{ category.slug }}" {% if current_category == category.slug %}selected{% endif %}>
+                  {{ category.name }}
+                </option>
+              {% endfor %}
+            </select>
+            <select id="orderingFilter" class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-gold">
+              <option value="featured" {% if current_ordering == 'featured' %}selected{% endif %}>Empfohlen</option>
+              <option value="popular" {% if current_ordering == 'popular' %}selected{% endif %}>Beliebt</option>
+              <option value="price_low" {% if current_ordering == 'price_low' %}selected{% endif %}>Preis: Niedrig bis Hoch</option>
+              <option value="price_high" {% if current_ordering == 'price_high' %}selected{% endif %}>Preis: Hoch bis Niedrig</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- All Activities Grid -->
+        <h2 class="text-3xl font-heading font-bold text-primary-blue mb-8 text-center">Alle Aktivitäten</h2>
+        
+        {% if activities %}
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {% for activity in activities %}
+          <div class="tour-card card animate-on-scroll">
+            <div class="tour-card-image-wrapper">
+              <img src="{{ activity.featured_image.url }}" alt="{{ activity.title }}" class="tour-card-image" loading="lazy">
+              <div class="tour-card-overlay"></div>
+              <button class="wishlist-btn" data-id="activity-{{ activity.id }}">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+                </svg>
+              </button>
+              {% if activity.is_popular %}
+                <span class="badge-featured absolute top-4 left-4">Beliebt</span>
+              {% elif activity.is_featured %}
+                <span class="badge-featured absolute top-4 left-4">Empfohlen</span>
+              {% endif %}
+            </div>
+            
+            <div class="p-6">
+              <div class="flex items-center gap-2 mb-3">
+                {% if activity.category.icon %}
+                  <span class="text-2xl">{{ activity.category.icon }}</span>
+                {% endif %}
+                <span class="text-sm text-gray-600">{{ activity.category.name }}</span>
+              </div>
+              
+              <h3 class="text-xl font-heading font-bold text-gray-800 mb-3">
+                <a href="{{ activity.get_absolute_url }}" class="hover:text-primary-gold transition-colors">{{ activity.title }}</a>
+              </h3>
+              
+              <p class="text-gray-600 text-sm mb-4">{{ activity.short_description|truncatewords:15 }}</p>
+              
+              <div class="flex items-center gap-2 mb-4">
+                <div class="rating-stars text-sm">★★★★★</div>
+                <span class="text-sm text-gray-600">(Bewertungen)</span>
+              </div>
+              
+              <div class="flex items-center justify-between text-sm text-gray-600 mb-4">
+                <div class="flex items-center gap-2">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                  </svg>
+                  <span>{{ activity.duration_hours }} Stunden</span>
+                </div>
+                {% if activity.location %}
+                <div class="flex items-center gap-2">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                  </svg>
+                  <span>{{ activity.location.name }}</span>
+                </div>
+                {% endif %}
+              </div>
+              
+              <div class="flex items-center justify-between pt-4 border-t border-gray-200">
+                <div>
+                  <span class="text-sm text-gray-600">Ab</span>
+                  <div class="price-tag">
+                    {% if activity.has_discount %}
+                      <span class="line-through text-gray-400 text-lg">€{{ activity.price }}</span>
+                      <span class="ml-2">€{{ activity.display_price }}</span>
+                    {% else %}
+                      €{{ activity.display_price }}
+                    {% endif %}
+                  </div>
+                </div>
+                <a href="{{ activity.get_absolute_url }}" class="btn-primary text-sm px-6 py-2">Details</a>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+
+        <!-- Pagination -->
+        {% if is_paginated %}
+        <div class="flex justify-center items-center gap-2 mt-12">
+          {% if page_obj.has_previous %}
+            <a href="?page={{ page_obj.previous_page_number }}{% if current_category %}&category={{ current_category }}{% endif %}{% if current_ordering %}&ordering={{ current_ordering }}{% endif %}" class="pagination-btn-modern">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+              </svg>
+            </a>
+          {% endif %}
+          
+          {% for num in page_obj.paginator.page_range %}
+            {% if page_obj.number == num %}
+              <button class="pagination-btn-modern active">{{ num }}</button>
+            {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+              <a href="?page={{ num }}{% if current_category %}&category={{ current_category }}{% endif %}{% if current_ordering %}&ordering={{ current_ordering }}{% endif %}" class="pagination-btn-modern">{{ num }}</a>
+            {% endif %}
+          {% endfor %}
+          
+          {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}{% if current_category %}&category={{ current_category }}{% endif %}{% if current_ordering %}&ordering={{ current_ordering }}{% endif %}" class="pagination-btn-modern">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+              </svg>
+            </a>
+          {% endif %}
+        </div>
+        {% endif %}
+
+        {% else %}
+        <div class="text-center py-12">
+          <p class="text-gray-600 text-lg mb-4">Keine Aktivitäten gefunden.</p>
+          <a href="{% url 'activities:list' %}" class="btn-primary">Alle Aktivitäten anzeigen</a>
+        </div>
+        {% endif %}
+
+        <div class="text-center mt-12">
+          <a href="{% url 'tours:list' %}" class="btn-secondary">Alle Ausflüge Ansehen</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    // Filter functionality
+    document.getElementById('categoryFilter')?.addEventListener('change', function() {
+      const category = this.value;
+      const ordering = document.getElementById('orderingFilter')?.value || 'featured';
+      const url = new URL(window.location);
+      if (category) {
+        url.searchParams.set('category', category);
+      } else {
+        url.searchParams.delete('category');
+      }
+      url.searchParams.set('ordering', ordering);
+      window.location.href = url.toString();
+    });
+
+    document.getElementById('orderingFilter')?.addEventListener('change', function() {
+      const ordering = this.value;
+      const category = document.getElementById('categoryFilter')?.value || '';
+      const url = new URL(window.location);
+      url.searchParams.set('ordering', ordering);
+      if (category) {
+        url.searchParams.set('category', category);
+      }
+      window.location.href = url.toString();
+    });
+  </script>
+{% endblock content %}

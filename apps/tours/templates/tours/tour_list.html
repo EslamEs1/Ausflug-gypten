@@ -1,0 +1,242 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}
+<title>{% trans "Ägypten Touren & Ausflüge" %} | AusflugÄgypten</title>
+{% endblock title %}
+
+{% block content %}
+  <main>
+    <!-- Hero Section -->
+    <section class="relative h-[500px] bg-cover bg-center" style="background-image: linear-gradient(rgba(36, 93, 129, 0.7), rgba(200, 166, 110, 0.6)), url('{% if tours.first.featured_image %}{{ tours.first.featured_image.url }}{% else %}/static/img/hero/hurghada.jpg{% endif %}');">
+      <div class="relative z-10 h-full flex items-center">
+        <div class="container mx-auto px-4">
+          <div class="max-w-3xl">
+            <div class="breadcrumb mb-6 text-white">
+              <a href="{% url 'core:home' %}" class="hover:text-primary-gold">Home</a>
+              <span class="breadcrumb-separator">/</span>
+              <span>Ägypten Touren</span>
+            </div>
+            <h1 class="text-white font-heading font-bold mb-6 animate-fade-in text-4xl md:text-5xl">Ägypten Touren & Ausflüge</h1>
+            <p class="text-white text-xl mb-8 animate-slide-up">Entdecken Sie die besten Touren in Ägypten - von historischen Stätten bis zu Wüstenabenteuern</p>
+            <div class="flex flex-wrap gap-4 animate-slide-up">
+              {% for category in categories|slice:":3" %}
+                <span class="bg-white/20 backdrop-blur-sm px-6 py-3 rounded-full text-white">
+                  {% if category.icon %}{{ category.icon }}{% endif %} {{ category.name }}
+                </span>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Filter & Sort -->
+    <section class="py-8 bg-white border-b border-gray-200">
+      <div class="container mx-auto px-4">
+        <div class="flex flex-col md:flex-row gap-4 items-center justify-between">
+          <div class="text-gray-600">
+            <strong>{{ page_obj.paginator.count|default:tours.count }}</strong> Touren gefunden
+          </div>
+          <div class="flex flex-wrap gap-4">
+            <select id="categoryFilter" class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-gold">
+              <option value="">Alle Kategorien</option>
+              {% for category in categories %}
+                <option value="{{ category.slug }}" {% if request.GET.category == category.slug %}selected{% endif %}>
+                  {{ category.name }}
+                </option>
+              {% endfor %}
+            </select>
+            <select id="locationFilter" class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-gold">
+              <option value="">Alle Standorte</option>
+              {% for location in locations %}
+                <option value="{{ location.slug }}" {% if request.GET.location == location.slug %}selected{% endif %}>
+                  {{ location.name }}
+                </option>
+              {% endfor %}
+            </select>
+            <select id="sortFilter" class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-gold">
+              <option value="-created_at" {% if request.GET.sort == '-created_at' or not request.GET.sort %}selected{% endif %}>Neueste</option>
+              <option value="price" {% if request.GET.sort == 'price' %}selected{% endif %}>Preis: Niedrig bis Hoch</option>
+              <option value="-price" {% if request.GET.sort == '-price' %}selected{% endif %}>Preis: Hoch bis Niedrig</option>
+              <option value="title" {% if request.GET.sort == 'title' %}selected{% endif %}>Name: A-Z</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tours Grid -->
+    <section class="py-16 bg-white">
+      <div class="container mx-auto px-4">
+        {% if tours %}
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {% for tour in tours %}
+          <div class="tour-card card animate-on-scroll">
+            <div class="tour-card-image-wrapper">
+              <img src="{{ tour.featured_image.url }}" alt="{{ tour.title }}" class="tour-card-image" loading="lazy">
+              <div class="tour-card-overlay"></div>
+              <button class="wishlist-btn" data-id="tour-{{ tour.id }}">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+                </svg>
+              </button>
+              {% if tour.is_featured %}
+                <span class="badge-featured absolute top-4 left-4">Empfohlen</span>
+              {% endif %}
+            </div>
+            
+            <div class="p-6">
+              <div class="flex items-center gap-2 mb-3">
+                {% if tour.category.icon %}
+                  <span class="text-2xl">{{ tour.category.icon }}</span>
+                {% endif %}
+                <span class="text-sm text-gray-600">{{ tour.category.name|default:"Tour" }}</span>
+              </div>
+              
+              <h3 class="text-xl font-heading font-bold text-gray-800 mb-3">
+                <a href="{{ tour.get_absolute_url }}" class="hover:text-primary-gold transition-colors">{{ tour.title }}</a>
+              </h3>
+              
+              <p class="text-gray-600 text-sm mb-4">{{ tour.short_description|truncatewords:15|default:tour.description|truncatewords:15 }}</p>
+              
+              <div class="flex items-center gap-2 mb-4">
+                <div class="rating-stars text-sm">★★★★★</div>
+                <span class="text-sm text-gray-600">({{ tour.review_count }} Bewertungen)</span>
+              </div>
+              
+              <div class="flex items-center justify-between text-sm text-gray-600 mb-4">
+                <div class="flex items-center gap-2">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                  </svg>
+                  <span>{{ tour.duration }}</span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                  </svg>
+                  <span>{{ tour.location.name }}</span>
+                </div>
+              </div>
+              
+              <div class="flex items-center justify-between pt-4 border-t border-gray-200">
+                <div>
+                  <span class="text-sm text-gray-600">Ab</span>
+                  <div class="price-tag">
+                    {% if tour.original_price %}
+                      <span class="line-through text-gray-400 text-lg">€{{ tour.original_price }}</span>
+                      <span class="ml-2">€{{ tour.price }}</span>
+                    {% else %}
+                      €{{ tour.price }}
+                    {% endif %}
+                  </div>
+                </div>
+                <a href="{{ tour.get_absolute_url }}" class="btn-primary text-sm px-6 py-2">Details</a>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+
+        <!-- Pagination -->
+        {% if is_paginated %}
+        <div class="flex justify-center items-center gap-2 mt-12">
+          {% if page_obj.has_previous %}
+            <a href="?page={{ page_obj.previous_page_number }}{% if request.GET.category %}&category={{ request.GET.category }}{% endif %}{% if request.GET.location %}&location={{ request.GET.location }}{% endif %}{% if request.GET.sort %}&sort={{ request.GET.sort }}{% endif %}" class="pagination-btn-modern">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+              </svg>
+            </a>
+          {% endif %}
+          
+          {% for num in page_obj.paginator.page_range %}
+            {% if page_obj.number == num %}
+              <button class="pagination-btn-modern active">{{ num }}</button>
+            {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+              <a href="?page={{ num }}{% if request.GET.category %}&category={{ request.GET.category }}{% endif %}{% if request.GET.location %}&location={{ request.GET.location }}{% endif %}{% if request.GET.sort %}&sort={{ request.GET.sort }}{% endif %}" class="pagination-btn-modern">{{ num }}</a>
+            {% endif %}
+          {% endfor %}
+          
+          {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}{% if request.GET.category %}&category={{ request.GET.category }}{% endif %}{% if request.GET.location %}&location={{ request.GET.location }}{% endif %}{% if request.GET.sort %}&sort={{ request.GET.sort }}{% endif %}" class="pagination-btn-modern">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+              </svg>
+            </a>
+          {% endif %}
+        </div>
+        {% endif %}
+
+        {% else %}
+        <div class="text-center py-12">
+          <p class="text-gray-600 text-lg mb-4">Keine Touren gefunden.</p>
+          <a href="{% url 'tours:list' %}" class="btn-primary">Alle Touren anzeigen</a>
+        </div>
+        {% endif %}
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    // Filter functionality
+    document.getElementById('categoryFilter')?.addEventListener('change', function() {
+      const category = this.value;
+      const location = document.getElementById('locationFilter')?.value || '';
+      const sort = document.getElementById('sortFilter')?.value || '-created_at';
+      const url = new URL(window.location);
+      if (category) {
+        url.searchParams.set('category', category);
+      } else {
+        url.searchParams.delete('category');
+      }
+      if (location) {
+        url.searchParams.set('location', location);
+      } else {
+        url.searchParams.delete('location');
+      }
+      url.searchParams.set('sort', sort);
+      window.location.href = url.toString();
+    });
+
+    document.getElementById('locationFilter')?.addEventListener('change', function() {
+      const location = this.value;
+      const category = document.getElementById('categoryFilter')?.value || '';
+      const sort = document.getElementById('sortFilter')?.value || '-created_at';
+      const url = new URL(window.location);
+      if (location) {
+        url.searchParams.set('location', location);
+      } else {
+        url.searchParams.delete('location');
+      }
+      if (category) {
+        url.searchParams.set('category', category);
+      } else {
+        url.searchParams.delete('category');
+      }
+      url.searchParams.set('sort', sort);
+      window.location.href = url.toString();
+    });
+
+    document.getElementById('sortFilter')?.addEventListener('change', function() {
+      const sort = this.value;
+      const category = document.getElementById('categoryFilter')?.value || '';
+      const location = document.getElementById('locationFilter')?.value || '';
+      const url = new URL(window.location);
+      url.searchParams.set('sort', sort);
+      if (category) {
+        url.searchParams.set('category', category);
+      } else {
+        url.searchParams.delete('category');
+      }
+      if (location) {
+        url.searchParams.set('location', location);
+      } else {
+        url.searchParams.delete('location');
+      }
+      window.location.href = url.toString();
+    });
+  </script>
+{% endblock content %}
+

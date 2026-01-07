@@ -3,12 +3,12 @@ Activities URL patterns
 """
 
 from django.urls import path
-from django.views.generic import TemplateView
+from . import views
 
 app_name = 'activities'
 
 urlpatterns = [
-    path('', TemplateView.as_view(template_name='activities/activity_list.html'), name='list'),
-    path('<slug:slug>/', TemplateView.as_view(template_name='activities/activity_detail.html'), name='detail'),
+    path('', views.ActivityListView.as_view(), name='list'),
+    path('<slug:slug>/', views.ActivityDetailView.as_view(), name='detail'),
 ]
 

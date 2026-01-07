@@ -6,6 +6,7 @@ from django.db import models
 from django.utils.text import slugify
 from django.urls import reverse
 from django.contrib.auth import get_user_model
+from ckeditor_uploader.fields import RichTextUploadingField
 
 User = get_user_model()
 
@@ -37,8 +38,8 @@ class BlogPost(models.Model):
     title_en = models.CharField(max_length=200, verbose_name="Title (EN)")
     slug = models.SlugField(unique=True, blank=True, max_length=250)
     
-    content = models.TextField(verbose_name="Inhalt (DE)")
-    content_en = models.TextField(verbose_name="Content (EN)")
+    content = RichTextUploadingField(verbose_name="Inhalt (DE)")
+    content_en = RichTextUploadingField(verbose_name="Content (EN)")
     excerpt = models.CharField(max_length=300, blank=True, verbose_name="Auszug (DE)")
     excerpt_en = models.CharField(max_length=300, blank=True, verbose_name="Excerpt (EN)")
     
