@@ -6,7 +6,9 @@ from django.db import models
 from django.utils.text import slugify
 from django.urls import reverse
 from django.core.validators import MinValueValidator, MaxValueValidator
+from django.contrib.contenttypes.fields import GenericRelation
 from apps.tours.models import Location
+from tinymce.models import HTMLField
 
 
 class TransferType(models.Model):
@@ -14,16 +16,16 @@ class TransferType(models.Model):
     name = models.CharField(max_length=100, verbose_name="Name (DE)")
     name_en = models.CharField(max_length=100, verbose_name="Name (EN)")
     slug = models.SlugField(unique=True, blank=True)
-    description = models.TextField(blank=True, verbose_name="Beschreibung (DE)")
-    description_en = models.TextField(blank=True, verbose_name="Description (EN)")
+    description = HTMLField(blank=True, verbose_name="Beschreibung (DE)")
+    description_en = HTMLField(blank=True, verbose_name="Description (EN)")
     icon = models.CharField(max_length=50, blank=True, help_text="Emoji or icon (e.g., ✈️, 🚗, 🏨)")
     is_active = models.BooleanField(default=True)
     order = models.PositiveIntegerField(default=0)
     
     class Meta:
         ordering = ['order', 'name']
-        verbose_name = "Transfer-Typ"
-        verbose_name_plural = "Transfer-Typen"
+        verbose_name = "Transfer Type"
+        verbose_name_plural = "Transfer Types"
     
     def __str__(self):
         return self.name
@@ -41,15 +43,15 @@ class VehicleType(models.Model):
     slug = models.SlugField(unique=True, blank=True)
     capacity = models.PositiveIntegerField(verbose_name="Kapazität (Personen)")
     luggage_capacity = models.PositiveIntegerField(default=2, verbose_name="Koffer-Kapazität")
-    description = models.TextField(blank=True)
+    description = HTMLField(blank=True)
     icon = models.CharField(max_length=50, blank=True)
     is_active = models.BooleanField(default=True)
     order = models.PositiveIntegerField(default=0)
     
     class Meta:
         ordering = ['order', 'capacity']
-        verbose_name = "Fahrzeugtyp"
-        verbose_name_plural = "Fahrzeugtypen"
+        verbose_name = "Vehicle Type"
+        verbose_name_plural = "Vehicle Types"
     
     def __str__(self):
         return f"{self.name} ({self.capacity} Pers.)"
@@ -70,8 +72,8 @@ class Transfer(models.Model):
     # Content
     short_description = models.CharField(max_length=300, blank=True, verbose_name="Kurzbeschreibung (DE)")
     short_description_en = models.CharField(max_length=300, blank=True, verbose_name="Short Description (EN)")
-    description = models.TextField(verbose_name="Beschreibung (DE)")
-    description_en = models.TextField(verbose_name="Description (EN)")
+    description = HTMLField(verbose_name="Beschreibung (DE)")
+    description_en = HTMLField(verbose_name="Description (EN)")
     
     # Relations
     transfer_type = models.ForeignKey(TransferType, on_delete=models.SET_NULL, null=True, related_name='transfers')
@@ -121,6 +123,9 @@ class Transfer(models.Model):
     meta_description = models.CharField(max_length=160, blank=True)
     meta_keywords = models.CharField(max_length=200, blank=True)
     
+    # Reviews (GenericRelation for reverse lookup)
+    reviews = GenericRelation('reviews.Review', related_query_name='transfer')
+    
     # Timestamps
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -155,6 +160,19 @@ class Transfer(models.Model):
     def has_discount(self):
         """Check if transfer has discount"""
         return self.discount_price is not None and self.discount_price < self.base_price
+    
+    @property
+    def average_rating(self):
+        """Calculate average rating from reviews with rating > 3"""
+        reviews = self.reviews.filter(is_approved=True, rating__gt=3)
+        if reviews.exists():
+            return reviews.aggregate(models.Avg('rating'))['rating__avg']
+        return None
+    
+    @property
+    def total_reviews(self):
+        """Count approved reviews with rating > 3"""
+        return self.reviews.filter(is_approved=True, rating__gt=3).count()
 
 
 class TransferImage(models.Model):
@@ -167,8 +185,8 @@ class TransferImage(models.Model):
     
     class Meta:
         ordering = ['order', 'id']
-        verbose_name = "Transfer-Bild"
-        verbose_name_plural = "Transfer-Bilder"
+        verbose_name = "Transfer Image"
+        verbose_name_plural = "Transfer Images"
     
     def __str__(self):
         return f"{self.transfer.title} - Image {self.order}"
@@ -183,8 +201,8 @@ class TransferInclusion(models.Model):
     
     class Meta:
         ordering = ['order', 'id']
-        verbose_name = "Inklusion"
-        verbose_name_plural = "Inklusionen"
+        verbose_name = "Inclusion"
+        verbose_name_plural = "Inclusions"
     
     def __str__(self):
         return f"{self.transfer.title} - {self.title}"
@@ -199,8 +217,8 @@ class TransferImportantInfo(models.Model):
     
     class Meta:
         ordering = ['order', 'id']
-        verbose_name = "Wichtige Information"
-        verbose_name_plural = "Wichtige Informationen"
+        verbose_name = "Important Information"
+        verbose_name_plural = "Important Information"
     
     def __str__(self):
         return f"{self.transfer.title} - {self.info}"
@@ -219,10 +237,11 @@ class TransferRoute(models.Model):
     
     class Meta:
         ordering = ['order', 'from_location', 'to_location']
-        verbose_name = "Transfer-Route"
-        verbose_name_plural = "Transfer-Routen"
+        verbose_name = "Transfer Route"
+        verbose_name_plural = "Transfer Routes"
         unique_together = ['transfer', 'from_location', 'to_location']
     
     def __str__(self):
         return f"{self.from_location.name} → {self.to_location.name}"
+
 

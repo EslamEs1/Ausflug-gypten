@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}
 <title></title>
@@ -12,8 +13,41 @@
     
     <!-- 1. HERO SECTION -->
     <section class="hero-slider relative">
-      <!-- Slide 1 -->
-      <div class="hero-slide active" style="background-image: url('/img/hero/hurghada.jpg');">
+      {% for slide in hero_slides %}
+      <div class="hero-slide {% if forloop.first %}active{% endif %}" style="background-image: url('{{ slide.image.url }}');">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+          <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto text-white {% if forloop.first %}animate-fade-in{% endif %}">
+              <h1 class="font-heading font-bold mb-6 leading-tight">
+                {{ slide.title }}
+              </h1>
+              <p class="text-xl md:text-2xl mb-8 opacity-90">
+                {{ slide.subtitle }}
+              </p>
+              {% if slide.button_1_text or slide.button_2_text %}
+              <div class="flex flex-wrap gap-4 justify-center">
+                {% if slide.button_1_text %}
+                <a href="{{ slide.get_button_1_url }}" 
+                   class="{% if slide.button_1_style == 'primary' %}btn-primary{% else %}btn-outline border-white text-white hover:bg-white hover:text-primary-blue{% endif %}">
+                  {{ slide.button_1_text }}
+                </a>
+                {% endif %}
+                {% if slide.button_2_text %}
+                <a href="{{ slide.get_button_2_url }}" 
+                   class="{% if slide.button_2_style == 'primary' %}btn-primary{% else %}btn-outline border-white text-white hover:bg-white hover:text-primary-blue{% endif %}">
+                  {{ slide.button_2_text }}
+                </a>
+                {% endif %}
+              </div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+      {% empty %}
+      <!-- Fallback: Default slide if no hero slides are configured -->
+      <div class="hero-slide active" style="background-image: url('{% static 'img/hero/hurghada.jpg' %}');">
         <div class="hero-overlay"></div>
         <div class="hero-content">
           <div class="container mx-auto px-4">
@@ -25,10 +59,10 @@
                 Erleben Sie unvergessliche Abenteuer mit unseren exklusiven Touren und Ausflügen
               </p>
               <div class="flex flex-wrap gap-4 justify-center">
-                <a href="/pages/excursions/index.html" class="btn-primary">
+                <a href="{% url 'excursions:list' %}" class="btn-primary">
                   Touren Entdecken
                 </a>
-                <a href="/pages/contact.html" class="btn-outline border-white text-white hover:bg-white hover:text-primary-blue">
+                <a href="{% url 'core:contact' %}" class="btn-outline border-white text-white hover:bg-white hover:text-primary-blue">
                   Kontakt Aufnehmen
                 </a>
               </div>
@@ -36,50 +70,7 @@
           </div>
         </div>
       </div>
-
-      <!-- Slide 2 -->
-      <div class="hero-slide" style="background-image: url('/img/hero/luxor.jpg');">
-        <div class="hero-overlay"></div>
-        <div class="hero-content">
-          <div class="container mx-auto px-4">
-            <div class="max-w-4xl mx-auto text-white">
-              <h1 class="font-heading font-bold mb-6 leading-tight">
-                Luxor - Die Stadt der Pharaonen
-              </h1>
-              <p class="text-xl md:text-2xl mb-8 opacity-90">
-                Tauchen Sie ein in 5000 Jahre Geschichte
-              </p>
-              <div class="flex flex-wrap gap-4 justify-center">
-                <a href="/pages/activities/cultural.html" class="btn-primary">
-                  Kulturtouren Ansehen
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Slide 3 -->
-      <div class="hero-slide" style="background-image: url('/img/hero/safari.webp');">
-        <div class="hero-overlay"></div>
-        <div class="hero-content">
-          <div class="container mx-auto px-4">
-            <div class="max-w-4xl mx-auto text-white">
-              <h1 class="font-heading font-bold mb-6 leading-tight">
-                Wüsten-Abenteuer erleben
-              </h1>
-              <p class="text-xl md:text-2xl mb-8 opacity-90">
-                Safari-Touren durch die majestätische Wüste Ägyptens
-              </p>
-              <div class="flex flex-wrap gap-4 justify-center">
-                <a href="/pages/activities/safari.html" class="btn-primary">
-                  Safari Buchen
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      {% endfor %}
 
       <!-- TRUST BAR INSIDE HERO -->
       <div class="hero-trust-bar absolute bottom-0 left-0 right-0 py-8">
@@ -124,17 +115,19 @@
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <!-- Tour Card 1 -->
-          <div class="tour-card card animate-on-scroll" data-price="120" data-rating="5" data-category="cultural">
+          {% for tour in popular_tours %}
+          <div class="tour-card card animate-on-scroll" data-price="{{ tour.price }}" data-rating="{% if tour.average_rating and tour.review_count > 0 %}{{ tour.average_rating|floatformat:0 }}{% else %}0{% endif %}" data-category="{% if tour.category %}{{ tour.category.slug }}{% endif %}">
             <div class="tour-card-image-wrapper">
-              <img src="/img/hero/luxor.jpg" alt="Luxor Tour" class="tour-card-image" loading="lazy">
+              <img src="{% if tour.featured_image %}{{ tour.featured_image.url }}{% else %}{% static 'img/hero/hurghada.jpg' %}{% endif %}" alt="{{ tour.title }}" class="tour-card-image" loading="lazy">
               <div class="tour-card-overlay"></div>
-              <button class="wishlist-btn" data-id="tour-1" aria-label="Add to wishlist">
+              <button class="wishlist-btn" data-id="tour-{{ tour.id }}" aria-label="Add to wishlist">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
                 </svg>
               </button>
+              {% if tour.is_featured %}
               <span class="badge-featured absolute top-4 left-4">Beliebt</span>
+              {% endif %}
             </div>
             
             <div class="p-6">
@@ -142,171 +135,64 @@
                 <svg class="w-4 h-4 text-primary-blue" fill="currentColor" viewBox="0 0 20 20">
                   <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/>
                 </svg>
-                <span class="text-sm text-gray-600">Hurghada nach Luxor</span>
+                <span class="text-sm text-gray-600">{% if tour.location %}{{ tour.location.name }}{% else %}Ägypten{% endif %}</span>
               </div>
               
               <h3 class="text-xl font-heading font-bold text-gray-800 mb-3 hover:text-primary-gold transition-colors">
-                <a href="/pages/tours/detail.html">Privater Luxor Tagesausflug - Tal der Könige</a>
+                <a href="{% url 'tours:detail' tour.slug %}">{{ tour.title }}</a>
               </h3>
               
+              {% if tour.average_rating and tour.review_count > 0 %}
               <div class="flex items-center gap-2 mb-4">
                 <div class="rating-stars text-sm">
-                  ★★★★★
+                  {% for i in "12345" %}
+                    {% if forloop.counter <= tour.average_rating|floatformat:0|add:"0" %}★{% else %}☆{% endif %}
+                  {% endfor %}
                 </div>
-                <span class="text-sm text-gray-600">(127 Bewertungen)</span>
+                <span class="text-sm text-gray-600">({{ tour.review_count }} Bewertungen)</span>
               </div>
+              {% endif %}
               
               <div class="flex items-center justify-between text-sm text-gray-600 mb-4">
                 <div class="flex items-center gap-2">
                   <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
                   </svg>
-                  <span>Ganztägig</span>
+                  <span>{{ tour.duration }}</span>
                 </div>
                 <div class="flex items-center gap-2">
                   <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
                   </svg>
-                  <span>Privat</span>
+                  <span>
+                    {% if tour.group_type == 'private' %}Privat
+                    {% elif tour.group_type == 'small_group' %}Kleine Gruppe
+                    {% else %}Gruppe{% endif %}
+                  </span>
                 </div>
               </div>
               
               <div class="flex items-center justify-between pt-4 border-t border-gray-200">
                 <div>
                   <span class="text-sm text-gray-600">Ab</span>
-                  <div class="price-tag">€120</div>
+                  <div class="price-tag">€{{ tour.price }}</div>
                   <span class="text-xs text-gray-500">pro Person</span>
                 </div>
-                <a href="/pages/tours/detail.html" class="btn-primary text-sm px-6 py-2">
+                <a href="{% url 'tours:detail' tour.slug %}" class="btn-primary text-sm px-6 py-2">
                   Buchen
                 </a>
               </div>
             </div>
           </div>
-
-          <!-- Tour Card 2 -->
-          <div class="tour-card card animate-on-scroll" data-price="85" data-rating="5" data-category="snorkeling">
-            <div class="tour-card-image-wrapper">
-              <img src="/img/hero/hurghada.jpg" alt="Schnorchel Tour" class="tour-card-image" loading="lazy">
-              <div class="tour-card-overlay"></div>
-              <button class="wishlist-btn" data-id="tour-2" aria-label="Add to wishlist">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
-                </svg>
-              </button>
-              <span class="badge-featured absolute top-4 left-4">Beliebt</span>
-            </div>
-            
-            <div class="p-6">
-              <div class="flex items-center gap-2 mb-3">
-                <svg class="w-4 h-4 text-primary-blue" fill="currentColor" viewBox="0 0 20 20">
-                  <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/>
-                </svg>
-                <span class="text-sm text-gray-600">Hurghada</span>
-              </div>
-              
-              <h3 class="text-xl font-heading font-bold text-gray-800 mb-3 hover:text-primary-gold transition-colors">
-                <a href="/pages/tours/detail.html">Private Bootstour mit Delfinen & Schnorcheln</a>
-              </h3>
-              
-              <div class="flex items-center gap-2 mb-4">
-                <div class="rating-stars text-sm">
-                  ★★★★★
-                </div>
-                <span class="text-sm text-gray-600">(89 Bewertungen)</span>
-              </div>
-              
-              <div class="flex items-center justify-between text-sm text-gray-600 mb-4">
-                <div class="flex items-center gap-2">
-                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                  </svg>
-                  <span>8 Stunden</span>
-                </div>
-                <div class="flex items-center gap-2">
-                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
-                  </svg>
-                  <span>Privat</span>
-                </div>
-              </div>
-              
-              <div class="flex items-center justify-between pt-4 border-t border-gray-200">
-                <div>
-                  <span class="text-sm text-gray-600">Ab</span>
-                  <div class="price-tag">€85</div>
-                  <span class="text-xs text-gray-500">pro Person</span>
-                </div>
-                <a href="/pages/tours/detail.html" class="btn-primary text-sm px-6 py-2">
-                  Buchen
-                </a>
-              </div>
-            </div>
+          {% empty %}
+          <div class="col-span-3 text-center py-12">
+            <p class="text-gray-600">Keine Touren verfügbar.</p>
           </div>
-
-          <!-- Tour Card 3 -->
-          <div class="tour-card card animate-on-scroll" data-price="95" data-rating="5" data-category="safari">
-            <div class="tour-card-image-wrapper">
-              <img src="/img/tours/safari.webp" alt="Wüsten Safari" class="tour-card-image" loading="lazy">
-              <div class="tour-card-overlay"></div>
-              <button class="wishlist-btn" data-id="tour-3" aria-label="Add to wishlist">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
-                </svg>
-              </button>
-              <span class="badge-featured absolute top-4 left-4">Abenteuer</span>
-            </div>
-            
-            <div class="p-6">
-              <div class="flex items-center gap-2 mb-3">
-                <svg class="w-4 h-4 text-primary-blue" fill="currentColor" viewBox="0 0 20 20">
-                  <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/>
-                </svg>
-                <span class="text-sm text-gray-600">Hurghada Wüste</span>
-              </div>
-              
-              <h3 class="text-xl font-heading font-bold text-gray-800 mb-3 hover:text-primary-gold transition-colors">
-                <a href="/pages/tours/detail.html">Wüsten Safari mit Quad & Beduinen-Dinner</a>
-              </h3>
-              
-              <div class="flex items-center gap-2 mb-4">
-                <div class="rating-stars text-sm">
-                  ★★★★★
-                </div>
-                <span class="text-sm text-gray-600">(156 Bewertungen)</span>
-              </div>
-              
-              <div class="flex items-center justify-between text-sm text-gray-600 mb-4">
-                <div class="flex items-center gap-2">
-                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                  </svg>
-                  <span>6 Stunden</span>
-                </div>
-                <div class="flex items-center gap-2">
-                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
-                  </svg>
-                  <span>Gruppe</span>
-                </div>
-              </div>
-              
-              <div class="flex items-center justify-between pt-4 border-t border-gray-200">
-                <div>
-                  <span class="text-sm text-gray-600">Ab</span>
-                  <div class="price-tag">€95</div>
-                  <span class="text-xs text-gray-500">pro Person</span>
-                </div>
-                <a href="/pages/tours/detail.html" class="btn-primary text-sm px-6 py-2">
-                  Buchen
-                </a>
-              </div>
-            </div>
-          </div>
+          {% endfor %}
         </div>
 
         <div class="text-center mt-12 animate-on-scroll">
-          <a href="/pages/excursions/index.html" class="btn-secondary">
+          <a href="{% url 'excursions:list' %}" class="btn-secondary">
             Alle Touren Ansehen
           </a>
         </div>
@@ -331,12 +217,12 @@
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          <!-- Category 1 -->
-          <div class="category-card animate-on-scroll" style="background-image: url('/img/categories/hurghada.jpg');">
+          {% for location in locations %}
+          <div class="category-card animate-on-scroll" style="background-image: url('{% if location.image %}{{ location.image.url }}{% else %}{% static 'img/categories/hurghada.jpg' %}{% endif %}');">
             <div class="category-card-content">
-              <h3 class="text-2xl font-heading font-bold mb-2">Hurghada</h3>
-              <p class="text-gray-200 mb-4 text-sm">Rotes Meer Paradies</p>
-              <a href="/pages/excursions/hurghada.html" class="inline-flex items-center gap-2 text-white hover:text-primary-gold transition-colors">
+              <h3 class="text-2xl font-heading font-bold mb-2">{{ location.name }}</h3>
+              <p class="text-gray-200 mb-4 text-sm">{% if location.description %}{{ location.description|striptags|truncatewords:8 }}{% else %}Entdecken Sie {{ location.name }}{% endif %}</p>
+              <a href="{% url 'excursions:list' %}?location={{ location.slug }}" class="inline-flex items-center gap-2 text-white hover:text-primary-gold transition-colors">
                 <span>Entdecken</span>
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
@@ -344,48 +230,11 @@
               </a>
             </div>
           </div>
-
-          <!-- Category 2 -->
-          <div class="category-card animate-on-scroll" style="background-image: url('/img/categories/cairo.jpg');">
-            <div class="category-card-content">
-              <h3 class="text-2xl font-heading font-bold mb-2">Kairo</h3>
-              <p class="text-gray-200 mb-4 text-sm">Pyramiden & Geschichte</p>
-              <a href="/pages/excursions/cairo.html" class="inline-flex items-center gap-2 text-white hover:text-primary-gold transition-colors">
-                <span>Entdecken</span>
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-                </svg>
-              </a>
-            </div>
+          {% empty %}
+          <div class="col-span-4 text-center py-12">
+            <p class="text-gray-600">Keine Standorte verfügbar.</p>
           </div>
-
-          <!-- Category 3 -->
-          <div class="category-card animate-on-scroll" style="background-image: url('/img/categories/nile.jpg');">
-            <div class="category-card-content">
-              <h3 class="text-2xl font-heading font-bold mb-2">Luxor</h3>
-              <p class="text-gray-200 mb-4 text-sm">Tal der Könige</p>
-              <a href="/pages/excursions/luxor.html" class="inline-flex items-center gap-2 text-white hover:text-primary-gold transition-colors">
-                <span>Entdecken</span>
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-                </svg>
-              </a>
-            </div>
-          </div>
-
-          <!-- Category 4 -->
-          <div class="category-card animate-on-scroll" style="background-image: url('/img/categories/marsa-alam.jpg');">
-            <div class="category-card-content">
-              <h3 class="text-2xl font-heading font-bold mb-2">Marsa Alam</h3>
-              <p class="text-gray-200 mb-4 text-sm">Unberührte Strände</p>
-              <a href="/pages/excursions/marsa-alam.html" class="inline-flex items-center gap-2 text-white hover:text-primary-gold transition-colors">
-                <span>Entdecken</span>
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-                </svg>
-              </a>
-            </div>
-          </div>
+          {% endfor %}
         </div>
       </div>
     </section>
@@ -459,43 +308,21 @@
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          <a href="/pages/activities/snorkeling.html" class="activity-card group">
+          {% for category in activity_categories %}
+          <a href="{% url 'activities:list' %}?category={{ category.slug }}" class="activity-card group">
             <div class="relative h-64 rounded-2xl overflow-hidden shadow-xl">
-              <img src="/img/hero/hurghada.jpg" alt="Schnorcheln" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
-              <div class="absolute inset-0 bg-gradient-to-t from-primary-blue via-primary-blue/50 to-transparent"></div>
+              <img src="{% if category.image %}{{ category.image.url }}{% else %}{% static 'img/hero/hurghada.jpg' %}{% endif %}" alt="{{ category.name }}" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
+              <div class="absolute inset-0 bg-gradient-to-t from-{{ category.gradient_color }} via-{{ category.gradient_color }}/50 to-transparent"></div>
               <div class="absolute bottom-0 left-0 right-0 p-6 text-white">
-                <div class="text-4xl mb-2">🏊</div>
-                <h3 class="text-2xl font-heading font-bold mb-2">Schnorcheln</h3>
-                <p class="text-sm text-gray-200">Rotes Meer erkunden</p>
+                <div class="text-4xl mb-2">{% if category.icon %}{{ category.icon }}{% else %}✨{% endif %}</div>
+                <h3 class="text-2xl font-heading font-bold mb-2">{{ category.name }}</h3>
+                <p class="text-sm text-gray-200">{% if category.description %}{{ category.description|striptags|truncatewords:5 }}{% else %}Entdecken Sie {{ category.name }}{% endif %}</p>
               </div>
             </div>
           </a>
-
-          <a href="/pages/activities/cultural.html" class="activity-card group">
-            <div class="relative h-64 rounded-2xl overflow-hidden shadow-xl">
-              <img src="/img/hero/luxor.jpg" alt="Kultur" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
-              <div class="absolute inset-0 bg-gradient-to-t from-primary-gold via-primary-gold/50 to-transparent"></div>
-              <div class="absolute bottom-0 left-0 right-0 p-6 text-white">
-                <div class="text-4xl mb-2">🏛️</div>
-                <h3 class="text-2xl font-heading font-bold mb-2">Kultur</h3>
-                <p class="text-sm text-gray-200">Tempel & Geschichte</p>
-              </div>
-            </div>
-          </a>
-
-          <a href="/pages/activities/safari.html" class="activity-card group">
-            <div class="relative h-64 rounded-2xl overflow-hidden shadow-xl">
-              <img src="/img/tours/safari.webp" alt="Safari" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
-              <div class="absolute inset-0 bg-gradient-to-t from-orange-600 via-orange-600/50 to-transparent"></div>
-              <div class="absolute bottom-0 left-0 right-0 p-6 text-white">
-                <div class="text-4xl mb-2">🏜️</div>
-                <h3 class="text-2xl font-heading font-bold mb-2">Wüsten Safari</h3>
-                <p class="text-sm text-gray-200">Abenteuer erleben</p>
-              </div>
-            </div>
-          </a>
-
-          <a href="/pages/activities/index.html" class="activity-card group">
+          {% endfor %}
+          
+          <a href="{% url 'activities:list' %}" class="activity-card group">
             <div class="relative h-64 rounded-2xl overflow-hidden shadow-xl bg-gradient-to-br from-primary-blue to-primary-gold flex items-center justify-center">
               <div class="text-center text-white p-6">
                 <div class="text-5xl mb-4">✨</div>
@@ -541,18 +368,22 @@
 
         <div class="max-w-7xl mx-auto">
           <div class="google-reviews-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-            <!-- Google Review 1 -->
-            <div class="google-review-card testimonial-card active animate-on-scroll">
+            {% for review in reviews %}
+            <div class="google-review-card testimonial-card {% if forloop.first %}active{% endif %} animate-on-scroll">
               <div class="flex items-start justify-between mb-4">
                 <div class="flex items-center gap-3">
                   <div class="w-12 h-12 bg-gradient-to-br from-primary-gold to-primary-blue rounded-full flex items-center justify-center text-white font-heading font-bold text-lg">
-                    SM
+                    {{ review.name|slice:":2"|upper }}
                   </div>
                   <div>
-                    <h4 class="font-heading font-bold text-base">Sarah Müller</h4>
+                    <h4 class="font-heading font-bold text-base">{{ review.name }}</h4>
                     <div class="flex items-center gap-2 mt-1">
-                      <div class="rating-stars text-xs">★★★★★</div>
-                      <span class="text-xs text-gray-500">vor 2 Wochen</span>
+                      <div class="rating-stars text-xs">
+                        {% for i in "12345" %}
+                          {% if forloop.counter <= review.rating %}★{% else %}☆{% endif %}
+                        {% endfor %}
+                      </div>
+                      <span class="text-xs text-gray-500">{{ review.created_at|timesince }} ago</span>
                     </div>
                   </div>
                 </div>
@@ -562,7 +393,7 @@
               </div>
               
               <p class="text-gray-700 text-sm leading-relaxed mb-4">
-                "Eine unvergessliche Erfahrung! Die Luxor-Tour war perfekt organisiert und unser Guide Ahmed war fantastisch. Wir haben so viel über die ägyptische Geschichte gelernt. Absolut empfehlenswert!"
+                "{{ review.comment|truncatewords:30 }}"
               </p>
               
               <div class="flex items-center gap-2 text-xs text-gray-500">
@@ -570,174 +401,14 @@
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
                 </svg>
-                <span>Luxor Tagestour</span>
+                <span>{% if review.content_object %}{{ review.content_object.title }}{% else %}Tour{% endif %}</span>
               </div>
             </div>
-
-            <!-- Google Review 2 -->
-            <div class="google-review-card testimonial-card animate-on-scroll">
-              <div class="flex items-start justify-between mb-4">
-                <div class="flex items-center gap-3">
-                  <div class="w-12 h-12 bg-gradient-to-br from-primary-blue to-primary-gold rounded-full flex items-center justify-center text-white font-heading font-bold text-lg">
-                    MK
-                  </div>
-                  <div>
-                    <h4 class="font-heading font-bold text-base">Michael Klein</h4>
-                    <div class="flex items-center gap-2 mt-1">
-                      <div class="rating-stars text-xs">★★★★★</div>
-                      <span class="text-xs text-gray-500">vor 1 Monat</span>
-                    </div>
-                  </div>
-                </div>
-                <svg class="w-5 h-5 text-green-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                  <path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                </svg>
-              </div>
-              
-              <p class="text-gray-700 text-sm leading-relaxed mb-4">
-                "Die Wüsten-Safari war das Highlight unseres Urlaubs! Quad-Fahren, Kamelreiten und ein authentisches Beduinen-Dinner unter dem Sternenhimmel. Einfach magisch!"
-              </p>
-              
-              <div class="flex items-center gap-2 text-xs text-gray-500">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
-                </svg>
-                <span>Wüsten Safari</span>
-              </div>
+            {% empty %}
+            <div class="col-span-3 text-center py-12">
+              <p class="text-gray-600">Noch keine Bewertungen verfügbar.</p>
             </div>
-
-            <!-- Google Review 3 -->
-            <div class="google-review-card testimonial-card animate-on-scroll">
-              <div class="flex items-start justify-between mb-4">
-                <div class="flex items-center gap-3">
-                  <div class="w-12 h-12 bg-gradient-to-br from-primary-gold to-orange-500 rounded-full flex items-center justify-center text-white font-heading font-bold text-lg">
-                    LW
-                  </div>
-                  <div>
-                    <h4 class="font-heading font-bold text-base">Lisa Wagner</h4>
-                    <div class="flex items-center gap-2 mt-1">
-                      <div class="rating-stars text-xs">★★★★★</div>
-                      <span class="text-xs text-gray-500">vor 3 Wochen</span>
-                    </div>
-                  </div>
-                </div>
-                <svg class="w-5 h-5 text-green-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                  <path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                </svg>
-              </div>
-              
-              <p class="text-gray-700 text-sm leading-relaxed mb-4">
-                "Perfekte Organisation vom ersten Kontakt bis zum Ende der Tour. Die Schnorchel-Tour mit Delfinen war traumhaft. Wir haben Meeresschildkröten gesehen - unbeschreiblich schön!"
-              </p>
-              
-              <div class="flex items-center gap-2 text-xs text-gray-500">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
-                </svg>
-                <span>Schnorchel-Tour</span>
-              </div>
-            </div>
-
-            <!-- Google Review 4 -->
-            <div class="google-review-card testimonial-card animate-on-scroll">
-              <div class="flex items-start justify-between mb-4">
-                <div class="flex items-center gap-3">
-                  <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-primary-gold rounded-full flex items-center justify-center text-white font-heading font-bold text-lg">
-                    TH
-                  </div>
-                  <div>
-                    <h4 class="font-heading font-bold text-base">Thomas Hoffmann</h4>
-                    <div class="flex items-center gap-2 mt-1">
-                      <div class="rating-stars text-xs">★★★★★</div>
-                      <span class="text-xs text-gray-500">vor 2 Monaten</span>
-                    </div>
-                  </div>
-                </div>
-                <svg class="w-5 h-5 text-green-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                  <path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                </svg>
-              </div>
-              
-              <p class="text-gray-700 text-sm leading-relaxed mb-4">
-                "Top Service! Schnelle Antworten, professionelle Betreuung. Die Pyramiden-Tour war atemberaubend. Unser Guide sprach perfekt Deutsch und hatte so viel Wissen zu teilen."
-              </p>
-              
-              <div class="flex items-center gap-2 text-xs text-gray-500">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
-                </svg>
-                <span>Kairo Pyramiden Tour</span>
-              </div>
-            </div>
-
-            <!-- Google Review 5 -->
-            <div class="google-review-card testimonial-card animate-on-scroll">
-              <div class="flex items-start justify-between mb-4">
-                <div class="flex items-center gap-3">
-                  <div class="w-12 h-12 bg-gradient-to-br from-primary-gold to-pink-500 rounded-full flex items-center justify-center text-white font-heading font-bold text-lg">
-                    AS
-                  </div>
-                  <div>
-                    <h4 class="font-heading font-bold text-base">Anna Schmidt</h4>
-                    <div class="flex items-center gap-2 mt-1">
-                      <div class="rating-stars text-xs">★★★★★</div>
-                      <span class="text-xs text-gray-500">vor 1 Woche</span>
-                    </div>
-                  </div>
-                </div>
-                <svg class="w-5 h-5 text-green-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                  <path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                </svg>
-              </div>
-              
-              <p class="text-gray-700 text-sm leading-relaxed mb-4">
-                "Fantastische Bootstour! Das Team war super freundlich, das Essen an Bord war köstlich. Die Schnorchelplätze waren wunderschön. Definitiv wieder!"
-              </p>
-              
-              <div class="flex items-center gap-2 text-xs text-gray-500">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
-                </svg>
-                <span>Bootstour Giftun Island</span>
-              </div>
-            </div>
-
-            <!-- Google Review 6 -->
-            <div class="google-review-card testimonial-card animate-on-scroll">
-              <div class="flex items-start justify-between mb-4">
-                <div class="flex items-center gap-3">
-                  <div class="w-12 h-12 bg-gradient-to-br from-primary-blue to-purple-500 rounded-full flex items-center justify-center text-white font-heading font-bold text-lg">
-                    JW
-                  </div>
-                  <div>
-                    <h4 class="font-heading font-bold text-base">Julia Weber</h4>
-                    <div class="flex items-center gap-2 mt-1">
-                      <div class="rating-stars text-xs">★★★★★</div>
-                      <span class="text-xs text-gray-500">vor 3 Wochen</span>
-                    </div>
-                  </div>
-                </div>
-                <svg class="w-5 h-5 text-green-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                  <path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                </svg>
-              </div>
-              
-              <p class="text-gray-700 text-sm leading-relaxed mb-4">
-                "Transfer-Service war pünktlich und zuverlässig. Der Fahrer war sehr freundlich und hat uns viele Tipps gegeben. Sehr empfehlenswert!"
-              </p>
-              
-              <div class="flex items-center gap-2 text-xs text-gray-500">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
-                </svg>
-                <span>Flughafen Transfer</span>
-              </div>
-            </div>
+            {% endfor %}
           </div>
 
           <div class="text-center mt-8">
@@ -764,11 +435,13 @@
         </p>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <!-- Blog Card 1 -->
+          {% for post in latest_posts %}
           <div class="card animate-on-scroll">
             <div class="relative">
-              <img src="/img/blog/Pyramiden-von-Gizeh.jpg" alt="Pyramiden" class="card-image" loading="lazy">
-              <span class="badge absolute top-4 left-4">Reisetipps</span>
+              <img src="{% if post.featured_image %}{{ post.featured_image.url }}{% else %}{% static 'img/blog/Pyramiden-von-Gizeh.jpg' %}{% endif %}" alt="{{ post.title }}" class="card-image" loading="lazy">
+              {% if post.category %}
+              <span class="badge absolute top-4 left-4">{{ post.category.name }}</span>
+              {% endif %}
             </div>
             
             <div class="p-6">
@@ -777,19 +450,19 @@
                   <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
                   </svg>
-                  <span>15. Jan 2024</span>
+                  <span>{{ post.published_at|date:"d. M Y" }}</span>
                 </div>
               </div>
               
               <h3 class="text-xl font-heading font-bold text-gray-800 mb-3 hover:text-primary-gold transition-colors">
-                <a href="/pages/blog/article.html">Die 10 besten Sehenswürdigkeiten in Ägypten</a>
+                <a href="{% url 'blog:detail' post.slug %}">{{ post.title }}</a>
               </h3>
               
               <p class="text-gray-600 mb-4">
-                Entdecken Sie die faszinierendsten Orte Ägyptens - von den Pyramiden bis zum Roten Meer.
+                {% if post.excerpt %}{{ post.excerpt }}{% else %}{{ post.content|striptags|truncatewords:20 }}{% endif %}
               </p>
               
-              <a href="/pages/blog/article.html" class="text-primary-gold font-medium hover:text-secondary-gold-dark transition-colors inline-flex items-center gap-2">
+              <a href="{% url 'blog:detail' post.slug %}" class="text-primary-gold font-medium hover:text-secondary-gold-dark transition-colors inline-flex items-center gap-2">
                 Weiterlesen
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
@@ -797,78 +470,15 @@
               </a>
             </div>
           </div>
-
-          <!-- Blog Card 2 -->
-          <div class="card animate-on-scroll">
-            <div class="relative">
-              <img src="/img/blog/Luxor-Sehenswuerdigkeiten.jpg" alt="Luxor" class="card-image" loading="lazy">
-              <span class="badge absolute top-4 left-4">Kultur</span>
-            </div>
-            
-            <div class="p-6">
-              <div class="flex items-center gap-4 text-sm text-gray-600 mb-3">
-                <div class="flex items-center gap-2">
-                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-                  </svg>
-                  <span>12. Jan 2024</span>
-                </div>
-              </div>
-              
-              <h3 class="text-xl font-heading font-bold text-gray-800 mb-3 hover:text-primary-gold transition-colors">
-                <a href="/pages/blog/article.html">Luxor: Die Stadt der Pharaonen erkunden</a>
-              </h3>
-              
-              <p class="text-gray-600 mb-4">
-                Ein umfassender Guide zu Luxors historischen Schätzen und antiken Tempeln.
-              </p>
-              
-              <a href="/pages/blog/article.html" class="text-primary-gold font-medium hover:text-secondary-gold-dark transition-colors inline-flex items-center gap-2">
-                Weiterlesen
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-                </svg>
-              </a>
-            </div>
+          {% empty %}
+          <div class="col-span-3 text-center py-12">
+            <p class="text-gray-600">Noch keine Blog-Artikel verfügbar.</p>
           </div>
-
-          <!-- Blog Card 3 -->
-          <div class="card animate-on-scroll">
-            <div class="relative">
-              <img src="/img/blog/Packliste-Aegypten-fuer-Urlaub-Frauen-Kinder-amp-Winter-.jpg" alt="Packliste" class="card-image" loading="lazy">
-              <span class="badge absolute top-4 left-4">Planung</span>
-            </div>
-            
-            <div class="p-6">
-              <div class="flex items-center gap-4 text-sm text-gray-600 mb-3">
-                <div class="flex items-center gap-2">
-                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-                  </svg>
-                  <span>8. Jan 2024</span>
-                </div>
-              </div>
-              
-              <h3 class="text-xl font-heading font-bold text-gray-800 mb-3 hover:text-primary-gold transition-colors">
-                <a href="/pages/blog/article.html">Packliste für Ägypten: Was Sie mitnehmen sollten</a>
-              </h3>
-              
-              <p class="text-gray-600 mb-4">
-                Die ultimative Checkliste für einen perfekt vorbereiteten Ägypten-Urlaub.
-              </p>
-              
-              <a href="/pages/blog/article.html" class="text-primary-gold font-medium hover:text-secondary-gold-dark transition-colors inline-flex items-center gap-2">
-                Weiterlesen
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-                </svg>
-              </a>
-            </div>
-          </div>
+          {% endfor %}
         </div>
 
         <div class="text-center mt-12 animate-on-scroll">
-          <a href="/pages/blog/index.html" class="btn-outline">
+          <a href="{% url 'blog:list' %}" class="btn-outline">
             Alle Artikel Ansehen
           </a>
         </div>
@@ -886,9 +496,11 @@
             Abonnieren Sie unseren Newsletter und erhalten Sie exklusive Angebote, Reisetipps und Neuigkeiten direkt in Ihr Postfach.
           </p>
           
-          <form class="flex flex-col sm:flex-row gap-4 max-w-xl mx-auto animate-on-scroll" id="newsletterForm">
+          <form class="flex flex-col sm:flex-row gap-4 max-w-xl mx-auto animate-on-scroll" method="post" action="{% url 'core:newsletter' %}">
+            {% csrf_token %}
             <input 
               type="email" 
+              name="email"
               placeholder="Ihre E-Mail-Adresse" 
               required
               class="flex-1 px-6 py-4 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-white"

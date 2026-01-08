@@ -3,63 +3,71 @@ Admin configuration for Core app
 """
 
 from django.contrib import admin
-from .models import SiteSettings, ContactMessage
+from django.utils.translation import gettext_lazy as _
+from .models import SiteSettings, ContactMessage, HeroSlide, NewsletterSubscriber, PageHero, PageHeroBadge
 
 
 @admin.register(SiteSettings)
 class SiteSettingsAdmin(admin.ModelAdmin):
-    """Admin for site settings - singleton"""
+    """Website Settings - Configure your site information"""
     
     def has_add_permission(self, request):
-        # Only allow one instance
         return not SiteSettings.objects.exists()
     
     def has_delete_permission(self, request, obj=None):
-        # Prevent deletion
         return False
     
     fieldsets = (
-        ('Grundinformationen', {
-            'fields': ('site_name', 'site_title', 'site_description', 'site_keywords')
+        ('🌐 Basic Information', {
+            'fields': ('site_name', 'site_title', 'site_description', 'site_keywords'),
+            'description': 'Basic information about your website'
         }),
-        ('Logo & Favicon', {
-            'fields': ('logo', 'logo_alt', 'favicon', 'og_image')
+        ('🖼️ Logo & Images', {
+            'fields': ('logo', 'logo_alt', 'favicon', 'og_image'),
+            'description': 'Upload your website logo and favicon'
         }),
-        ('Kontaktinformationen', {
-            'fields': ('address', 'phone', 'email', 'whatsapp')
+        ('📞 Contact Information', {
+            'fields': ('address', 'phone', 'email', 'whatsapp'),
+            'description': 'Your business contact details'
         }),
-        ('Social Media', {
-            'fields': ('facebook_url', 'instagram_url', 'twitter_url', 'youtube_url', 'linkedin_url')
+        ('📱 Social Media Links', {
+            'fields': ('facebook_url', 'instagram_url', 'twitter_url', 'youtube_url', 'linkedin_url'),
+            'description': 'Add your social media profile links'
         }),
-        ('Öffnungszeiten', {
-            'fields': ('opening_hours_monday_friday', 'opening_hours_saturday', 'opening_hours_sunday')
+        ('🕒 Opening Hours', {
+            'fields': ('opening_hours_monday_friday', 'opening_hours_saturday', 'opening_hours_sunday'),
+            'description': 'Set your business hours'
         }),
-        ('Footer', {
-            'fields': ('footer_text', 'copyright_text')
+        ('📄 Footer Text', {
+            'fields': ('footer_text', 'copyright_text'),
+            'description': 'Text displayed at the bottom of your website'
         }),
     )
 
 
 @admin.register(ContactMessage)
 class ContactMessageAdmin(admin.ModelAdmin):
-    list_display = ['name', 'email', 'subject', 'status', 'is_read', 'created_at']
+    """Customer Messages - View and respond to customer inquiries"""
+    
+    list_display = ['name', 'email', 'get_subject_display', 'status', 'is_read', 'created_at']
     list_filter = ['status', 'is_read', 'subject', 'created_at']
-    list_editable = ['status', 'is_read']
+    list_editable = ['status']
     search_fields = ['name', 'email', 'message']
-    readonly_fields = ['created_at', 'updated_at']
+    readonly_fields = ['name', 'email', 'phone', 'subject', 'message', 'created_at', 'updated_at']
     date_hierarchy = 'created_at'
     
     fieldsets = (
-        ('Kontaktinformationen', {
+        ('👤 Customer Information', {
             'fields': ('name', 'email', 'phone')
         }),
-        ('Nachricht', {
+        ('💬 Message Details', {
             'fields': ('subject', 'message')
         }),
-        ('Status', {
-            'fields': ('status', 'is_read', 'admin_notes')
+        ('✅ Status & Notes', {
+            'fields': ('status', 'is_read', 'admin_notes'),
+            'description': 'Update status and add your internal notes'
         }),
-        ('Zeitstempel', {
+        ('📅 Dates', {
             'fields': ('created_at', 'updated_at'),
             'classes': ('collapse',)
         }),
@@ -67,4 +75,105 @@ class ContactMessageAdmin(admin.ModelAdmin):
     
     def get_queryset(self, request):
         return super().get_queryset(request).order_by('-created_at')
+    
+    def has_add_permission(self, request):
+        return False
+
+
+@admin.register(HeroSlide)
+class HeroSlideAdmin(admin.ModelAdmin):
+    """Homepage Slider - Manage slideshow on homepage"""
+    
+    list_display = ['title', 'order', 'is_active', 'button_1_text', 'button_2_text']
+    list_filter = ['is_active']
+    list_editable = ['order', 'is_active']
+    search_fields = ['title', 'subtitle']
+    
+    fieldsets = (
+        ('🖼️ Slide Content', {
+            'fields': ('title', 'subtitle', 'image'),
+            'description': 'Main content for this slide'
+        }),
+        ('🔘 First Button (Optional)', {
+            'fields': ('button_1_text', 'button_1_url', 'button_1_style'),
+            'description': 'Add a button to your slide'
+        }),
+        ('🔘 Second Button (Optional)', {
+            'fields': ('button_2_text', 'button_2_url', 'button_2_style'),
+            'description': 'Add a second button to your slide'
+        }),
+        ('⚙️ Display Settings', {
+            'fields': ('order', 'is_active'),
+            'description': 'Order: Lower numbers show first. Active: Check to show this slide'
+        }),
+    )
+    
+    def get_queryset(self, request):
+        return super().get_queryset(request).order_by('order')
+
+
+@admin.register(NewsletterSubscriber)
+class NewsletterSubscriberAdmin(admin.ModelAdmin):
+    """Newsletter Subscribers - Manage email list"""
+    
+    list_display = ['email', 'is_active', 'subscribed_at']
+    list_filter = ['is_active', 'subscribed_at']
+    list_editable = ['is_active']
+    search_fields = ['email']
+    readonly_fields = ['email', 'subscribed_at', 'unsubscribed_at']
+    date_hierarchy = 'subscribed_at'
+    
+    fieldsets = (
+        ('📧 Email Subscription', {
+            'fields': ('email', 'is_active', 'subscribed_at', 'unsubscribed_at'),
+            'description': 'Subscriber details and status'
+        }),
+    )
+    
+    def get_queryset(self, request):
+        return super().get_queryset(request).order_by('-subscribed_at')
+    
+    def has_add_permission(self, request):
+        return False
+
+
+class PageHeroBadgeInline(admin.TabularInline):
+    """Add feature badges (e.g., "Certified", "Best Price")"""
+    model = PageHeroBadge
+    extra = 1
+    fields = ['text', 'text_en', 'icon', 'order']
+    ordering = ['order']
+    verbose_name = 'Badge'
+    verbose_name_plural = 'Feature Badges'
+
+
+@admin.register(PageHero)
+class PageHeroAdmin(admin.ModelAdmin):
+    """Page Headers - Customize headers for different pages"""
+    
+    list_display = ['get_page_display', 'title', 'is_active']
+    list_filter = ['is_active', 'page']
+    list_editable = ['is_active']
+    search_fields = ['title', 'subtitle']
+    inlines = [PageHeroBadgeInline]
+    
+    fieldsets = (
+        ('📄 Page Selection', {
+            'fields': ('page', 'is_active'),
+            'description': 'Choose which page this header is for'
+        }),
+        ('🖼️ Header Content', {
+            'fields': ('title', 'subtitle', 'background_image'),
+            'description': 'Main content for the page header'
+        }),
+        ('🎨 Appearance (Optional)', {
+            'fields': ('breadcrumb_text', 'height', 'overlay_opacity'),
+            'classes': ('collapse',),
+            'description': 'Advanced display settings'
+        }),
+    )
+    
+    def get_queryset(self, request):
+        return super().get_queryset(request).select_related().prefetch_related('badges')
+
 

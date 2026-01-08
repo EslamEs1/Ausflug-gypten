@@ -5,7 +5,9 @@ Excursion models for AusflugAgypten
 from django.db import models
 from django.utils.text import slugify
 from django.urls import reverse
+from django.contrib.contenttypes.fields import GenericRelation
 from apps.tours.models import Location, TourCategory
+from tinymce.models import HTMLField
 
 
 class Excursion(models.Model):
@@ -17,8 +19,8 @@ class Excursion(models.Model):
     slug = models.SlugField(unique=True, blank=True, max_length=250)
     
     # Descriptions
-    description = models.TextField(verbose_name="Beschreibung (DE)")
-    description_en = models.TextField(verbose_name="Description (EN)")
+    description = HTMLField(verbose_name="Beschreibung (DE)")
+    description_en = HTMLField(verbose_name="Description (EN)")
     short_description = models.CharField(max_length=300, blank=True, verbose_name="Kurzbeschreibung (DE)")
     short_description_en = models.CharField(max_length=300, blank=True, verbose_name="Short Description (EN)")
     
@@ -66,10 +68,13 @@ class Excursion(models.Model):
     meta_description = models.CharField(max_length=160, blank=True)
     meta_keywords = models.CharField(max_length=200, blank=True)
     
+    # Reviews (GenericRelation for reverse lookup)
+    reviews = GenericRelation('reviews.Review', related_query_name='excursion')
+    
     class Meta:
         ordering = ['-is_bestseller', '-is_popular', '-is_featured', '-created_at']
-        verbose_name = "Ausflug"
-        verbose_name_plural = "Ausflüge"
+        verbose_name = "Excursion"
+        verbose_name_plural = "Excursions"
         indexes = [
             models.Index(fields=['slug']),
             models.Index(fields=['is_active', 'is_featured', 'is_popular']),
@@ -90,16 +95,16 @@ class Excursion(models.Model):
     
     @property
     def average_rating(self):
-        """Calculate average rating from reviews"""
-        reviews = self.reviews.filter(is_approved=True)
+        """Calculate average rating from reviews with rating > 3"""
+        reviews = self.reviews.filter(is_approved=True, rating__gt=3)
         if reviews.exists():
             return reviews.aggregate(models.Avg('rating'))['rating__avg']
-        return 0
+        return None
     
     @property
     def review_count(self):
-        """Count approved reviews"""
-        return self.reviews.filter(is_approved=True).count()
+        """Count approved reviews with rating > 3"""
+        return self.reviews.filter(is_approved=True, rating__gt=3).count()
     
     @property
     def has_discount(self):
@@ -117,8 +122,8 @@ class ExcursionImage(models.Model):
     
     class Meta:
         ordering = ['order']
-        verbose_name = "Ausflug-Bild"
-        verbose_name_plural = "Ausflug-Bilder"
+        verbose_name = "Excursion Image"
+        verbose_name_plural = "Excursion Images"
     
     def __str__(self):
         return f"{self.excursion.title} - Bild {self.order}"
@@ -136,8 +141,8 @@ class ExcursionItinerary(models.Model):
     
     class Meta:
         ordering = ['order']
-        verbose_name = "Reiseverlauf"
-        verbose_name_plural = "Reiseverläufe"
+        verbose_name = "Itinerary"
+        verbose_name_plural = "Itineraries"
     
     def __str__(self):
         return f"{self.excursion.title} - {self.time}"
@@ -153,10 +158,11 @@ class ExcursionInclusion(models.Model):
     
     class Meta:
         ordering = ['is_included', 'order']
-        verbose_name = "Inklusive/Exklusive"
-        verbose_name_plural = "Inklusive/Exklusive"
+        verbose_name = "Inclusion/Exclusion"
+        verbose_name_plural = "Inclusions/Exclusions"
     
     def __str__(self):
         status = "✓" if self.is_included else "✗"
         return f"{status} {self.item}"
+
 

@@ -4,7 +4,8 @@
   "description": "Premium Egyptian Tourism Platform",
   "scripts": {
     "dev": "npx tailwindcss -i ./css/input.css -o ./css/main.css --watch",
-    "build": "npx tailwindcss -i ./css/input.css -o ./css/main.css --minify"
+    "build": "npx tailwindcss -i ./css/input.css -o ./css/main.css --minify && cp ./css/main.css ./staticfiles/css/main.css",
+    "build-css": "npx tailwindcss -i ./css/input.css -o ./css/main.css --minify && cp ./css/main.css ./staticfiles/css/main.css"
   },
   "keywords": ["tourism", "egypt", "tours"],
   "author": "AusflugAgypten",

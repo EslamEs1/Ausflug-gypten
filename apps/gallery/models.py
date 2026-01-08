@@ -21,8 +21,8 @@ class GalleryCategory(models.Model):
     
     class Meta:
         ordering = ['order', 'name']
-        verbose_name = "Galerie-Kategorie"
-        verbose_name_plural = "Galerie-Kategorien"
+        verbose_name = "Gallery Category"
+        verbose_name_plural = "Gallery Categories"
     
     def __str__(self):
         return self.name
@@ -67,8 +67,8 @@ class GalleryImage(models.Model):
     
     class Meta:
         ordering = ['order', '-is_featured', '-created_at']
-        verbose_name = "Galerie-Bild"
-        verbose_name_plural = "Galerie-Bilder"
+        verbose_name = "Gallery Image"
+        verbose_name_plural = "Gallery Images"
         indexes = [
             models.Index(fields=['is_active', 'is_featured']),
             models.Index(fields=['category', 'is_active']),
@@ -91,4 +91,5 @@ class GalleryImage(models.Model):
     def display_description(self):
         """Returns description based on current language"""
         return self.description
+
 

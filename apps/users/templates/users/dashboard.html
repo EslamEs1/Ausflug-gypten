@@ -1,0 +1,196 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}
+<title>Mein Dashboard | AusflugÄgypten</title>
+{% endblock title %}
+
+{% block content %}
+<main>
+  <!-- Hero Section -->
+  <section class="relative h-[300px] bg-cover bg-center" style="background-image: linear-gradient(rgba(36, 93, 129, 0.85), rgba(200, 166, 110, 0.75)), url('/static/img/hero/dashboard-bg.jpg');">
+    <div class="relative z-10 h-full flex items-center">
+      <div class="container mx-auto px-4">
+        <div class="max-w-3xl">
+          <h1 class="text-white font-heading font-bold mb-4 text-4xl md:text-5xl">Willkommen, {{ user.first_name|default:user.username }}!</h1>
+          <p class="text-white text-xl">Verwalten Sie Ihre Buchungen und Profile</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Dashboard Content -->
+  <section class="py-16 bg-gray-50">
+    <div class="container mx-auto px-4">
+      <!-- Stats Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+        <div class="bg-white rounded-xl shadow-md p-6">
+          <div class="flex items-center justify-between mb-2">
+            <h3 class="text-gray-600 text-sm font-semibold">Gesamt Buchungen</h3>
+            <div class="w-10 h-10 bg-primary-blue/10 rounded-full flex items-center justify-center">
+              <svg class="w-5 h-5 text-primary-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+              </svg>
+            </div>
+          </div>
+          <p class="text-3xl font-bold text-primary-blue">{{ total_bookings }}</p>
+        </div>
+
+        <div class="bg-white rounded-xl shadow-md p-6">
+          <div class="flex items-center justify-between mb-2">
+            <h3 class="text-gray-600 text-sm font-semibold">Ausstehend</h3>
+            <div class="w-10 h-10 bg-orange-100 rounded-full flex items-center justify-center">
+              <svg class="w-5 h-5 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+              </svg>
+            </div>
+          </div>
+          <p class="text-3xl font-bold text-orange-600">{{ pending_bookings }}</p>
+        </div>
+
+        <div class="bg-white rounded-xl shadow-md p-6">
+          <div class="flex items-center justify-between mb-2">
+            <h3 class="text-gray-600 text-sm font-semibold">Bestätigt</h3>
+            <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
+              <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+              </svg>
+            </div>
+          </div>
+          <p class="text-3xl font-bold text-green-600">{{ confirmed_bookings }}</p>
+        </div>
+
+        <div class="bg-white rounded-xl shadow-md p-6">
+          <div class="flex items-center justify-between mb-2">
+            <h3 class="text-gray-600 text-sm font-semibold">Abgeschlossen</h3>
+            <div class="w-10 h-10 bg-primary-gold/10 rounded-full flex items-center justify-center">
+              <svg class="w-5 h-5 text-primary-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+              </svg>
+            </div>
+          </div>
+          <p class="text-3xl font-bold text-primary-gold">{{ completed_bookings }}</p>
+        </div>
+      </div>
+
+      <!-- Quick Actions -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        <a href="{% url 'users:profile' %}" class="bg-white rounded-xl shadow-md p-6 hover:shadow-lg transition-shadow">
+          <div class="flex items-center gap-4">
+            <div class="w-12 h-12 bg-primary-blue/10 rounded-full flex items-center justify-center">
+              <svg class="w-6 h-6 text-primary-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+              </svg>
+            </div>
+            <div>
+              <h3 class="font-semibold text-gray-800">Profil bearbeiten</h3>
+              <p class="text-sm text-gray-600">Persönliche Daten aktualisieren</p>
+            </div>
+          </div>
+        </a>
+
+        <a href="{% url 'users:booking_history' %}" class="bg-white rounded-xl shadow-md p-6 hover:shadow-lg transition-shadow">
+          <div class="flex items-center gap-4">
+            <div class="w-12 h-12 bg-primary-gold/10 rounded-full flex items-center justify-center">
+              <svg class="w-6 h-6 text-primary-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+              </svg>
+            </div>
+            <div>
+              <h3 class="font-semibold text-gray-800">Buchungsverlauf</h3>
+              <p class="text-sm text-gray-600">Alle Buchungen anzeigen</p>
+            </div>
+          </div>
+        </a>
+
+        <a href="{% url 'core:home' %}" class="bg-white rounded-xl shadow-md p-6 hover:shadow-lg transition-shadow">
+          <div class="flex items-center gap-4">
+            <div class="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center">
+              <svg class="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+              </svg>
+            </div>
+            <div>
+              <h3 class="font-semibold text-gray-800">Neue Buchung</h3>
+              <p class="text-sm text-gray-600">Touren & Aktivitäten entdecken</p>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <!-- Recent Bookings -->
+      <div class="bg-white rounded-xl shadow-md p-6">
+        <div class="flex items-center justify-between mb-6">
+          <h2 class="text-2xl font-heading font-bold text-primary-blue">Aktuelle Buchungen</h2>
+          <a href="{% url 'users:booking_history' %}" class="text-primary-gold hover:underline text-sm font-semibold">Alle anzeigen →</a>
+        </div>
+
+        {% if bookings %}
+          <div class="overflow-x-auto">
+            <table class="w-full">
+              <thead>
+                <tr class="border-b border-gray-200">
+                  <th class="text-left py-3 px-4 text-sm font-semibold text-gray-700">Buchungscode</th>
+                  <th class="text-left py-3 px-4 text-sm font-semibold text-gray-700">Tour/Aktivität</th>
+                  <th class="text-left py-3 px-4 text-sm font-semibold text-gray-700">Datum</th>
+                  <th class="text-left py-3 px-4 text-sm font-semibold text-gray-700">Personen</th>
+                  <th class="text-left py-3 px-4 text-sm font-semibold text-gray-700">Preis</th>
+                  <th class="text-left py-3 px-4 text-sm font-semibold text-gray-700">Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for booking in bookings|slice:":5" %}
+                <tr class="border-b border-gray-100 hover:bg-gray-50">
+                  <td class="py-4 px-4">
+                    <span class="font-mono text-sm text-primary-blue font-semibold">{{ booking.confirmation_code }}</span>
+                  </td>
+                  <td class="py-4 px-4">
+                    <div class="font-semibold text-gray-800">
+                      {% if booking.tour %}{{ booking.tour.title }}
+                      {% elif booking.excursion %}{{ booking.excursion.title }}
+                      {% elif booking.activity %}{{ booking.activity.title }}
+                      {% elif booking.transfer %}{{ booking.transfer.title }}
+                      {% endif %}
+                    </div>
+                    <div class="text-xs text-gray-500">
+                      {% if booking.tour %}Tour
+                      {% elif booking.excursion %}Ausflug
+                      {% elif booking.activity %}Aktivität
+                      {% elif booking.transfer %}Transfer
+                      {% endif %}
+                    </div>
+                  </td>
+                  <td class="py-4 px-4 text-sm text-gray-600">{{ booking.booking_date|date:"d.m.Y" }}</td>
+                  <td class="py-4 px-4 text-sm text-gray-600">{{ booking.number_of_participants }}</td>
+                  <td class="py-4 px-4 text-sm font-semibold text-gray-800">€{{ booking.total_price }}</td>
+                  <td class="py-4 px-4">
+                    <span class="px-3 py-1 rounded-full text-xs font-semibold
+                      {% if booking.status == 'confirmed' %}bg-green-100 text-green-700
+                      {% elif booking.status == 'pending' %}bg-orange-100 text-orange-700
+                      {% elif booking.status == 'completed' %}bg-primary-gold/20 text-primary-gold
+                      {% elif booking.status == 'cancelled' %}bg-red-100 text-red-700
+                      {% endif %}">
+                      {{ booking.get_status_display }}
+                    </span>
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        {% else %}
+          <div class="text-center py-12">
+            <svg class="w-16 h-16 text-gray-300 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+            </svg>
+            <h3 class="text-lg font-semibold text-gray-700 mb-2">Keine Buchungen vorhanden</h3>
+            <p class="text-gray-600 mb-4">Starten Sie Ihre Reise und buchen Sie Ihr erstes Abenteuer!</p>
+            <a href="{% url 'core:home' %}" class="btn-primary inline-block">Touren entdecken</a>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </section>
+</main>
+{% endblock content %}
+

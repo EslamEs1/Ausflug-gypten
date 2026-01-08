@@ -3,66 +3,93 @@ Admin configuration for Bookings app
 """
 
 from django.contrib import admin
+from django.utils.translation import gettext_lazy as _
 from .models import Booking, Payment
 
 
 @admin.register(Booking)
 class BookingAdmin(admin.ModelAdmin):
-    list_display = ['confirmation_code', 'customer_name', 'tour', 'booking_date', 'number_of_participants', 'total_price', 'status', 'created_at']
+    """📅 Bookings - Manage customer reservations"""
+    
+    list_display = ['confirmation_code', 'customer_name', 'get_booking_type', 'booking_date', 'number_of_participants', 'status', 'created_at']
     list_filter = ['status', 'booking_date', 'created_at']
     search_fields = ['confirmation_code', 'customer_name', 'customer_email', 'customer_phone']
     date_hierarchy = 'booking_date'
     readonly_fields = ['confirmation_code', 'created_at', 'updated_at']
     
     fieldsets = (
-        ('Tour-Informationen', {
-            'fields': ('tour', 'booking_date', 'number_of_participants', 'total_price')
+        ('📋 Booking Information', {
+            'fields': ('confirmation_code', 'booking_date', 'number_of_participants', 'total_price'),
+            'description': 'Booking details and confirmation code'
         }),
-        ('Kundeninformationen', {
-            'fields': ('customer_name', 'customer_email', 'customer_phone')
+        ('🎯 What They Booked', {
+            'fields': ('user', 'tour', 'excursion', 'activity', 'transfer'),
+            'description': 'Which service was booked (only one will be filled)'
         }),
-        ('Status', {
-            'fields': ('status', 'confirmation_code')
+        ('👤 Customer Information', {
+            'fields': ('customer_name', 'customer_email', 'customer_phone'),
+            'description': 'Customer contact details'
         }),
-        ('Notizen', {
-            'fields': ('special_requests', 'admin_notes')
+        ('✅ Status & Notes', {
+            'fields': ('status', 'special_requests', 'admin_notes'),
+            'description': 'Update booking status and add internal notes'
         }),
-        ('Zeitstempel', {
+        ('📅 Dates', {
             'fields': ('created_at', 'updated_at'),
             'classes': ('collapse',)
         }),
     )
     
     def get_queryset(self, request):
-        qs = super().get_queryset(request)
-        return qs.select_related('tour')
+        return super().get_queryset(request).select_related('tour', 'excursion', 'activity', 'transfer', 'user')
+    
+    def get_booking_type(self, obj):
+        if obj.tour:
+            return f"TOUR: {obj.tour.title}"
+        elif obj.excursion:
+            return f"EXCURSION: {obj.excursion.title}"
+        elif obj.activity:
+            return f"ACTIVITY: {obj.activity.title}"
+        elif obj.transfer:
+            return f"TRANSFER: {obj.transfer.title}"
+        return "N/A"
+    get_booking_type.short_description = 'Booked Service'
+    
+    def has_add_permission(self, request):
+        return False
 
 
 @admin.register(Payment)
 class PaymentAdmin(admin.ModelAdmin):
-    list_display = ['booking', 'amount', 'currency', 'status', 'stripe_payment_intent_id', 'created_at', 'paid_at']
+    """💳 Payments - Track payment transactions"""
+    
+    list_display = ['get_booking_code', 'amount', 'currency', 'status', 'created_at', 'paid_at']
     list_filter = ['status', 'currency', 'created_at']
-    search_fields = ['booking__confirmation_code', 'stripe_payment_intent_id', 'stripe_charge_id']
-    readonly_fields = ['stripe_payment_intent_id', 'stripe_charge_id', 'created_at', 'updated_at', 'paid_at']
+    search_fields = ['booking__confirmation_code', 'stripe_payment_intent_id']
+    readonly_fields = ['booking', 'amount', 'currency', 'stripe_payment_intent_id', 'stripe_charge_id', 'created_at', 'updated_at', 'paid_at']
     date_hierarchy = 'created_at'
     
     fieldsets = (
-        ('Buchung', {
-            'fields': ('booking',)
+        ('💳 Payment Information', {
+            'fields': ('booking', 'amount', 'currency', 'status'),
+            'description': 'Payment details and status'
         }),
-        ('Zahlungsinformationen', {
-            'fields': ('amount', 'currency', 'status')
+        ('🔒 Stripe Details', {
+            'fields': ('stripe_payment_intent_id', 'stripe_charge_id'),
+            'description': 'Payment gateway transaction IDs'
         }),
-        ('Stripe-Details', {
-            'fields': ('stripe_payment_intent_id', 'stripe_charge_id')
-        }),
-        ('Zeitstempel', {
+        ('📅 Dates', {
             'fields': ('created_at', 'updated_at', 'paid_at'),
-            'classes': ('collapse',)
+            'description': 'When payment was made'
         }),
     )
     
     def get_queryset(self, request):
-        qs = super().get_queryset(request)
-        return qs.select_related('booking', 'booking__tour')
-
+        return super().get_queryset(request).select_related('booking')
+    
+    def get_booking_code(self, obj):
+        return obj.booking.confirmation_code if obj.booking else 'N/A'
+    get_booking_code.short_description = 'Booking Code'
+    
+    def has_add_permission(self, request):
+        return False

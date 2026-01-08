@@ -120,3 +120,4 @@ print_message "- Set DEBUG=False in .env"
 print_message "- Set SECRET_KEY in .env"
 print_message "- Configure ALLOWED_HOSTS in .env"
 
+

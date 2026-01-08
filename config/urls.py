@@ -10,8 +10,8 @@ from django.conf.urls.i18n import i18n_patterns
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # CKEditor URLs
-    path('ckeditor/', include('ckeditor_uploader.urls')),
+    # TinyMCE URLs
+    path('tinymce/', include('tinymce.urls')),
 ]
 
 # Internationalized URLs
@@ -24,6 +24,8 @@ urlpatterns += i18n_patterns(
     path('transfer/', include('apps.transfers.urls', namespace='transfers')),
     path('galerie/', include('apps.gallery.urls', namespace='gallery')),
     path('buchungen/', include('apps.bookings.urls', namespace='bookings')),
+    path('bewertungen/', include('apps.reviews.urls', namespace='reviews')),
+    path('konto/', include('apps.users.urls', namespace='users')),
     prefix_default_language=True,
 )
 

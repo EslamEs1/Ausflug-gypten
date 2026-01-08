@@ -104,3 +104,4 @@ print_message "Admin: https://ausflugagypten.com/admin/"
 print_message "Recent Gunicorn logs:"
 sudo journalctl -u gunicorn-ausflug -n 10 --no-pager
 
+

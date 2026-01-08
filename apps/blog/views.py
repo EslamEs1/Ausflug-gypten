@@ -5,6 +5,7 @@ Blog views
 from django.views.generic import ListView, DetailView
 from django.db.models import Q
 from .models import BlogPost, BlogCategory
+from apps.core.models import PageHero
 
 
 class BlogListView(ListView):
@@ -47,6 +48,12 @@ class BlogListView(ListView):
         # Current filter
         context['current_category'] = self.request.GET.get('category', '')
         context['current_search'] = self.request.GET.get('search', '')
+        
+        # Page Hero
+        try:
+            context['page_hero'] = PageHero.objects.filter(page='blog', is_active=True).prefetch_related('badges').first()
+        except PageHero.DoesNotExist:
+            context['page_hero'] = None
         
         return context
 

@@ -33,7 +33,7 @@ end
 # Unset irrelevant variables.
 deactivate nondestructive
 
-set -gx VIRTUAL_ENV '/media/eslames/work/frontend/AusflugÄgypten/venv'
+set -gx VIRTUAL_ENV '/media/eslames/work1/frontend/AusflugÄgypten/venv'
 
 set -gx _OLD_VIRTUAL_PATH $PATH
 set -gx PATH "$VIRTUAL_ENV/"bin $PATH

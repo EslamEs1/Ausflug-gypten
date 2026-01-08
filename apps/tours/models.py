@@ -6,6 +6,8 @@ from django.db import models
 from django.utils.text import slugify
 from django.urls import reverse
 from django.core.validators import MinValueValidator, MaxValueValidator
+from django.contrib.contenttypes.fields import GenericRelation
+from tinymce.models import HTMLField
 
 
 class Location(models.Model):
@@ -13,16 +15,16 @@ class Location(models.Model):
     name = models.CharField(max_length=100, verbose_name="Name (DE)")
     name_en = models.CharField(max_length=100, verbose_name="Name (EN)")
     slug = models.SlugField(unique=True, blank=True)
-    description = models.TextField(blank=True, verbose_name="Beschreibung (DE)")
-    description_en = models.TextField(blank=True, verbose_name="Description (EN)")
+    description = HTMLField(blank=True, verbose_name="Beschreibung (DE)")
+    description_en = HTMLField(blank=True, verbose_name="Description (EN)")
     image = models.ImageField(upload_to='locations/', blank=True, null=True)
     is_active = models.BooleanField(default=True)
     order = models.PositiveIntegerField(default=0)
     
     class Meta:
         ordering = ['order', 'name']
-        verbose_name = "Standort"
-        verbose_name_plural = "Standorte"
+        verbose_name = "Location"
+        verbose_name_plural = "Locations"
     
     def __str__(self):
         return self.name
@@ -38,16 +40,16 @@ class TourCategory(models.Model):
     name = models.CharField(max_length=100, verbose_name="Name (DE)")
     name_en = models.CharField(max_length=100, verbose_name="Name (EN)")
     slug = models.SlugField(unique=True, blank=True)
-    description = models.TextField(blank=True, verbose_name="Beschreibung (DE)")
-    description_en = models.TextField(blank=True, verbose_name="Description (EN)")
+    description = HTMLField(blank=True, verbose_name="Beschreibung (DE)")
+    description_en = HTMLField(blank=True, verbose_name="Description (EN)")
     icon = models.CharField(max_length=50, blank=True, help_text="CSS class for icon")
     is_active = models.BooleanField(default=True)
     order = models.PositiveIntegerField(default=0)
     
     class Meta:
         ordering = ['order', 'name']
-        verbose_name = "Tour-Kategorie"
-        verbose_name_plural = "Tour-Kategorien"
+        verbose_name = "Tour Category"
+        verbose_name_plural = "Tour Categories"
     
     def __str__(self):
         return self.name
@@ -67,8 +69,8 @@ class Tour(models.Model):
     slug = models.SlugField(unique=True, blank=True, max_length=250)
     
     # Descriptions
-    description = models.TextField(verbose_name="Beschreibung (DE)")
-    description_en = models.TextField(verbose_name="Description (EN)")
+    description = HTMLField(verbose_name="Beschreibung (DE)")
+    description_en = HTMLField(verbose_name="Description (EN)")
     short_description = models.CharField(max_length=300, blank=True, verbose_name="Kurzbeschreibung (DE)")
     short_description_en = models.CharField(max_length=300, blank=True, verbose_name="Short Description (EN)")
     
@@ -114,10 +116,13 @@ class Tour(models.Model):
     meta_description = models.CharField(max_length=160, blank=True)
     meta_keywords = models.CharField(max_length=200, blank=True)
     
+    # Reviews (GenericRelation for reverse lookup)
+    reviews = GenericRelation('reviews.Review', related_query_name='tour')
+    
     class Meta:
         ordering = ['-created_at']
         verbose_name = "Tour"
-        verbose_name_plural = "Touren"
+        verbose_name_plural = "Tours"
         indexes = [
             models.Index(fields=['slug']),
             models.Index(fields=['is_active', 'is_featured']),
@@ -136,16 +141,16 @@ class Tour(models.Model):
     
     @property
     def average_rating(self):
-        """Calculate average rating from reviews"""
-        reviews = self.reviews.filter(is_approved=True)
+        """Calculate average rating from reviews with rating > 3"""
+        reviews = self.reviews.filter(is_approved=True, rating__gt=3)
         if reviews.exists():
             return reviews.aggregate(models.Avg('rating'))['rating__avg']
-        return 0
+        return None
     
     @property
     def review_count(self):
-        """Count approved reviews"""
-        return self.reviews.filter(is_approved=True).count()
+        """Count approved reviews with rating > 3"""
+        return self.reviews.filter(is_approved=True, rating__gt=3).count()
 
 
 class TourImage(models.Model):
@@ -158,8 +163,8 @@ class TourImage(models.Model):
     
     class Meta:
         ordering = ['order']
-        verbose_name = "Tour-Bild"
-        verbose_name_plural = "Tour-Bilder"
+        verbose_name = "Tour Image"
+        verbose_name_plural = "Tour Images"
     
     def __str__(self):
         return f"{self.tour.title} - Bild {self.order}"
@@ -177,8 +182,8 @@ class Itinerary(models.Model):
     
     class Meta:
         ordering = ['order']
-        verbose_name = "Reiseverlauf"
-        verbose_name_plural = "Reiseverläufe"
+        verbose_name = "Itinerary"
+        verbose_name_plural = "Itineraries"
     
     def __str__(self):
         return f"{self.tour.title} - {self.time}"
@@ -194,8 +199,8 @@ class TourInclusion(models.Model):
     
     class Meta:
         ordering = ['is_included', 'order']
-        verbose_name = "Inklusive/Exklusive"
-        verbose_name_plural = "Inklusive/Exklusive"
+        verbose_name = "Inclusion/Exclusion"
+        verbose_name_plural = "Inclusions/Exclusions"
     
     def __str__(self):
         status = "✓" if self.is_included else "✗"

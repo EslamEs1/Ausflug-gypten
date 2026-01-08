@@ -8,17 +8,27 @@
 {% block content %}
   <main>
     <!-- Hero Section -->
-    <section class="relative h-[500px] bg-cover bg-center" style="background-image: linear-gradient(rgba(36, 93, 129, 0.8), rgba(200, 166, 110, 0.6)), url('{% if featured_transfers.first.featured_image %}{{ featured_transfers.first.featured_image.url }}{% else %}/static/img/hero/hurghada.jpg{% endif %}');">
+    <section class="relative bg-cover bg-center" style="height: {% if page_hero %}{{ page_hero.height }}{% else %}500px{% endif %}; background-image: linear-gradient(rgba(36, 93, 129, {% if page_hero %}{{ page_hero.overlay_opacity }}{% else %}0.8{% endif %}), rgba(200, 166, 110, 0.6)), url('{% if page_hero and page_hero.background_image %}{{ page_hero.background_image.url }}{% elif featured_transfers.first.featured_image %}{{ featured_transfers.first.featured_image.url }}{% else %}/static/img/hero/hurghada.jpg{% endif %}');">
       <div class="relative z-10 h-full flex items-center">
         <div class="container mx-auto px-4">
           <div class="max-w-3xl">
             <div class="breadcrumb mb-6 text-white">
               <a href="{% url 'core:home' %}" class="hover:text-primary-gold">Home</a>
               <span class="breadcrumb-separator">/</span>
-              <span>Transfer</span>
+              <span>{% if page_hero and page_hero.breadcrumb_text %}{{ page_hero.breadcrumb_text }}{% else %}Transfer{% endif %}</span>
             </div>
-            <h1 class="text-white font-heading font-bold mb-6 animate-fade-in text-4xl md:text-5xl">Transfer Service in Ägypten</h1>
-            <p class="text-white text-xl mb-8 animate-slide-up">Zuverlässig, komfortabel und pünktlich - Ihr Transfer-Partner in Ägypten</p>
+            <h1 class="text-white font-heading font-bold mb-6 animate-fade-in text-4xl md:text-5xl">{% if page_hero %}{{ page_hero.title }}{% else %}Transfer Service in Ägypten{% endif %}</h1>
+            <p class="text-white text-xl mb-8 animate-slide-up">{% if page_hero %}{{ page_hero.subtitle }}{% else %}Zuverlässig, komfortabel und pünktlich - Ihr Transfer-Partner in Ägypten{% endif %}</p>
+            {% if page_hero and page_hero.badges.exists %}
+            <div class="flex flex-wrap gap-4 animate-slide-up">
+              {% for badge in page_hero.badges.all %}
+                <span class="bg-white/20 backdrop-blur-sm px-6 py-3 rounded-full text-white">
+                  {% if badge.icon %}{{ badge.icon }}{% endif %} {{ badge.text }}
+                </span>
+              {% endfor %}
+            </div>
+            {% else %}
+            <!-- Fallback badges -->
             <div class="flex flex-wrap gap-4 animate-slide-up">
               {% for transfer_type in transfer_types|slice:":3" %}
                 <span class="bg-white/20 backdrop-blur-sm px-6 py-3 rounded-full text-white">
@@ -26,6 +36,7 @@
                 </span>
               {% endfor %}
             </div>
+            {% endif %}
           </div>
         </div>
       </div>

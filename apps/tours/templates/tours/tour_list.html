@@ -98,12 +98,18 @@
                 <a href="{{ tour.get_absolute_url }}" class="hover:text-primary-gold transition-colors">{{ tour.title }}</a>
               </h3>
               
-              <p class="text-gray-600 text-sm mb-4">{{ tour.short_description|truncatewords:15|default:tour.description|truncatewords:15 }}</p>
+              <p class="text-gray-600 text-sm mb-4">{{ tour.short_description|truncatewords:15|default:tour.description|striptags|truncatewords:15 }}</p>
               
+              {% if tour.average_rating and tour.review_count > 0 %}
               <div class="flex items-center gap-2 mb-4">
-                <div class="rating-stars text-sm">★★★★★</div>
+                <div class="rating-stars text-sm">
+                  {% for i in "12345" %}
+                    {% if forloop.counter <= tour.average_rating|floatformat:0|add:"0" %}★{% else %}☆{% endif %}
+                  {% endfor %}
+                </div>
                 <span class="text-sm text-gray-600">({{ tour.review_count }} Bewertungen)</span>
               </div>
+              {% endif %}
               
               <div class="flex items-center justify-between text-sm text-gray-600 mb-4">
                 <div class="flex items-center gap-2">
@@ -239,4 +245,5 @@
     });
   </script>
 {% endblock content %}
+
 

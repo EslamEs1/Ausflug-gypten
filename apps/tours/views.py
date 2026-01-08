@@ -15,7 +15,7 @@ class TourListView(ListView):
     paginate_by = 12
     
     def get_queryset(self):
-        queryset = Tour.objects.filter(is_active=True).select_related('location', 'category')
+        queryset = Tour.objects.filter(is_active=True).select_related('location', 'category').prefetch_related('reviews')
         
         # Filter by category
         category_slug = self.request.GET.get('category')
@@ -60,7 +60,7 @@ class TourListView(ListView):
 class TourDetailView(DetailView):
     """Tour detail page"""
     model = Tour
-    template_name = 'tours/tour_detail.html'
+    template_name = 'tours/detail.html'
     context_object_name = 'tour'
     slug_field = 'slug'
     
@@ -82,8 +82,11 @@ class TourDetailView(DetailView):
             location=self.object.location
         ).exclude(id=self.object.id)[:3]
         
-        # Get approved reviews
-        context['reviews'] = self.object.reviews.filter(is_approved=True)[:10]
+        # Get approved reviews with rating > 3
+        context['reviews'] = self.object.reviews.filter(
+            is_approved=True,
+            rating__gt=3
+        )[:10]
         
         return context
 

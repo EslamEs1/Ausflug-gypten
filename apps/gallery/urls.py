@@ -12,3 +12,4 @@ urlpatterns = [
     path('<int:pk>/', views.GalleryDetailView.as_view(), name='detail'),
 ]
 
+

@@ -8,17 +8,17 @@
 {% block content %}
   <main>
     <!-- Hero Section -->
-    <section class="relative h-[400px] bg-cover bg-center" style="background-image: linear-gradient(rgba(36, 93, 129, 0.8), rgba(200, 166, 110, 0.6)), url('{% if featured_post.featured_image %}{{ featured_post.featured_image.url }}{% else %}/static/img/hero/hurghada.jpg{% endif %}');">
+    <section class="relative bg-cover bg-center" style="height: {% if page_hero %}{{ page_hero.height }}{% else %}400px{% endif %}; background-image: linear-gradient(rgba(36, 93, 129, {% if page_hero %}{{ page_hero.overlay_opacity }}{% else %}0.8{% endif %}), rgba(200, 166, 110, 0.6)), url('{% if page_hero and page_hero.background_image %}{{ page_hero.background_image.url }}{% elif featured_post.featured_image %}{{ featured_post.featured_image.url }}{% else %}/static/img/hero/hurghada.jpg{% endif %}');">
       <div class="relative z-10 h-full flex items-center">
         <div class="container mx-auto px-4">
           <div class="max-w-3xl">
             <div class="breadcrumb mb-6 text-white">
               <a href="{% url 'core:home' %}" class="hover:text-primary-gold">Home</a>
               <span class="breadcrumb-separator">/</span>
-              <span>Blog</span>
+              <span>{% if page_hero and page_hero.breadcrumb_text %}{{ page_hero.breadcrumb_text }}{% else %}Blog{% endif %}</span>
             </div>
-            <h1 class="text-white font-heading font-bold mb-6 animate-fade-in text-4xl md:text-5xl">Ägypten & Hurghada Reiseblog</h1>
-            <p class="text-white text-xl mb-8 animate-slide-up">Tipps, Infos und Inspiration für Ihre Ägypten-Reise</p>
+            <h1 class="text-white font-heading font-bold mb-6 animate-fade-in text-4xl md:text-5xl">{% if page_hero %}{{ page_hero.title }}{% else %}Ägypten & Hurghada Reiseblog{% endif %}</h1>
+            <p class="text-white text-xl mb-8 animate-slide-up">{% if page_hero %}{{ page_hero.subtitle }}{% else %}Tipps, Infos und Inspiration für Ihre Ägypten-Reise{% endif %}</p>
           </div>
         </div>
       </div>
@@ -60,7 +60,7 @@
               <h3 class="text-3xl font-heading font-bold mb-4">
                 <a href="{{ featured_post.get_absolute_url }}" class="hover:text-primary-gold transition-colors">{{ featured_post.title }}</a>
               </h3>
-              <p class="text-gray-200 mb-4">{{ featured_post.excerpt|default:featured_post.content|truncatewords:30 }}</p>
+              <p class="text-gray-200 mb-4">{{ featured_post.excerpt|default:featured_post.content|striptags|truncatewords:30 }}</p>
               <div class="flex items-center gap-4 text-sm">
                 <span class="flex items-center gap-2">
                   <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -85,7 +85,7 @@
           <div class="flex flex-col justify-center">
             <div class="prose max-w-none">
               <p class="text-lg text-gray-700 leading-relaxed mb-6">
-                {{ featured_post.excerpt|default:featured_post.content|truncatewords:50 }}
+                {{ featured_post.excerpt|default:featured_post.content|striptags|truncatewords:50 }}
               </p>
               <a href="{{ featured_post.get_absolute_url }}" class="btn-primary inline-flex items-center gap-2">
                 Weiterlesen

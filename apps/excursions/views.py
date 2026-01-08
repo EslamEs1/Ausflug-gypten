@@ -6,6 +6,7 @@ from django.views.generic import ListView, DetailView
 from django.db.models import Q, Avg
 from .models import Excursion
 from apps.tours.models import Location, TourCategory
+from apps.core.models import PageHero
 
 
 class ExcursionListView(ListView):
@@ -16,7 +17,7 @@ class ExcursionListView(ListView):
     paginate_by = 12
     
     def get_queryset(self):
-        queryset = Excursion.objects.filter(is_active=True).select_related('location', 'category')
+        queryset = Excursion.objects.filter(is_active=True).select_related('location', 'category').prefetch_related('reviews')
         
         # Filter by category
         category_slug = self.request.GET.get('category')
@@ -80,6 +81,12 @@ class ExcursionListView(ListView):
         context['current_max_price'] = self.request.GET.get('max_price', '500')
         context['current_sort'] = self.request.GET.get('sort', 'featured')
         
+        # Page Hero
+        try:
+            context['page_hero'] = PageHero.objects.filter(page='excursions', is_active=True).prefetch_related('badges').first()
+        except PageHero.DoesNotExist:
+            context['page_hero'] = None
+        
         return context
 
 
@@ -117,10 +124,27 @@ class ExcursionDetailView(DetailView):
                 is_active=True
             ).exclude(id=excursion.id).select_related('location', 'category')[:3]
         
-        # Get approved reviews (if reviews app is implemented)
-        context['reviews'] = []  # Placeholder - would use excursion.reviews.filter(is_approved=True)[:10]
-        context['average_rating'] = excursion.average_rating
-        context['review_count'] = excursion.review_count
+        # Get approved reviews with rating > 3
+        from apps.reviews.models import Review
+        from django.contrib.contenttypes.models import ContentType
+        content_type = ContentType.objects.get_for_model(Excursion)
+        approved_reviews = Review.objects.filter(
+            content_type=content_type,
+            object_id=excursion.id,
+            is_approved=True,
+            rating__gt=3
+        )
+        
+        context['reviews'] = approved_reviews[:10]
+        
+        # Calculate average rating and count (only reviews with rating > 3)
+        if approved_reviews.exists():
+            context['average_rating'] = approved_reviews.aggregate(Avg('rating'))['rating__avg']
+            context['review_count'] = approved_reviews.count()
+        else:
+            context['average_rating'] = None
+            context['review_count'] = 0
         
         return context
+
 

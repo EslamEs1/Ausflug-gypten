@@ -12,3 +12,4 @@ urlpatterns = [
     path('<slug:slug>/', views.ExcursionDetailView.as_view(), name='detail'),
 ]
 
+

@@ -4,7 +4,11 @@ Booking and Payment models for AusflugAgypten
 
 from django.db import models
 from django.utils import timezone
+from django.contrib.auth.models import User
 from apps.tours.models import Tour
+from apps.excursions.models import Excursion
+from apps.activities.models import Activity
+from apps.transfers.models import Transfer
 
 
 class Booking(models.Model):
@@ -17,8 +21,14 @@ class Booking(models.Model):
         ('completed', 'Abgeschlossen'),
     ]
     
-    # Tour details
-    tour = models.ForeignKey(Tour, on_delete=models.CASCADE, related_name='bookings')
+    # User (optional - can be null for guest bookings)
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='bookings', verbose_name="Benutzer")
+    
+    # Tour/Excursion/Activity/Transfer details (at least one must be set)
+    tour = models.ForeignKey(Tour, on_delete=models.CASCADE, related_name='bookings', null=True, blank=True)
+    excursion = models.ForeignKey(Excursion, on_delete=models.CASCADE, related_name='bookings', null=True, blank=True)
+    activity = models.ForeignKey(Activity, on_delete=models.CASCADE, related_name='bookings', null=True, blank=True)
+    transfer = models.ForeignKey(Transfer, on_delete=models.CASCADE, related_name='bookings', null=True, blank=True)
     
     # Customer details
     customer_name = models.CharField(max_length=200, verbose_name="Name")
@@ -46,15 +56,34 @@ class Booking(models.Model):
     
     class Meta:
         ordering = ['-created_at']
-        verbose_name = "Buchung"
-        verbose_name_plural = "Buchungen"
+        verbose_name = "Booking"
+        verbose_name_plural = "Bookings"
         indexes = [
             models.Index(fields=['confirmation_code']),
             models.Index(fields=['status', '-created_at']),
         ]
     
     def __str__(self):
-        return f"{self.customer_name} - {self.tour.title} - {self.booking_date}"
+        item_title = "N/A"
+        if self.tour:
+            item_title = self.tour.title
+        elif self.excursion:
+            item_title = self.excursion.title
+        elif self.activity:
+            item_title = self.activity.title
+        return f"{self.customer_name} - {item_title} - {self.booking_date}"
+    
+    def get_booked_item(self):
+        """Get the booked tour/excursion/activity/transfer"""
+        if self.tour:
+            return self.tour
+        elif self.excursion:
+            return self.excursion
+        elif self.activity:
+            return self.activity
+        elif self.transfer:
+            return self.transfer
+        return None
     
     def save(self, *args, **kwargs):
         if not self.confirmation_code:
@@ -93,8 +122,8 @@ class Payment(models.Model):
     
     class Meta:
         ordering = ['-created_at']
-        verbose_name = "Zahlung"
-        verbose_name_plural = "Zahlungen"
+        verbose_name = "Payment"
+        verbose_name_plural = "Payments"
     
     def __str__(self):
         return f"Payment for {self.booking.confirmation_code} - {self.status}"

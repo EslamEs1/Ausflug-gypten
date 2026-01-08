@@ -1,0 +1,143 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}
+<title>Registrieren | AusflugÄgypten</title>
+{% endblock title %}
+
+{% block content %}
+<main>
+  <!-- Hero Section -->
+  <section class="relative h-[300px] bg-cover bg-center" style="background-image: linear-gradient(rgba(36, 93, 129, 0.85), rgba(200, 166, 110, 0.75)), url('/static/img/hero/signup-bg.jpg');">
+    <div class="relative z-10 h-full flex items-center">
+      <div class="container mx-auto px-4">
+        <div class="max-w-3xl">
+          <div class="breadcrumb mb-6 text-white">
+            <a href="{% url 'core:home' %}" class="hover:text-primary-gold">Home</a>
+            <span class="breadcrumb-separator">/</span>
+            <span>Registrieren</span>
+          </div>
+          <h1 class="text-white font-heading font-bold mb-4 text-4xl md:text-5xl">Konto erstellen</h1>
+          <p class="text-white text-xl">Werden Sie Mitglied und entdecken Sie exklusive Angebote!</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Registration Form Section -->
+  <section class="py-16 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="max-w-2xl mx-auto">
+        <!-- Registration Card -->
+        <div class="card p-8">
+          <h2 class="text-2xl font-heading font-bold text-primary-blue mb-6 text-center">Erstellen Sie Ihr Konto</h2>
+          
+          <!-- Messages -->
+          {% if messages %}
+            {% for message in messages %}
+              <div class="mb-4 p-4 rounded-lg {% if message.tags == 'error' %}bg-red-50 text-red-700{% else %}bg-green-50 text-green-700{% endif %}">
+                {{ message }}
+              </div>
+            {% endfor %}
+          {% endif %}
+          
+          <form method="post" action="{% url 'users:signup' %}">
+            {% csrf_token %}
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+              <div>
+                <label class="input-label">Vorname *</label>
+                {{ form.first_name }}
+                {% if form.first_name.errors %}
+                  <p class="text-red-600 text-sm mt-1">{{ form.first_name.errors|striptags }}</p>
+                {% endif %}
+              </div>
+              
+              <div>
+                <label class="input-label">Nachname *</label>
+                {{ form.last_name }}
+                {% if form.last_name.errors %}
+                  <p class="text-red-600 text-sm mt-1">{{ form.last_name.errors|striptags }}</p>
+                {% endif %}
+              </div>
+            </div>
+            
+            <div class="mb-4">
+              <label class="input-label">Benutzername *</label>
+              {{ form.username }}
+              {% if form.username.errors %}
+                <p class="text-red-600 text-sm mt-1">{{ form.username.errors|striptags }}</p>
+              {% endif %}
+              <p class="text-gray-600 text-xs mt-1">Nur Buchstaben, Zahlen und @/./+/-/_ erlaubt</p>
+            </div>
+            
+            <div class="mb-4">
+              <label class="input-label">E-Mail-Adresse *</label>
+              {{ form.email }}
+              {% if form.email.errors %}
+                <p class="text-red-600 text-sm mt-1">{{ form.email.errors|striptags }}</p>
+              {% endif %}
+            </div>
+            
+            <div class="mb-4">
+              <label class="input-label">Telefonnummer (optional)</label>
+              {{ form.phone }}
+              {% if form.phone.errors %}
+                <p class="text-red-600 text-sm mt-1">{{ form.phone.errors|striptags }}</p>
+              {% endif %}
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+              <div>
+                <label class="input-label">Passwort *</label>
+                {{ form.password1 }}
+                {% if form.password1.errors %}
+                  <p class="text-red-600 text-sm mt-1">{{ form.password1.errors|striptags }}</p>
+                {% endif %}
+              </div>
+              
+              <div>
+                <label class="input-label">Passwort bestätigen *</label>
+                {{ form.password2 }}
+                {% if form.password2.errors %}
+                  <p class="text-red-600 text-sm mt-1">{{ form.password2.errors|striptags }}</p>
+                {% endif %}
+              </div>
+            </div>
+            
+            <div class="bg-gray-50 p-4 rounded-lg mb-6">
+              <p class="text-sm text-gray-600 mb-2"><strong>Passwortanforderungen:</strong></p>
+              <ul class="text-xs text-gray-600 space-y-1">
+                <li>• Mindestens 8 Zeichen</li>
+                <li>• Nicht zu ähnlich zu Ihren persönlichen Informationen</li>
+                <li>• Nicht ein häufig verwendetes Passwort</li>
+                <li>• Nicht ausschließlich numerisch</li>
+              </ul>
+            </div>
+            
+            <div class="mb-6">
+              <label class="flex items-start">
+                <input type="checkbox" name="terms" required class="form-checkbox text-primary-gold mt-1">
+                <span class="ml-2 text-sm text-gray-700">
+                  Ich akzeptiere die <a href="{% url 'core:terms' %}" class="text-primary-gold hover:underline">AGB</a> 
+                  und <a href="{% url 'core:privacy' %}" class="text-primary-gold hover:underline">Datenschutzbestimmungen</a>
+                </span>
+              </label>
+            </div>
+            
+            <button type="submit" class="btn-primary w-full mb-4">
+              Konto erstellen
+            </button>
+            
+            <p class="text-center text-gray-600">
+              Haben Sie bereits ein Konto? 
+              <a href="{% url 'users:login' %}" class="text-primary-gold hover:underline font-semibold">Jetzt anmelden</a>
+            </p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+{% endblock content %}
+

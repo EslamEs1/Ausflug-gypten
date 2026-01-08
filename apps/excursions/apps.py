@@ -6,3 +6,4 @@ class ExcursionsConfig(AppConfig):
     name = 'apps.excursions'
     verbose_name = 'Ausflüge'
 
+

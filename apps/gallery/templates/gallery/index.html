@@ -8,17 +8,17 @@
 {% block content %}
   <main>
     <!-- Hero Section -->
-    <section class="relative h-[450px] bg-cover bg-center" style="background-image: linear-gradient(rgba(36, 93, 129, 0.8), rgba(200, 166, 110, 0.6)), url('{% if featured_images.first.image %}{{ featured_images.first.image.url }}{% else %}/static/img/hero/hurghada.jpg{% endif %}');">
+    <section class="relative bg-cover bg-center" style="height: {% if page_hero %}{{ page_hero.height }}{% else %}450px{% endif %}; background-image: linear-gradient(rgba(36, 93, 129, {% if page_hero %}{{ page_hero.overlay_opacity }}{% else %}0.8{% endif %}), rgba(200, 166, 110, 0.6)), url('{% if page_hero and page_hero.background_image %}{{ page_hero.background_image.url }}{% elif featured_images.first.image %}{{ featured_images.first.image.url }}{% else %}/static/img/hero/hurghada.jpg{% endif %}');">
       <div class="relative z-10 h-full flex items-center">
         <div class="container mx-auto px-4">
           <div class="max-w-3xl">
             <div class="breadcrumb mb-6 text-white">
               <a href="{% url 'core:home' %}" class="hover:text-primary-gold">Home</a>
               <span class="breadcrumb-separator">/</span>
-              <span>Galerie</span>
+              <span>{% if page_hero and page_hero.breadcrumb_text %}{{ page_hero.breadcrumb_text }}{% else %}Galerie{% endif %}</span>
             </div>
-            <h1 class="text-white font-heading font-bold mb-6 animate-fade-in text-4xl md:text-5xl">Galerie</h1>
-            <p class="text-white text-xl mb-8 animate-slide-up">Entdecken Sie die Schönheit Ägyptens in unseren Fotos</p>
+            <h1 class="text-white font-heading font-bold mb-6 animate-fade-in text-4xl md:text-5xl">{% if page_hero %}{{ page_hero.title }}{% else %}Galerie{% endif %}</h1>
+            <p class="text-white text-xl mb-8 animate-slide-up">{% if page_hero %}{{ page_hero.subtitle }}{% else %}Entdecken Sie die Schönheit Ägyptens in unseren Fotos{% endif %}</p>
           </div>
         </div>
       </div>

@@ -6,7 +6,9 @@ from django.db import models
 from django.utils.text import slugify
 from django.urls import reverse
 from django.core.validators import MinValueValidator, MaxValueValidator
+from django.contrib.contenttypes.fields import GenericRelation
 from apps.tours.models import Location
+from tinymce.models import HTMLField
 
 
 class ActivityCategory(models.Model):
@@ -14,8 +16,8 @@ class ActivityCategory(models.Model):
     name = models.CharField(max_length=100, verbose_name="Name (DE)")
     name_en = models.CharField(max_length=100, verbose_name="Name (EN)")
     slug = models.SlugField(unique=True, blank=True)
-    description = models.TextField(blank=True, verbose_name="Beschreibung (DE)")
-    description_en = models.TextField(blank=True, verbose_name="Description (EN)")
+    description = HTMLField(blank=True, verbose_name="Beschreibung (DE)")
+    description_en = HTMLField(blank=True, verbose_name="Description (EN)")
     icon = models.CharField(max_length=50, blank=True, help_text="Emoji or icon class (e.g., 🏊, 🏛️, 🏜️)")
     image = models.ImageField(upload_to='activity_categories/', blank=True, null=True)
     gradient_color = models.CharField(
@@ -28,8 +30,8 @@ class ActivityCategory(models.Model):
     
     class Meta:
         ordering = ['order', 'name']
-        verbose_name = "Aktivitäts-Kategorie"
-        verbose_name_plural = "Aktivitäts-Kategorien"
+        verbose_name = "Activity Category"
+        verbose_name_plural = "Activity Categories"
     
     def __str__(self):
         return self.name
@@ -53,8 +55,8 @@ class Activity(models.Model):
     # Content
     short_description = models.CharField(max_length=300, blank=True, verbose_name="Kurzbeschreibung (DE)")
     short_description_en = models.CharField(max_length=300, blank=True, verbose_name="Short Description (EN)")
-    description = models.TextField(verbose_name="Beschreibung (DE)")
-    description_en = models.TextField(verbose_name="Description (EN)")
+    description = HTMLField(verbose_name="Beschreibung (DE)")
+    description_en = HTMLField(verbose_name="Description (EN)")
     
     # Relations
     category = models.ForeignKey(ActivityCategory, on_delete=models.SET_NULL, null=True, related_name='activities')
@@ -98,14 +100,17 @@ class Activity(models.Model):
     meta_description = models.CharField(max_length=160, blank=True)
     meta_keywords = models.CharField(max_length=200, blank=True)
     
+    # Reviews (GenericRelation for reverse lookup)
+    reviews = GenericRelation('reviews.Review', related_query_name='activity')
+    
     # Timestamps
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     
     class Meta:
         ordering = ['-is_featured', '-is_popular', 'title']
-        verbose_name = "Aktivität"
-        verbose_name_plural = "Aktivitäten"
+        verbose_name = "Activity"
+        verbose_name_plural = "Activities"
         indexes = [
             models.Index(fields=['slug']),
             models.Index(fields=['is_active', 'is_featured']),
@@ -132,6 +137,19 @@ class Activity(models.Model):
     def has_discount(self):
         """Check if activity has discount"""
         return self.discount_price is not None and self.discount_price < self.price
+    
+    @property
+    def average_rating(self):
+        """Calculate average rating from reviews with rating > 3"""
+        reviews = self.reviews.filter(is_approved=True, rating__gt=3)
+        if reviews.exists():
+            return reviews.aggregate(models.Avg('rating'))['rating__avg']
+        return None
+    
+    @property
+    def total_reviews(self):
+        """Count approved reviews with rating > 3"""
+        return self.reviews.filter(is_approved=True, rating__gt=3).count()
 
 
 class ActivityImage(models.Model):
@@ -144,8 +162,8 @@ class ActivityImage(models.Model):
     
     class Meta:
         ordering = ['order', 'id']
-        verbose_name = "Aktivitäts-Bild"
-        verbose_name_plural = "Aktivitäts-Bilder"
+        verbose_name = "Activity Image"
+        verbose_name_plural = "Activity Images"
     
     def __str__(self):
         return f"{self.activity.title} - Image {self.order}"
@@ -160,8 +178,8 @@ class ActivityInclusion(models.Model):
     
     class Meta:
         ordering = ['order', 'id']
-        verbose_name = "Inklusion"
-        verbose_name_plural = "Inklusionen"
+        verbose_name = "Inclusion"
+        verbose_name_plural = "Inclusions"
     
     def __str__(self):
         return f"{self.activity.title} - {self.title}"
@@ -176,9 +194,10 @@ class ActivityImportantInfo(models.Model):
     
     class Meta:
         ordering = ['order', 'id']
-        verbose_name = "Wichtige Information"
-        verbose_name_plural = "Wichtige Informationen"
+        verbose_name = "Important Information"
+        verbose_name_plural = "Important Information"
     
     def __str__(self):
         return f"{self.activity.title} - {self.info}"
+
 

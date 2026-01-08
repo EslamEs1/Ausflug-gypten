@@ -5,6 +5,7 @@ Views for Gallery app
 from django.views.generic import ListView, DetailView
 from django.db.models import Q
 from .models import GalleryImage, GalleryCategory
+from apps.core.models import PageHero
 
 
 class GalleryListView(ListView):
@@ -73,6 +74,12 @@ class GalleryListView(ListView):
         context['current_search'] = self.request.GET.get('search', '')
         context['current_ordering'] = self.request.GET.get('ordering', 'order')
         
+        # Page Hero
+        try:
+            context['page_hero'] = PageHero.objects.filter(page='gallery', is_active=True).prefetch_related('badges').first()
+        except PageHero.DoesNotExist:
+            context['page_hero'] = None
+        
         return context
 
 
@@ -111,4 +118,5 @@ class GalleryDetailView(DetailView):
             context['next_image'] = None
         
         return context
+
 

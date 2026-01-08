@@ -41,9 +41,8 @@ INSTALLED_APPS = [
     'crispy_forms',
     'crispy_tailwind',
     
-    # Rich Text Editor for Blog
-    'ckeditor',
-    'ckeditor_uploader',
+    # Rich Text Editor
+    'tinymce',
     
     # File cleanup
     'django_cleanup.apps.CleanupConfig',
@@ -167,152 +166,45 @@ CRISPY_TEMPLATE_PACK = 'tailwind'
 
 # ============ JAZZMIN ADMIN CONFIGURATION ============
 JAZZMIN_SETTINGS = {
-    # title of the window (Will default to current_admin_site.site_title if absent or None)
     "site_title": "AusflugÄgypten Admin",
-    
-    # Title on the login screen (19 chars max) (defaults to current_admin_site.site_header if absent or None)
     "site_header": "AusflugÄgypten",
-    
-    # Title on the brand (19 chars max) (defaults to current_admin_site.site_header if absent or None)
     "site_brand": "AusflugÄgypten",
-    
-    # Logo to use for your site, must be present in static files, used for brand on top left
-    "site_logo": "img/logo/logo.png",
-    
-    # Logo to use for your site, must be present in static files, used for login form logo (defaults to site_logo)
-    "login_logo": "img/logo/logo.png",
-    
-    # Logo to use for login form in dark themes (defaults to login_logo)
-    "login_logo_dark": None,
-    
-    # CSS classes that are applied to the logo above
-    "site_logo_classes": "img-circle",
-    
-    # Relative path to a favicon for your site, will default to site_logo if absent (ideally 32x32 px)
-    "site_icon": "img/logo/logo.png",
-    
-    # Welcome text on the login screen
     "welcome_sign": "Willkommen im AusflugÄgypten Admin Panel",
-    
-    # Copyright on the footer
     "copyright": "AusflugÄgypten",
-    
-    # The model admin to search from the search bar, search bar omitted if excluded
-    "search_model": ["auth.User", "apps.tours.Tour", "apps.blog.BlogPost"],
-    
-    # Field name on user model that contains avatar ImageField/URLField to display if represents the user
+    "search_model": ["auth.User", "tours.Tour", "blog.BlogPost"],
     "user_avatar": None,
     
-    ############
-    # Top Menu #
-    ############
-    
-    # Links to put along the top menu
     "topmenu_links": [
-        # Url that gets reversed (Permissions can be added)
         {"name": "Home", "url": "admin:index", "permissions": ["auth.view_user"]},
-        
-        # external url that opens in a new window (Permissions can be added)
         {"name": "Website", "url": "/", "new_window": True},
-        
-        # model admin to link to (Permissions checked against model)
-        {"model": "auth.User"},
-        
-        # App with dropdown menu to all its models pages (Permissions checked against models)
-        {"app": "tours"},
-        {"app": "blog"},
     ],
     
-    #############
-    # User Menu #
-    #############
-    
-    # Additional links to include in the user menu on the top right ("app" url type is not allowed)
     "usermenu_links": [
         {"name": "Website", "url": "/", "new_window": True},
-        {"model": "auth.user"}
     ],
     
-    #############
-    # Side Menu #
-    #############
-    
-    # Whether to display the side menu
     "show_sidebar": True,
-    
-    # Whether to aut expand the menu
     "navigation_expanded": True,
-    
-    # Hide these apps when generating side menu e.g (auth)
     "hide_apps": [],
-    
-    # Hide these models when generating side menu (e.g auth.user)
     "hide_models": [],
-    
-    # List of apps (and/or models) to base side menu ordering off of (does not need to contain all apps/models)
     "order_with_respect_to": ["auth", "tours", "blog", "activities", "transfers", "bookings"],
     
-    # Custom links to append to app groups, keyed on app name
-    "custom_links": {
-        "tours": [{
-            "name": "Make Messages",
-            "url": "make_messages",
-            "icon": "fas fa-comments",
-            "permissions": ["tours.view_tour"]
-        }]
-    },
-    
-    # Custom icons for side menu apps/models See https://fontawesome.com/icons?d=gallery&m=free&v=5.0.0,5.0.1,5.0.10,2.0.0,2.0.1,2.0.10,1.0.0,1.0.1,1.0.10,5.0.0,5.0.1,5.0.10,2.0.0,2.0.1,2.0.10,1.0.0,1.0.1,1.0.10
-    # for the full list of 5.13.0 free icon classes
     "icons": {
         "auth": "fas fa-users-cog",
         "auth.user": "fas fa-user",
         "auth.Group": "fas fa-users",
-        "apps.tours.Tour": "fas fa-map-marked-alt",
-        "apps.tours.Location": "fas fa-map-marker-alt",
-        "apps.tours.TourCategory": "fas fa-tags",
-        "apps.activities.Activity": "fas fa-swimming-pool",
-        "apps.blog.BlogPost": "fas fa-blog",
-        "apps.blog.BlogCategory": "fas fa-folder",
-        "apps.transfers.Transfer": "fas fa-car",
-        "apps.bookings.Booking": "fas fa-calendar-check",
-        "apps.reviews.Review": "fas fa-star",
     },
-    # Icons that are used when one is not manually specified
     "default_icon_parents": "fas fa-chevron-circle-right",
     "default_icon_children": "fas fa-circle",
     
-    #################
-    # Related Modal #
-    #################
-    # Use modals instead of popups
     "related_modal_active": False,
-    
-    #############
-    # UI Tweaks #
-    #############
-    # Relative paths to custom CSS/JS scripts (must be present in static files)
     "custom_css": None,
     "custom_js": None,
-    # Whether to link font from fonts.googleapis.com (use custom_css to supply font otherwise)
     "use_google_fonts_cdn": True,
-    # Whether to show the UI customizer on the sidebar
     "show_ui_builder": False,
-    
-    ###############
-    # Change view #
-    ###############
-    # Render out the change view as a single form, or in tabs, current options are
-    # - single
-    # - horizontal_tabs (default)
-    # - vertical_tabs
-    # - collapsible
-    # - carousel
     "changeform_format": "horizontal_tabs",
-    # override change forms on a per modeladmin basis
     "changeform_format_overrides": {"auth.user": "collapsible", "auth.group": "vertical_tabs"},
-    # Add a language dropdown into the admin
-    "language_chooser": True,
+    "language_chooser": False,
 }
 
 JAZZMIN_UI_TWEAKS = {
@@ -347,69 +239,47 @@ JAZZMIN_UI_TWEAKS = {
     }
 }
 
-# ============ CKEDITOR CONFIGURATION ============
-CKEDITOR_UPLOAD_PATH = "uploads/"
-CKEDITOR_CONFIGS = {
-    'default': {
-        'toolbar': 'full',
-        'height': 400,
-        'width': '100%',
-        'toolbar_Custom': [
-            ['Bold', 'Italic', 'Underline'],
-            ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
-            ['Link', 'Unlink'],
-            ['RemoveFormat', 'Source'],
-            ['Image', 'Table', 'HorizontalRule'],
-            ['Styles', 'Format', 'Font', 'FontSize'],
-            ['TextColor', 'BGColor'],
-            ['Maximize'],
-        ],
-        'toolbar': 'Custom',
-        'extraPlugins': ','.join([
-            'uploadimage',  # the upload image feature
-            'div',
-            'autolink',
-            'autoembed',
-            'embedsemantic',
-            'autogrow',
-            'widget',
-            'lineutils',
-            'clipboard',
-            'dialog',
-            'dialogui',
-            'elementspath'
-        ]),
-    },
-    'blog': {
-        'toolbar': 'full',
-        'height': 500,
-        'width': '100%',
-        'toolbar_Custom': [
-            ['Bold', 'Italic', 'Underline', 'Strike'],
-            ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
-            ['Link', 'Unlink', 'Anchor'],
-            ['Image', 'Flash', 'Table', 'HorizontalRule', 'SpecialChar'],
-            ['Styles', 'Format', 'Font', 'FontSize'],
-            ['TextColor', 'BGColor'],
-            ['Maximize', 'ShowBlocks'],
-            ['Source'],
-        ],
-        'toolbar': 'Custom',
-        'extraPlugins': ','.join([
-            'uploadimage',
-            'div',
-            'autolink',
-            'autoembed',
-            'embedsemantic',
-            'autogrow',
-            'widget',
-            'lineutils',
-            'clipboard',
-            'dialog',
-            'dialogui',
-            'elementspath'
-        ]),
-    }
+# ============ TINYMCE CONFIGURATION ============
+TINYMCE_DEFAULT_CONFIG = {
+    'height': 500,
+    'width': '100%',
+    'cleanup_on_startup': True,
+    'custom_undo_redo_levels': 20,
+    'selector': 'textarea',
+    'theme': 'silver',
+    'plugins': '''
+        textcolor save link image media preview codesample contextmenu
+        table code lists fullscreen  insertdatetime  nonbreaking
+        contextmenu directionality searchreplace wordcount visualblocks
+        visualchars code fullscreen autolink lists  charmap print  hr
+        anchor pagebreak
+    ''',
+    'toolbar1': '''
+        fullscreen preview bold italic underline | fontselect,
+        fontsizeselect  | forecolor backcolor | alignleft alignright |
+        aligncenter alignjustify | indent outdent | bullist numlist table |
+        | link image media | codesample |
+    ''',
+    'toolbar2': '''
+        visualblocks visualchars |
+        charmap hr pagebreak nonbreaking anchor |  code |
+    ''',
+    'contextmenu': 'formats | link image',
+    'menubar': True,
+    'statusbar': True,
+    'image_advtab': True,
+    'file_picker_types': 'image',
+    'automatic_uploads': True,
+    'images_upload_url': '/media/uploads/',
+    'relative_urls': False,
+    'remove_script_host': False,
+    'convert_urls': True,
+    'content_style': '''
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+        }
+    ''',
 }
 
 # Email Configuration

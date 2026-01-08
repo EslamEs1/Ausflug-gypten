@@ -43,3 +43,4 @@ echo "Backups stored in: $BACKUP_DIR"
 # Optional: Upload to remote storage (S3, etc.)
 # aws s3 sync $BACKUP_DIR s3://your-bucket/ausflugagypten-backups/
 
+

@@ -33,8 +33,8 @@ class Review(models.Model):
     
     class Meta:
         ordering = ['-created_at']
-        verbose_name = "Bewertung"
-        verbose_name_plural = "Bewertungen"
+        verbose_name = "Review"
+        verbose_name_plural = "Reviews"
         indexes = [
             models.Index(fields=['content_type', 'object_id']),
             models.Index(fields=['is_approved', '-created_at']),

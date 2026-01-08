@@ -6,7 +6,7 @@ from django.db import models
 from django.utils.text import slugify
 from django.urls import reverse
 from django.contrib.auth import get_user_model
-from ckeditor_uploader.fields import RichTextUploadingField
+from tinymce.models import HTMLField
 
 User = get_user_model()
 
@@ -16,12 +16,12 @@ class BlogCategory(models.Model):
     name = models.CharField(max_length=100, verbose_name="Name (DE)")
     name_en = models.CharField(max_length=100, verbose_name="Name (EN)")
     slug = models.SlugField(unique=True, blank=True)
-    description = models.TextField(blank=True)
+    description = HTMLField(blank=True)
     is_active = models.BooleanField(default=True)
     
     class Meta:
-        verbose_name = "Blog-Kategorie"
-        verbose_name_plural = "Blog-Kategorien"
+        verbose_name = "Blog Category"
+        verbose_name_plural = "Blog Categories"
     
     def __str__(self):
         return self.name
@@ -38,8 +38,8 @@ class BlogPost(models.Model):
     title_en = models.CharField(max_length=200, verbose_name="Title (EN)")
     slug = models.SlugField(unique=True, blank=True, max_length=250)
     
-    content = RichTextUploadingField(verbose_name="Inhalt (DE)")
-    content_en = RichTextUploadingField(verbose_name="Content (EN)")
+    content = HTMLField(verbose_name="Inhalt (DE)")
+    content_en = HTMLField(verbose_name="Content (EN)")
     excerpt = models.CharField(max_length=300, blank=True, verbose_name="Auszug (DE)")
     excerpt_en = models.CharField(max_length=300, blank=True, verbose_name="Excerpt (EN)")
     
@@ -64,8 +64,8 @@ class BlogPost(models.Model):
     
     class Meta:
         ordering = ['-published_at']
-        verbose_name = "Blog-Artikel"
-        verbose_name_plural = "Blog-Artikel"
+        verbose_name = "Blog Post"
+        verbose_name_plural = "Blog Posts"
         indexes = [
             models.Index(fields=['slug']),
             models.Index(fields=['is_published', '-published_at']),

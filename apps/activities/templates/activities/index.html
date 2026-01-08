@@ -10,17 +10,27 @@
   <main>
     
     <!-- Hero Section -->
-    <section class="relative h-[500px] bg-cover bg-center" style="background-image: linear-gradient(rgba(36, 93, 129, 0.7), rgba(36, 93, 129, 0.5)), url('{% if featured_categories.first.image %}{{ featured_categories.first.image.url }}{% else %}/static/img/hero/hurghada.jpg{% endif %}');">
+    <section class="relative bg-cover bg-center" style="height: {% if page_hero %}{{ page_hero.height }}{% else %}500px{% endif %}; background-image: linear-gradient(rgba(36, 93, 129, {% if page_hero %}{{ page_hero.overlay_opacity }}{% else %}0.7{% endif %}), rgba(36, 93, 129, 0.5)), url('{% if page_hero and page_hero.background_image %}{{ page_hero.background_image.url }}{% elif featured_categories.first.image %}{{ featured_categories.first.image.url }}{% else %}/static/img/hero/hurghada.jpg{% endif %}');">
       <div class="relative z-10 h-full flex items-center">
         <div class="container mx-auto px-4">
           <div class="max-w-3xl">
             <div class="breadcrumb mb-6 text-white">
               <a href="{% url 'core:home' %}" class="hover:text-primary-gold">Home</a>
               <span class="breadcrumb-separator">/</span>
-              <span>Ägypten Aktivitäten</span>
+              <span>{% if page_hero and page_hero.breadcrumb_text %}{{ page_hero.breadcrumb_text }}{% else %}Ägypten Aktivitäten{% endif %}</span>
             </div>
-            <h1 class="text-white font-heading font-bold mb-6 animate-fade-in">Ägypten Aktivitäten & Sehenswürdigkeiten</h1>
-            <p class="text-white text-xl mb-8 animate-slide-up">Erleben Sie unvergessliche Abenteuer - von Schnorcheln im Roten Meer bis zu Wüsten-Safaris</p>
+            <h1 class="text-white font-heading font-bold mb-6 animate-fade-in">{% if page_hero %}{{ page_hero.title }}{% else %}Ägypten Aktivitäten & Sehenswürdigkeiten{% endif %}</h1>
+            <p class="text-white text-xl mb-8 animate-slide-up">{% if page_hero %}{{ page_hero.subtitle }}{% else %}Erleben Sie unvergessliche Abenteuer - von Schnorcheln im Roten Meer bis zu Wüsten-Safaris{% endif %}</p>
+            {% if page_hero and page_hero.badges.exists %}
+            <div class="flex flex-wrap gap-4 animate-slide-up">
+              {% for badge in page_hero.badges.all %}
+                <span class="bg-white/20 backdrop-blur-sm px-6 py-3 rounded-full text-white">
+                  {% if badge.icon %}{{ badge.icon }}{% endif %} {{ badge.text }}
+                </span>
+              {% endfor %}
+            </div>
+            {% else %}
+            <!-- Fallback badges -->
             <div class="flex flex-wrap gap-4 animate-slide-up">
               {% for category in featured_categories %}
                 <span class="bg-white/20 backdrop-blur-sm px-6 py-3 rounded-full text-white">
@@ -28,6 +38,7 @@
                 </span>
               {% endfor %}
             </div>
+            {% endif %}
           </div>
         </div>
       </div>
@@ -50,7 +61,7 @@
               <div class="absolute bottom-0 left-0 right-0 p-8 text-white">
                 <div class="text-5xl mb-4">{% if category.icon %}{{ category.icon }}{% else %}✨{% endif %}</div>
                 <h3 class="text-3xl font-heading font-bold mb-3">{{ category.name }}</h3>
-                <p class="text-gray-200 mb-4">{{ category.description|truncatewords:15 }}</p>
+                <p class="text-gray-200 mb-4">{{ category.description|striptags|truncatewords:15 }}</p>
                 <div class="flex items-center gap-2 text-primary-gold font-bold">
                   <span>Mehr erfahren</span>
                   <svg class="w-5 h-5 transform group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -123,10 +134,16 @@
               
               <p class="text-gray-600 text-sm mb-4">{{ activity.short_description|truncatewords:15 }}</p>
               
+              {% if activity.average_rating and activity.total_reviews > 0 %}
               <div class="flex items-center gap-2 mb-4">
-                <div class="rating-stars text-sm">★★★★★</div>
-                <span class="text-sm text-gray-600">(Bewertungen)</span>
+                <div class="rating-stars text-sm">
+                  {% for i in "12345" %}
+                    {% if forloop.counter <= activity.average_rating|floatformat:0|add:"0" %}★{% else %}☆{% endif %}
+                  {% endfor %}
+                </div>
+                <span class="text-sm text-gray-600">({{ activity.total_reviews }} Bewertungen)</span>
               </div>
+              {% endif %}
               
               <div class="flex items-center justify-between text-sm text-gray-600 mb-4">
                 <div class="flex items-center gap-2">

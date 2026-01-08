@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}
+<title>Anmelden | AusflugÄgypten</title>
+{% endblock title %}
+
+{% block content %}
+<main>
+  <!-- Hero Section -->
+  <section class="relative h-[300px] bg-cover bg-center" style="background-image: linear-gradient(rgba(36, 93, 129, 0.85), rgba(200, 166, 110, 0.75)), url('/static/img/hero/login-bg.jpg');">
+    <div class="relative z-10 h-full flex items-center">
+      <div class="container mx-auto px-4">
+        <div class="max-w-3xl">
+          <div class="breadcrumb mb-6 text-white">
+            <a href="{% url 'core:home' %}" class="hover:text-primary-gold">Home</a>
+            <span class="breadcrumb-separator">/</span>
+            <span>Anmelden</span>
+          </div>
+          <h1 class="text-white font-heading font-bold mb-4 text-4xl md:text-5xl">Anmelden</h1>
+          <p class="text-white text-xl">Willkommen zurück! Melden Sie sich an, um Ihre Buchungen zu verwalten.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Login Form Section -->
+  <section class="py-16 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="max-w-md mx-auto">
+        <!-- Login Card -->
+        <div class="card p-8">
+          <h2 class="text-2xl font-heading font-bold text-primary-blue mb-6 text-center">Bei Ihrem Konto anmelden</h2>
+          
+          <!-- Messages -->
+          {% if messages %}
+            {% for message in messages %}
+              <div class="mb-4 p-4 rounded-lg {% if message.tags == 'error' %}bg-red-50 text-red-700{% else %}bg-green-50 text-green-700{% endif %}">
+                {{ message }}
+              </div>
+            {% endfor %}
+          {% endif %}
+          
+          <form method="post" action="{% url 'users:login' %}">
+            {% csrf_token %}
+            
+            <div class="mb-4">
+              <label class="input-label">Benutzername oder E-Mail</label>
+              {{ form.username }}
+              {% if form.username.errors %}
+                <p class="text-red-600 text-sm mt-1">{{ form.username.errors|striptags }}</p>
+              {% endif %}
+            </div>
+            
+            <div class="mb-6">
+              <label class="input-label">Passwort</label>
+              {{ form.password }}
+              {% if form.password.errors %}
+                <p class="text-red-600 text-sm mt-1">{{ form.password.errors|striptags }}</p>
+              {% endif %}
+            </div>
+            
+            <div class="flex items-center justify-between mb-6">
+              <label class="flex items-center">
+                <input type="checkbox" name="remember" class="form-checkbox text-primary-gold">
+                <span class="ml-2 text-gray-700">Angemeldet bleiben</span>
+              </label>
+              <a href="#" class="text-primary-gold hover:underline text-sm">Passwort vergessen?</a>
+            </div>
+            
+            <button type="submit" class="btn-primary w-full mb-4">
+              Anmelden
+            </button>
+            
+            <p class="text-center text-gray-600">
+              Noch kein Konto? 
+              <a href="{% url 'users:signup' %}" class="text-primary-gold hover:underline font-semibold">Jetzt registrieren</a>
+            </p>
+          </form>
+        </div>
+        
+        <!-- Benefits -->
+        <div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div class="text-center p-4">
+            <div class="w-12 h-12 bg-primary-blue/10 rounded-full flex items-center justify-center mx-auto mb-3">
+              <svg class="w-6 h-6 text-primary-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+              </svg>
+            </div>
+            <h3 class="font-semibold text-sm mb-1">Buchungen verwalten</h3>
+            <p class="text-xs text-gray-600">Alle Ihre Buchungen an einem Ort</p>
+          </div>
+          
+          <div class="text-center p-4">
+            <div class="w-12 h-12 bg-primary-gold/10 rounded-full flex items-center justify-center mx-auto mb-3">
+              <svg class="w-6 h-6 text-primary-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+              </svg>
+            </div>
+            <h3 class="font-semibold text-sm mb-1">Schneller buchen</h3>
+            <p class="text-xs text-gray-600">Gespeicherte Informationen</p>
+          </div>
+          
+          <div class="text-center p-4">
+            <div class="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-3">
+              <svg class="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+              </svg>
+            </div>
+            <h3 class="font-semibold text-sm mb-1">Exklusive Angebote</h3>
+            <p class="text-xs text-gray-600">Sonderpreise für Mitglieder</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+{% endblock content %}
+

@@ -1,10 +1,11 @@
+{% load static %}
   <!-- HEADER -->
   <header class="header-sticky" id="mainHeader">
     <div class="container mx-auto px-4">
       <div class="flex items-center justify-between py-4">
         <div class="flex items-center">
           <a href="{% url 'core:home' %}" class="flex items-center header-logo">
-            <img src="{% if site_settings.logo %}{{ site_settings.logo.url }}{% else %}/static/img/logo/logo.png{% endif %}" alt="{{ site_settings.logo_alt }}" class="h-16 w-auto transition-transform duration-300">
+            <img src="{% if site_settings.logo %}{{ site_settings.logo.url }}{% else %}{% static 'img/logo/logo.png' %}{% endif %}" alt="{{ site_settings.logo_alt }}" class="h-16 w-auto transition-transform duration-300">
           </a>
         </div>
 
@@ -17,9 +18,11 @@
               </svg>
             </a>
             <div class="dropdown-menu">
-              <a href="{% url 'activities:list' %}?category=snorkeling" class="dropdown-item">Schnorchel Ausflüge und Boottouren</a>
-              <a href="{% url 'activities:list' %}?category=cultural" class="dropdown-item">Ägypten Kulturelle Ausflüge</a>
-              <a href="{% url 'activities:list' %}?category=safari" class="dropdown-item">Wüsten Safari Ausflüge</a>
+              {% for category in header_activity_categories %}
+              <a href="{% url 'activities:list' %}?category={{ category.slug }}" class="dropdown-item">{{ category.name }}</a>
+              {% empty %}
+              <a href="{% url 'activities:list' %}" class="dropdown-item">Alle Aktivitäten</a>
+              {% endfor %}
             </div>
           </div>
 
@@ -31,12 +34,15 @@
               </svg>
             </a>
             <div class="dropdown-menu">
-              <a href="{% url 'excursions:list' %}?location=hurghada" class="dropdown-item">Hurghada Ausflüge</a>
-              <a href="{% url 'excursions:list' %}?location=el-gouna" class="dropdown-item">El Gouna Ausflüge</a>
-              <a href="{% url 'excursions:list' %}?location=marsa-alam" class="dropdown-item">Marsa Alam Ausflüge</a>
+              {% for location in header_locations %}
+              <a href="{% url 'excursions:list' %}?location={{ location.slug }}" class="dropdown-item">{{ location.name }} Ausflüge</a>
+              {% empty %}
+              <a href="{% url 'excursions:list' %}" class="dropdown-item">Alle Ausflüge</a>
+              {% endfor %}
             </div>
           </div>
 
+          <a href="{% url 'tours:list' %}" class="nav-link">Touren</a>
           <a href="{% url 'blog:list' %}" class="nav-link">Blog</a>
           <a href="{% url 'transfers:list' %}" class="nav-link">Transfer</a>
           <a href="{% url 'gallery:list' %}" class="nav-link">Galerie</a>
@@ -49,6 +55,60 @@
             <span class="lang-separator"></span>
             <button class="lang-btn" data-lang="en">EN</button>
           </div>
+
+          <!-- Desktop User Menu / Login Buttons -->
+          {% if user.is_authenticated %}
+            <div class="relative group hidden lg:block">
+              <button class="flex items-center gap-2 nav-link hover:text-primary-blue">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                </svg> 
+                {{ user.first_name|default:user.username }}
+                <svg class="w-4 h-4 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                </svg>
+              </button>
+              <div class="dropdown-menu">
+                <a href="{% url 'users:dashboard' %}" class="dropdown-item">
+                  <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                  </svg>
+                  Dashboard
+                </a>
+                <a href="{% url 'users:profile' %}" class="dropdown-item">
+                  <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                  </svg>
+                  Profil
+                </a>
+                <a href="{% url 'users:booking_history' %}" class="dropdown-item">
+                  <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+                  </svg>
+                  Buchungen
+                </a>
+                <hr class="my-2">
+                <a href="{% url 'users:logout' %}" class="dropdown-item text-red-600 hover:bg-red-50">
+                  <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
+                  </svg>
+                  Abmelden
+                </a>
+              </div>
+            </div>
+          {% else %}
+            <div class="hidden lg:flex items-center gap-3">
+              <a href="{% url 'users:login' %}" class="nav-link hover:text-primary-blue flex items-center gap-2">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"/>
+                </svg>
+                Anmelden
+              </a>
+              <a href="{% url 'users:signup' %}" class="btn-primary px-6 py-2">
+                Registrieren
+              </a>
+            </div>
+          {% endif %}
 
           <button class="lg:hidden p-2" id="mobileMenuBtn">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -65,7 +125,7 @@
   <div class="mobile-menu" id="mobileMenu">
     <div class="p-6">
       <div class="flex justify-between items-center mb-6">
-        <img src="{% if site_settings.logo %}{{ site_settings.logo.url }}{% else %}/static/img/logo/logo.png{% endif %}" alt="{{ site_settings.logo_alt }}" class="h-12">
+        <img src="{% if site_settings.logo %}{{ site_settings.logo.url }}{% else %}{% static 'img/logo/logo.png' %}{% endif %}" alt="{{ site_settings.logo_alt }}" class="h-12">
         <button id="closeMobileMenu" class="p-2">
           <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
@@ -74,6 +134,46 @@
       </div>
 
       <nav class="space-y-2">
+        <!-- User Menu for Mobile -->
+        {% if user.is_authenticated %}
+        <div class="mobile-menu-item bg-primary-blue/10 rounded-lg p-3 mb-4">
+          <div class="flex items-center gap-3 mb-3">
+            <div class="w-10 h-10 bg-primary-blue rounded-full flex items-center justify-center">
+              <span class="text-white font-bold">{{ user.first_name.0|default:user.username.0|upper }}</span>
+            </div>
+            <div>
+              <p class="font-semibold text-gray-800">{{ user.first_name|default:user.username }}</p>
+              <p class="text-xs text-gray-600">{{ user.email }}</p>
+            </div>
+          </div>
+          <div class="space-y-1">
+            <a href="{% url 'users:dashboard' %}" class="block px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded">
+              📊 Dashboard
+            </a>
+            <a href="{% url 'users:profile' %}" class="block px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded">
+              👤 Profil
+            </a>
+            <a href="{% url 'users:booking_history' %}" class="block px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded">
+              📋 Buchungen
+            </a>
+            <a href="{% url 'users:logout' %}" class="block px-3 py-2 text-sm text-red-600 hover:bg-red-50 rounded">
+              🚪 Abmelden
+            </a>
+          </div>
+        </div>
+        {% else %}
+        <div class="mobile-menu-item mb-4">
+          <div class="flex gap-2">
+            <a href="{% url 'users:login' %}" class="flex-1 btn-secondary text-center py-2 text-sm">
+              Anmelden
+            </a>
+            <a href="{% url 'users:signup' %}" class="flex-1 btn-primary text-center py-2 text-sm">
+              Registrieren
+            </a>
+          </div>
+        </div>
+        {% endif %}
+
         <div class="mobile-menu-item">
           <button class="mobile-dropdown-btn">
             Ägypten Aktivitäten
@@ -82,9 +182,11 @@
             </svg>
           </button>
           <div class="mobile-dropdown-content hidden">
-            <a href="{% url 'activities:list' %}?category=snorkeling">Schnorchel Ausflüge</a>
-            <a href="{% url 'activities:list' %}?category=cultural">Kulturelle Touren</a>
-            <a href="{% url 'activities:list' %}?category=safari">Wüsten Safari</a>
+            {% for category in header_activity_categories %}
+            <a href="{% url 'activities:list' %}?category={{ category.slug }}">{{ category.name }}</a>
+            {% empty %}
+            <a href="{% url 'activities:list' %}">Alle Aktivitäten</a>
+            {% endfor %}
           </div>
         </div>
 
@@ -96,12 +198,17 @@
             </svg>
           </button>
           <div class="mobile-dropdown-content hidden">
-            <a href="{% url 'excursions:list' %}?location=hurghada">Hurghada</a>
-            <a href="{% url 'excursions:list' %}?location=el-gouna">El Gouna</a>
-            <a href="{% url 'excursions:list' %}?location=marsa-alam">Marsa Alam</a>
+            {% for location in header_locations %}
+            <a href="{% url 'excursions:list' %}?location={{ location.slug }}">{{ location.name }}</a>
+            {% empty %}
+            <a href="{% url 'excursions:list' %}">Alle Ausflüge</a>
+            {% endfor %}
           </div>
         </div>
 
+        <div class="mobile-menu-item">
+          <a href="{% url 'tours:list' %}">Touren</a>
+        </div>
         <div class="mobile-menu-item">
           <a href="{% url 'blog:list' %}">Blog</a>
         </div>

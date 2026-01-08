@@ -3,46 +3,57 @@ Admin configuration for Gallery app
 """
 
 from django.contrib import admin
+from django.utils.translation import gettext_lazy as _
 from .models import GalleryCategory, GalleryImage
 
 
 @admin.register(GalleryCategory)
 class GalleryCategoryAdmin(admin.ModelAdmin):
-    list_display = ['name', 'name_en', 'slug', 'icon', 'is_active', 'order']
+    """📂 Gallery Categories - Albums/collections"""
+    
+    list_display = ['name', 'icon', 'is_active', 'order']
     list_editable = ['is_active', 'order']
     list_filter = ['is_active']
     search_fields = ['name', 'name_en']
     prepopulated_fields = {'slug': ('name',)}
+    
+    fieldsets = (
+        ('Category Details', {
+            'fields': ('name', 'name_en', 'slug', 'description', 'icon', 'is_active', 'order'),
+            'description': 'Create photo albums/collections'
+        }),
+    )
 
 
 @admin.register(GalleryImage)
 class GalleryImageAdmin(admin.ModelAdmin):
-    list_display = ['title', 'category', 'location', 'is_featured', 'is_active', 'order', 'created_at']
+    """📸 Gallery Photos - Manage your photo gallery"""
+    
+    list_display = ['title', 'category', 'location', 'is_featured', 'is_active', 'order']
     list_filter = ['is_active', 'is_featured', 'category', 'location', 'created_at']
     list_editable = ['is_featured', 'is_active', 'order']
-    search_fields = ['title', 'title_en', 'description', 'description_en']
+    search_fields = ['title', 'description']
     date_hierarchy = 'created_at'
     
     fieldsets = (
-        ('Grundinformationen', {
-            'fields': ('title', 'title_en', 'category', 'location')
+        ('📸 Photo Information', {
+            'fields': ('title', 'category', 'location', 'image', 'alt_text'),
+            'description': 'Upload photo and add details'
         }),
-        ('Bild', {
-            'fields': ('image', 'thumbnail', 'alt_text')
+        ('📄 Description', {
+            'fields': ('description',),
+            'description': 'Describe the photo (optional)'
         }),
-        ('Beschreibung', {
-            'fields': ('description', 'description_en')
-        }),
-        ('Metadaten', {
+        ('📋 Photo Details (Optional)', {
             'fields': ('photographer', 'taken_at'),
-            'classes': ('collapse',)
+            'classes': ('collapse',),
+            'description': 'Who took the photo and when'
         }),
-        ('Status', {
-            'fields': ('is_featured', 'is_active', 'order')
+        ('✨ Display Options', {
+            'fields': ('is_featured', 'is_active', 'order'),
+            'description': 'Featured=Show prominently | Active=Visible | Order=Display sequence'
         }),
     )
     
     def get_queryset(self, request):
-        qs = super().get_queryset(request)
-        return qs.select_related('category', 'location')
-
+        return super().get_queryset(request).select_related('category', 'location')
