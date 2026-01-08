@@ -274,6 +274,7 @@
               <!-- Review Form -->
               <div class="bg-gray-50 rounded-xl p-6 border-2 border-primary-gold">
                 <h3 class="text-xl font-heading font-bold text-primary-blue mb-4">Ihre Bewertung schreiben</h3>
+                {% if user.is_authenticated %}
                 <form id="reviewForm" method="post" action="{% url 'reviews:submit' %}">
                   {% csrf_token %}
                   {% load reviews_tags %}
@@ -295,12 +296,12 @@
 
                   <div class="mb-4">
                     <label class="input-label">Ihr Name</label>
-                    <input type="text" name="name" required class="input-field" placeholder="Ihr Name">
+                    <input type="text" name="name" required class="input-field" placeholder="Ihr Name" value="{{ user.get_full_name|default:user.username }}">
                   </div>
 
                   <div class="mb-4">
                     <label class="input-label">E-Mail</label>
-                    <input type="email" name="email" required class="input-field" placeholder="ihre@email.com">
+                    <input type="email" name="email" required class="input-field" placeholder="ihre@email.com" value="{{ user.email }}">
                   </div>
 
                   <div class="mb-4">
@@ -320,6 +321,25 @@
                     Ihre Bewertung wird nach Überprüfung veröffentlicht.
                   </p>
                 </form>
+                {% else %}
+                <div class="bg-white rounded-lg p-6 border-2 border-primary-blue/20">
+                  <div class="text-center">
+                    <svg class="w-12 h-12 text-primary-blue mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/>
+                    </svg>
+                    <h4 class="font-bold text-lg text-gray-800 mb-2">Melden Sie sich an, um eine Bewertung zu schreiben</h4>
+                    <p class="text-sm text-gray-600 mb-4">Teilen Sie Ihre Erfahrung mit anderen Reisenden!</p>
+                    <div class="flex flex-col sm:flex-row gap-2 justify-center">
+                      <a href="{% url 'users:login' %}?next={{ request.path }}" class="btn-primary px-6 py-2 text-sm">
+                        Anmelden
+                      </a>
+                      <a href="{% url 'users:signup' %}?next={{ request.path }}" class="btn-secondary px-6 py-2 text-sm">
+                        Registrieren
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                {% endif %}
               </div>
             </div>
 
@@ -400,6 +420,7 @@
                   {% endif %}
                 </div>
 
+                {% if user.is_authenticated %}
                 <form id="bookingForm" class="space-y-4" action="{% url 'bookings:inquiry' %}" method="post">
                   {% csrf_token %}
                   <input type="hidden" name="tour_id" value="{{ tour.id }}">
@@ -437,17 +458,17 @@
 
                   <div>
                     <label class="input-label">Name</label>
-                    <input type="text" name="name" required class="input-field" placeholder="Ihr Name">
+                    <input type="text" name="name" required class="input-field" placeholder="Ihr Name" value="{{ user.get_full_name|default:user.username }}">
                   </div>
 
                   <div>
                     <label class="input-label">E-Mail</label>
-                    <input type="email" name="email" required class="input-field" placeholder="ihre@email.com">
+                    <input type="email" name="email" required class="input-field" placeholder="ihre@email.com" value="{{ user.email }}">
                   </div>
 
                   <div>
                     <label class="input-label">Telefon</label>
-                    <input type="tel" name="phone" required class="input-field" placeholder="+49 ">
+                    <input type="tel" name="phone" required class="input-field" placeholder="+49 " value="{{ user.profile.phone_number }}">
                   </div>
 
                   <div>
@@ -459,6 +480,69 @@
                     Buchungsanfrage Senden
                   </button>
                 </form>
+                {% else %}
+                <div class="space-y-4">
+                  <div class="bg-gradient-to-br from-primary-blue/10 to-primary-gold/10 rounded-xl p-6 border-2 border-primary-gold/30">
+                    <div class="flex items-start gap-4 mb-4">
+                      <div class="w-12 h-12 bg-primary-gold rounded-full flex items-center justify-center flex-shrink-0">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+                        </svg>
+                      </div>
+                      <div class="flex-1">
+                        <h3 class="font-bold text-lg text-gray-800 mb-2">Anmeldung erforderlich</h3>
+                        <p class="text-gray-700 text-sm mb-4">
+                          Um eine Buchung vorzunehmen, müssen Sie sich anmelden. Erstellen Sie ein kostenloses Konto, um Ihre Buchungen zu verwalten und exklusive Angebote zu erhalten.
+                        </p>
+                        <div class="flex flex-col sm:flex-row gap-3">
+                          <a href="{% url 'users:login' %}?next={{ request.path }}" class="btn-primary text-center flex items-center justify-center gap-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"/>
+                            </svg>
+                            Jetzt anmelden
+                          </a>
+                          <a href="{% url 'users:signup' %}?next={{ request.path }}" class="btn-secondary text-center flex items-center justify-center gap-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/>
+                            </svg>
+                            Konto erstellen
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div class="bg-white/80 rounded-lg p-4 mt-4">
+                      <h4 class="font-semibold text-sm text-gray-800 mb-2">Vorteile eines Kontos:</h4>
+                      <ul class="space-y-1 text-xs text-gray-700">
+                        <li class="flex items-center gap-2">
+                          <svg class="w-4 h-4 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                          </svg>
+                          Buchungen einfach verwalten
+                        </li>
+                        <li class="flex items-center gap-2">
+                          <svg class="w-4 h-4 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                          </svg>
+                          Schnellere Buchungen mit gespeicherten Daten
+                        </li>
+                        <li class="flex items-center gap-2">
+                          <svg class="w-4 h-4 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                          </svg>
+                          Exklusive Mitgliederangebote
+                        </li>
+                        <li class="flex items-center gap-2">
+                          <svg class="w-4 h-4 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                          </svg>
+                          Bewertungen schreiben und teilen
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                {% endif %}
 
                 <div class="mt-6 pt-6 border-t border-gray-200">
                   <div class="flex items-center gap-3 text-sm text-gray-600 mb-3">

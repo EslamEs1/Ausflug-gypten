@@ -7,8 +7,16 @@
 
 {% block content %}
   <main>
-    <!-- Hero Section -->
-    <section class="relative bg-cover bg-center" style="height: {% if page_hero %}{{ page_hero.height }}{% else %}450px{% endif %}; background-image: linear-gradient(rgba(36, 93, 129, {% if page_hero %}{{ page_hero.overlay_opacity }}{% else %}0.8{% endif %}), rgba(200, 166, 110, 0.6)), url('{% if page_hero and page_hero.background_image %}{{ page_hero.background_image.url }}{% elif featured_images.first.image %}{{ featured_images.first.image.url }}{% else %}/static/img/hero/hurghada.jpg{% endif %}');">
+    <!-- Hero Section with Ripple Effect -->
+    <section class="relative bg-cover bg-center overflow-hidden" style="height: {% if page_hero %}{{ page_hero.height }}{% else %}450px{% endif %}; background-image: linear-gradient(rgba(36, 93, 129, {% if page_hero %}{{ page_hero.overlay_opacity }}{% else %}0.8{% endif %}), rgba(200, 166, 110, 0.6)), url('{% if page_hero and page_hero.background_image %}{{ page_hero.background_image.url }}{% elif featured_images.first.image %}{{ featured_images.first.image.url }}{% else %}/static/img/hero/hurghada.jpg{% endif %}');">
+      
+      <!-- Animated Ripple Circles -->
+      <div class="absolute inset-0 overflow-hidden">
+        <div class="ripple-circle absolute w-96 h-96 bg-white/5 rounded-full -top-20 -left-20 animate-ripple-1"></div>
+        <div class="ripple-circle absolute w-80 h-80 bg-white/5 rounded-full top-40 -right-20 animate-ripple-2"></div>
+        <div class="ripple-circle absolute w-64 h-64 bg-primary-gold/10 rounded-full bottom-20 left-1/4 animate-ripple-3"></div>
+      </div>
+      
       <div class="relative z-10 h-full flex items-center">
         <div class="container mx-auto px-4">
           <div class="max-w-3xl">
