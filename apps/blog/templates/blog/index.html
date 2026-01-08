@@ -21,12 +21,12 @@
         <div class="container mx-auto px-4">
           <div class="max-w-3xl">
             <div class="breadcrumb mb-6 text-white">
-              <a href="{% url 'core:home' %}" class="hover:text-primary-gold">Home</a>
+              <a href="{% url 'core:home' %}" class="hover:text-primary-gold">{% trans "Home" %}</a>
               <span class="breadcrumb-separator">/</span>
-              <span>{% if page_hero and page_hero.breadcrumb_text %}{{ page_hero.breadcrumb_text }}{% else %}Blog{% endif %}</span>
+              <span>{% if page_hero and page_hero.breadcrumb_text %}{{ page_hero.breadcrumb_text }}{% else %}{% trans "Blog" %}{% endif %}</span>
             </div>
-            <h1 class="text-white font-heading font-bold mb-6 animate-fade-in text-4xl md:text-5xl">{% if page_hero %}{{ page_hero.title }}{% else %}Ägypten & Hurghada Reiseblog{% endif %}</h1>
-            <p class="text-white text-xl mb-8 animate-slide-up">{% if page_hero %}{{ page_hero.subtitle }}{% else %}Tipps, Infos und Inspiration für Ihre Ägypten-Reise{% endif %}</p>
+            <h1 class="text-white font-heading font-bold mb-6 animate-fade-in text-4xl md:text-5xl">{% if page_hero %}{{ page_hero.title }}{% else %}{% trans "Ägypten & Hurghada Reiseblog" %}{% endif %}</h1>
+            <p class="text-white text-xl mb-8 animate-slide-up">{% if page_hero %}{{ page_hero.subtitle }}{% else %}{% trans "Tipps, Infos und Inspiration für Ihre Ägypten-Reise" %}{% endif %}</p>
           </div>
         </div>
       </div>
@@ -37,7 +37,7 @@
       <div class="container mx-auto px-4">
         <div class="flex flex-wrap gap-4 justify-center">
           <a href="{% url 'blog:list' %}" class="filter-btn {% if not current_category %}active{% endif %}">
-            Alle Artikel
+            {% trans "Alle Artikel" %}
           </a>
           {% for category in categories %}
           <a href="?category={{ category.slug }}" class="filter-btn {% if current_category == category.slug %}active{% endif %}">
@@ -53,7 +53,7 @@
     <section class="py-16 bg-white">
       <div class="container mx-auto px-4">
         <div class="mb-8">
-          <h2 class="text-2xl font-heading font-bold text-primary-blue mb-2">Empfohlener Artikel</h2>
+          <h2 class="text-2xl font-heading font-bold text-primary-blue mb-2">{% trans "Empfohlener Artikel" %}</h2>
           <div class="w-20 h-1 bg-primary-gold"></div>
         </div>
 
@@ -84,7 +84,7 @@
                   <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
                   </svg>
-                  {{ featured_post.reading_time }} Min. Lesezeit
+                  {{ featured_post.reading_time }} {% trans "Min. Lesezeit" %}
                 </span>
               </div>
             </div>
@@ -96,7 +96,7 @@
                 {{ featured_post.excerpt|default:featured_post.content|striptags|truncatewords:50 }}
               </p>
               <a href="{{ featured_post.get_absolute_url }}" class="btn-primary inline-flex items-center gap-2">
-                Weiterlesen
+                {% trans "Weiterlesen" %}
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
                 </svg>
@@ -112,7 +112,7 @@
     <section class="py-16 bg-gray-50">
       <div class="container mx-auto px-4">
         <div class="mb-8">
-          <h2 class="text-2xl font-heading font-bold text-primary-blue mb-2">Neueste Artikel</h2>
+          <h2 class="text-2xl font-heading font-bold text-primary-blue mb-2">{% trans "Neueste Artikel" %}</h2>
           <div class="w-20 h-1 bg-primary-gold"></div>
         </div>
 
@@ -143,7 +143,7 @@
                   <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
                   </svg>
-                  {{ post.reading_time }} Min.
+                  {{ post.reading_time }} {% trans "Min." %}
                 </span>
               </div>
               
@@ -154,7 +154,7 @@
               <p class="text-gray-600 text-sm mb-4">{{ post.excerpt|default:post.content|truncatewords:20|striptags }}</p>
               
               <a href="{{ post.get_absolute_url }}" class="text-primary-gold font-medium inline-flex items-center gap-2 hover:gap-3 transition-all">
-                Weiterlesen
+                {% trans "Weiterlesen" %}
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
                 </svg>
@@ -195,8 +195,8 @@
 
         {% else %}
         <div class="text-center py-12">
-          <p class="text-gray-600 text-lg mb-4">Keine Artikel gefunden.</p>
-          <a href="{% url 'blog:list' %}" class="btn-primary">Alle Artikel anzeigen</a>
+          <p class="text-gray-600 text-lg mb-4">{% trans "Keine Artikel gefunden." %}</p>
+          <a href="{% url 'blog:list' %}" class="btn-primary">{% trans "Alle Artikel anzeigen" %}</a>
         </div>
         {% endif %}
       </div>
@@ -205,13 +205,13 @@
     <!-- Newsletter Section -->
     <section class="py-16 bg-gradient-to-r from-primary-blue to-primary-gold text-white">
       <div class="container mx-auto px-4 text-center">
-        <h2 class="text-3xl font-heading font-bold mb-4">Bleiben Sie auf dem Laufenden</h2>
-        <p class="text-xl mb-8 max-w-2xl mx-auto">Abonnieren Sie unseren Newsletter für die neuesten Reisetipps und exklusive Angebote</p>
+        <h2 class="text-3xl font-heading font-bold mb-4">{% trans "Bleiben Sie auf dem Laufenden" %}</h2>
+        <p class="text-xl mb-8 max-w-2xl mx-auto">{% trans "Abonnieren Sie unseren Newsletter für die neuesten Reisetipps und exklusive Angebote" %}</p>
         <form class="max-w-md mx-auto flex gap-4" method="post" action="{% url 'core:newsletter' %}">
           {% csrf_token %}
-          <input type="email" name="email" placeholder="Ihre E-Mail-Adresse" class="flex-1 px-6 py-3 rounded-lg text-gray-800" required>
+          <input type="email" name="email" placeholder="{% trans 'Ihre E-Mail-Adresse' %}" class="flex-1 px-6 py-3 rounded-lg text-gray-800" required>
           <button type="submit" class="btn-secondary bg-white text-primary-blue hover:bg-gray-100 px-8">
-            Abonnieren
+            {% trans "Abonnieren" %}
           </button>
         </form>
       </div>

@@ -11,14 +11,14 @@
       <div class="container mx-auto px-4">
         <div class="max-w-6xl mx-auto">
           <div class="text-center mb-12">
-            <h1 class="font-heading font-bold text-primary-blue mb-4 text-3xl md:text-4xl">Kontaktieren Sie uns</h1>
-            <p class="text-xl text-gray-600">Wir freuen uns, von Ihnen zu hören!</p>
+            <h1 class="font-heading font-bold text-primary-blue mb-4 text-3xl md:text-4xl">{% trans "Kontaktieren Sie uns" %}</h1>
+            <p class="text-xl text-gray-600">{% trans "Wir freuen uns, von Ihnen zu hören!" %}</p>
           </div>
 
           <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
             <!-- Contact Form -->
             <div class="bg-white rounded-xl shadow-lg p-8">
-              <h2 class="text-2xl font-heading font-bold text-primary-blue mb-6">Nachricht senden</h2>
+              <h2 class="text-2xl font-heading font-bold text-primary-blue mb-6">{% trans "Nachricht senden" %}</h2>
               
               <form method="post" class="space-y-6">
                 {% csrf_token %}
@@ -64,7 +64,7 @@
                 </div>
 
                 <button type="submit" class="btn-primary w-full">
-                  Nachricht senden
+                  {% trans "Nachricht senden" %}
                 </button>
               </form>
             </div>
@@ -72,7 +72,7 @@
             <!-- Contact Info -->
             <div>
               <div class="bg-white rounded-xl shadow-lg p-8 mb-6">
-                <h2 class="text-2xl font-heading font-bold text-primary-blue mb-6">Kontaktinformationen</h2>
+                <h2 class="text-2xl font-heading font-bold text-primary-blue mb-6">{% trans "Kontaktinformationen" %}</h2>
                 
                 <div class="space-y-6">
                   <div class="flex items-start gap-4">
@@ -83,7 +83,7 @@
                       </svg>
                     </div>
                     <div>
-                      <h3 class="font-bold mb-1">Adresse</h3>
+                      <h3 class="font-bold mb-1">{% trans "Adresse" %}</h3>
                       <p class="text-gray-600">{{ site_settings.address }}</p>
                     </div>
                   </div>
@@ -95,7 +95,7 @@
                       </svg>
                     </div>
                     <div>
-                      <h3 class="font-bold mb-1">Telefon</h3>
+                      <h3 class="font-bold mb-1">{% trans "Telefon" %}</h3>
                       <a href="tel:{{ site_settings.phone }}" class="text-primary-gold hover:underline">{{ site_settings.phone }}</a>
                     </div>
                   </div>
@@ -107,7 +107,7 @@
                       </svg>
                     </div>
                     <div>
-                      <h3 class="font-bold mb-1">E-Mail</h3>
+                      <h3 class="font-bold mb-1">{% trans "E-Mail" %}</h3>
                       <a href="mailto:{{ site_settings.email }}" class="text-primary-gold hover:underline">{{ site_settings.email }}</a>
                     </div>
                   </div>
@@ -119,26 +119,26 @@
                       </svg>
                     </div>
                     <div>
-                      <h3 class="font-bold mb-1">WhatsApp</h3>
-                      <a href="https://wa.me/{{ site_settings.whatsapp }}" target="_blank" rel="noopener noreferrer" class="text-primary-gold hover:underline">Chat starten</a>
+                      <h3 class="font-bold mb-1">{% trans "WhatsApp" %}</h3>
+                      <a href="https://wa.me/{{ site_settings.whatsapp }}" target="_blank" rel="noopener noreferrer" class="text-primary-gold hover:underline">{% trans "Chat starten" %}</a>
                     </div>
                   </div>
                 </div>
               </div>
 
               <div class="bg-primary-blue text-white rounded-xl shadow-lg p-8">
-                <h3 class="text-xl font-heading font-bold mb-4">Öffnungszeiten</h3>
+                <h3 class="text-xl font-heading font-bold mb-4">{% trans "Öffnungszeiten" %}</h3>
                 <div class="space-y-3">
                   <div class="flex justify-between">
-                    <span>Montag - Freitag:</span>
+                    <span>{% trans "Montag - Freitag:" %}</span>
                     <span class="font-bold">{{ site_settings.opening_hours_monday_friday }}</span>
                   </div>
                   <div class="flex justify-between">
-                    <span>Samstag:</span>
+                    <span>{% trans "Samstag:" %}</span>
                     <span class="font-bold">{{ site_settings.opening_hours_saturday }}</span>
                   </div>
                   <div class="flex justify-between">
-                    <span>Sonntag:</span>
+                    <span>{% trans "Sonntag:" %}</span>
                     <span class="font-bold">{{ site_settings.opening_hours_sunday }}</span>
                   </div>
                 </div>

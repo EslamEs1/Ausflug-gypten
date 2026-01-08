@@ -7,14 +7,18 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from django.conf.urls.i18n import i18n_patterns
+from django.views.i18n import set_language
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     # TinyMCE URLs
     path('tinymce/', include('tinymce.urls')),
+    # Language switcher
+    path('i18n/setlang/', set_language, name='set_language'),
 ]
 
 # Internationalized URLs
+# prefix_default_language=False means German (de) URLs won't have /de/ prefix
 urlpatterns += i18n_patterns(
     path('', include('apps.core.urls')),
     path('touren/', include('apps.tours.urls', namespace='tours')),
@@ -26,7 +30,7 @@ urlpatterns += i18n_patterns(
     path('buchungen/', include('apps.bookings.urls', namespace='bookings')),
     path('bewertungen/', include('apps.reviews.urls', namespace='reviews')),
     path('konto/', include('apps.users.urls', namespace='users')),
-    prefix_default_language=True,
+    prefix_default_language=False,  # German (de) is default, no prefix needed
 )
 
 # Serve media files in development

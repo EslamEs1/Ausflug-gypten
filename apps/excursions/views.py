@@ -145,6 +145,10 @@ class ExcursionDetailView(DetailView):
             context['average_rating'] = None
             context['review_count'] = 0
         
+        # Add today's date for form min date
+        from datetime import date
+        context['today'] = date.today()
+        
         return context
 
 

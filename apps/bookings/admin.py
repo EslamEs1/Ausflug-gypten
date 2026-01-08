@@ -11,7 +11,7 @@ from .models import Booking, Payment
 class BookingAdmin(admin.ModelAdmin):
     """📅 Bookings - Manage customer reservations"""
     
-    list_display = ['confirmation_code', 'customer_name', 'get_booking_type', 'booking_date', 'number_of_participants', 'status', 'created_at']
+    list_display = ['confirmation_code', 'customer_name', 'get_booking_type', 'booking_date', 'get_participants_breakdown', 'status', 'created_at']
     list_filter = ['status', 'booking_date', 'created_at']
     search_fields = ['confirmation_code', 'customer_name', 'customer_email', 'customer_phone']
     date_hierarchy = 'booking_date'
@@ -19,7 +19,7 @@ class BookingAdmin(admin.ModelAdmin):
     
     fieldsets = (
         ('📋 Booking Information', {
-            'fields': ('confirmation_code', 'booking_date', 'number_of_participants', 'total_price'),
+            'fields': ('confirmation_code', 'booking_date', 'adults', 'children', 'babies', 'number_of_participants', 'total_price'),
             'description': 'Booking details and confirmation code'
         }),
         ('🎯 What They Booked', {
@@ -54,6 +54,17 @@ class BookingAdmin(admin.ModelAdmin):
             return f"TRANSFER: {obj.transfer.title}"
         return "N/A"
     get_booking_type.short_description = 'Booked Service'
+    
+    def get_participants_breakdown(self, obj):
+        parts = []
+        if obj.adults > 0:
+            parts.append(f"{obj.adults} Adults")
+        if obj.children > 0:
+            parts.append(f"{obj.children} Children")
+        if obj.babies > 0:
+            parts.append(f"{obj.babies} Babies")
+        return " / ".join(parts) if parts else f"{obj.number_of_participants} Total"
+    get_participants_breakdown.short_description = 'Participants'
     
     def has_add_permission(self, request):
         return False

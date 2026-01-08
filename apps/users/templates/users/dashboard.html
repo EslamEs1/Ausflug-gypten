@@ -2,7 +2,7 @@
 {% load i18n %}
 
 {% block title %}
-<title>Mein Dashboard | AusflugÄgypten</title>
+<title>{% trans "Mein Dashboard" %} | AusflugÄgypten</title>
 {% endblock title %}
 
 {% block content %}
@@ -12,8 +12,8 @@
     <div class="relative z-10 h-full flex items-center">
       <div class="container mx-auto px-4">
         <div class="max-w-3xl">
-          <h1 class="text-white font-heading font-bold mb-4 text-4xl md:text-5xl">Willkommen, {{ user.first_name|default:user.username }}!</h1>
-          <p class="text-white text-xl">Verwalten Sie Ihre Buchungen und Profile</p>
+          <h1 class="text-white font-heading font-bold mb-4 text-4xl md:text-5xl">{% blocktrans with name=user.first_name|default:user.username %}Willkommen, {{ name }}!{% endblocktrans %}</h1>
+          <p class="text-white text-xl">{% trans "Verwalten Sie Ihre Buchungen und Profile" %}</p>
         </div>
       </div>
     </div>
@@ -26,7 +26,7 @@
       <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
         <div class="bg-white rounded-xl shadow-md p-6">
           <div class="flex items-center justify-between mb-2">
-            <h3 class="text-gray-600 text-sm font-semibold">Gesamt Buchungen</h3>
+            <h3 class="text-gray-600 text-sm font-semibold">{% trans "Gesamt Buchungen" %}</h3>
             <div class="w-10 h-10 bg-primary-blue/10 rounded-full flex items-center justify-center">
               <svg class="w-5 h-5 text-primary-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
@@ -38,7 +38,7 @@
 
         <div class="bg-white rounded-xl shadow-md p-6">
           <div class="flex items-center justify-between mb-2">
-            <h3 class="text-gray-600 text-sm font-semibold">Ausstehend</h3>
+            <h3 class="text-gray-600 text-sm font-semibold">{% trans "Ausstehend" %}</h3>
             <div class="w-10 h-10 bg-orange-100 rounded-full flex items-center justify-center">
               <svg class="w-5 h-5 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
@@ -50,7 +50,7 @@
 
         <div class="bg-white rounded-xl shadow-md p-6">
           <div class="flex items-center justify-between mb-2">
-            <h3 class="text-gray-600 text-sm font-semibold">Bestätigt</h3>
+            <h3 class="text-gray-600 text-sm font-semibold">{% trans "Bestätigt" %}</h3>
             <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
               <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
@@ -62,7 +62,7 @@
 
         <div class="bg-white rounded-xl shadow-md p-6">
           <div class="flex items-center justify-between mb-2">
-            <h3 class="text-gray-600 text-sm font-semibold">Abgeschlossen</h3>
+            <h3 class="text-gray-600 text-sm font-semibold">{% trans "Abgeschlossen" %}</h3>
             <div class="w-10 h-10 bg-primary-gold/10 rounded-full flex items-center justify-center">
               <svg class="w-5 h-5 text-primary-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
@@ -83,8 +83,8 @@
               </svg>
             </div>
             <div>
-              <h3 class="font-semibold text-gray-800">Profil bearbeiten</h3>
-              <p class="text-sm text-gray-600">Persönliche Daten aktualisieren</p>
+              <h3 class="font-semibold text-gray-800">{% trans "Profil bearbeiten" %}</h3>
+              <p class="text-sm text-gray-600">{% trans "Persönliche Daten aktualisieren" %}</p>
             </div>
           </div>
         </a>
@@ -97,8 +97,8 @@
               </svg>
             </div>
             <div>
-              <h3 class="font-semibold text-gray-800">Buchungsverlauf</h3>
-              <p class="text-sm text-gray-600">Alle Buchungen anzeigen</p>
+              <h3 class="font-semibold text-gray-800">{% trans "Buchungsverlauf" %}</h3>
+              <p class="text-sm text-gray-600">{% trans "Alle Buchungen anzeigen" %}</p>
             </div>
           </div>
         </a>
@@ -111,8 +111,8 @@
               </svg>
             </div>
             <div>
-              <h3 class="font-semibold text-gray-800">Neue Buchung</h3>
-              <p class="text-sm text-gray-600">Touren & Aktivitäten entdecken</p>
+              <h3 class="font-semibold text-gray-800">{% trans "Neue Buchung" %}</h3>
+              <p class="text-sm text-gray-600">{% trans "Touren & Aktivitäten entdecken" %}</p>
             </div>
           </div>
         </a>
@@ -121,8 +121,8 @@
       <!-- Recent Bookings -->
       <div class="bg-white rounded-xl shadow-md p-6">
         <div class="flex items-center justify-between mb-6">
-          <h2 class="text-2xl font-heading font-bold text-primary-blue">Aktuelle Buchungen</h2>
-          <a href="{% url 'users:booking_history' %}" class="text-primary-gold hover:underline text-sm font-semibold">Alle anzeigen →</a>
+          <h2 class="text-2xl font-heading font-bold text-primary-blue">{% trans "Aktuelle Buchungen" %}</h2>
+          <a href="{% url 'users:booking_history' %}" class="text-primary-gold hover:underline text-sm font-semibold">{% trans "Alle anzeigen" %} →</a>
         </div>
 
         {% if bookings %}
@@ -130,12 +130,12 @@
             <table class="w-full">
               <thead>
                 <tr class="border-b border-gray-200">
-                  <th class="text-left py-3 px-4 text-sm font-semibold text-gray-700">Buchungscode</th>
-                  <th class="text-left py-3 px-4 text-sm font-semibold text-gray-700">Tour/Aktivität</th>
-                  <th class="text-left py-3 px-4 text-sm font-semibold text-gray-700">Datum</th>
-                  <th class="text-left py-3 px-4 text-sm font-semibold text-gray-700">Personen</th>
-                  <th class="text-left py-3 px-4 text-sm font-semibold text-gray-700">Preis</th>
-                  <th class="text-left py-3 px-4 text-sm font-semibold text-gray-700">Status</th>
+                  <th class="text-left py-3 px-4 text-sm font-semibold text-gray-700">{% trans "Buchungscode" %}</th>
+                  <th class="text-left py-3 px-4 text-sm font-semibold text-gray-700">{% trans "Tour/Aktivität" %}</th>
+                  <th class="text-left py-3 px-4 text-sm font-semibold text-gray-700">{% trans "Datum" %}</th>
+                  <th class="text-left py-3 px-4 text-sm font-semibold text-gray-700">{% trans "Personen" %}</th>
+                  <th class="text-left py-3 px-4 text-sm font-semibold text-gray-700">{% trans "Preis" %}</th>
+                  <th class="text-left py-3 px-4 text-sm font-semibold text-gray-700">{% trans "Status" %}</th>
                 </tr>
               </thead>
               <tbody>
@@ -153,10 +153,10 @@
                       {% endif %}
                     </div>
                     <div class="text-xs text-gray-500">
-                      {% if booking.tour %}Tour
-                      {% elif booking.excursion %}Ausflug
-                      {% elif booking.activity %}Aktivität
-                      {% elif booking.transfer %}Transfer
+                      {% if booking.tour %}{% trans "Tour" %}
+                      {% elif booking.excursion %}{% trans "Ausflug" %}
+                      {% elif booking.activity %}{% trans "Aktivität" %}
+                      {% elif booking.transfer %}{% trans "Transfer" %}
                       {% endif %}
                     </div>
                   </td>
@@ -183,9 +183,9 @@
             <svg class="w-16 h-16 text-gray-300 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
             </svg>
-            <h3 class="text-lg font-semibold text-gray-700 mb-2">Keine Buchungen vorhanden</h3>
-            <p class="text-gray-600 mb-4">Starten Sie Ihre Reise und buchen Sie Ihr erstes Abenteuer!</p>
-            <a href="{% url 'core:home' %}" class="btn-primary inline-block">Touren entdecken</a>
+            <h3 class="text-lg font-semibold text-gray-700 mb-2">{% trans "Keine Buchungen vorhanden" %}</h3>
+            <p class="text-gray-600 mb-4">{% trans "Starten Sie Ihre Reise und buchen Sie Ihr erstes Abenteuer!" %}</p>
+            <a href="{% url 'core:home' %}" class="btn-primary inline-block">{% trans "Touren entdecken" %}</a>
           </div>
         {% endif %}
       </div>

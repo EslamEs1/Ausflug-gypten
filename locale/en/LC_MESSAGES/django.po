@@ -1,0 +1,2017 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-01-09 01:29+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: apps/activities/templates/activities/detail.html:17
+#: apps/activities/templates/activities/index.html:27
+#: apps/blog/templates/blog/detail.html:14
+#: apps/blog/templates/blog/index.html:24
+#: apps/core/templates/core/about.html:16 apps/core/templates/core/faq.html:84
+#: apps/core/templates/core/index.html:6
+#: apps/excursions/templates/excursions/detail.html:17
+#: apps/excursions/templates/excursions/index.html:25
+#: apps/gallery/templates/gallery/index.html:24
+#: apps/tours/templates/tours/detail.html:18
+#: apps/tours/templates/tours/tour_list.html:16
+#: apps/transfers/templates/transfer/detail.html:17
+#: apps/transfers/templates/transfer/index.html:25
+#: apps/users/templates/users/booking_history.html:16
+#: apps/users/templates/users/profile.html:16
+msgid "Home"
+msgstr "Home"
+
+#: apps/activities/templates/activities/detail.html:19
+#: apps/core/templates/core/index.html:302
+msgid "Aktivitäten"
+msgstr "Activities"
+
+#: apps/activities/templates/activities/detail.html:43
+#: apps/activities/templates/activities/index.html:103
+#: apps/activities/templates/activities/index.html:126
+#: apps/core/templates/core/index.html:130
+#: apps/excursions/templates/excursions/detail.html:45
+#: apps/excursions/templates/excursions/index.html:203
+#: apps/transfers/templates/transfer/detail.html:42
+#: apps/transfers/templates/transfer/index.html:123
+#: apps/transfers/templates/transfer/index.html:154
+msgid "Beliebt"
+msgstr "Popular"
+
+#: apps/activities/templates/activities/detail.html:45
+#: apps/activities/templates/activities/index.html:102
+#: apps/activities/templates/activities/index.html:128
+#: apps/excursions/templates/excursions/detail.html:47
+#: apps/excursions/templates/excursions/index.html:180
+#: apps/excursions/templates/excursions/index.html:205
+#: apps/tours/templates/tours/detail.html:48
+#: apps/tours/templates/tours/tour_list.html:85
+#: apps/transfers/templates/transfer/detail.html:44
+#: apps/transfers/templates/transfer/index.html:122
+#: apps/transfers/templates/transfer/index.html:156
+msgid "Empfohlen"
+msgstr "Recommended"
+
+#: apps/activities/templates/activities/detail.html:81
+#: apps/activities/templates/activities/index.html:153
+msgid "Bewertungen"
+msgstr "Reviews"
+
+#: apps/activities/templates/activities/detail.html:92
+#: apps/excursions/templates/excursions/detail.html:101
+#: apps/tours/templates/tours/detail.html:102
+msgid "Dauer"
+msgstr "Duration"
+
+#: apps/activities/templates/activities/detail.html:93
+#: apps/activities/templates/activities/index.html:162
+msgid "Stunden"
+msgstr "Hours"
+
+#: apps/activities/templates/activities/detail.html:100
+#: apps/core/templates/core/index.html:171
+#: apps/excursions/templates/excursions/detail.html:109
+#: apps/tours/templates/tours/detail.html:110
+msgid "Gruppe"
+msgstr "Group"
+
+#: apps/activities/templates/activities/detail.html:108
+#: apps/excursions/templates/excursions/detail.html:117
+#: apps/tours/templates/tours/detail.html:118
+#: apps/transfers/templates/transfer/detail.html:123
+msgid "Sprachen"
+msgstr "Languages"
+
+#: apps/activities/templates/activities/detail.html:116
+#: apps/excursions/templates/excursions/detail.html:125
+#: apps/tours/templates/tours/detail.html:126
+msgid "Abholung"
+msgstr "Pickup"
+
+#: apps/activities/templates/activities/detail.html:117
+#: apps/activities/templates/activities/detail.html:137
+#: apps/excursions/templates/excursions/detail.html:126
+#: apps/excursions/templates/excursions/detail.html:162
+#: apps/tours/templates/tours/detail.html:127
+#: apps/tours/templates/tours/detail.html:163
+#: apps/transfers/templates/transfer/detail.html:187
+msgid "Inklusive"
+msgstr "Included"
+
+#: apps/activities/templates/activities/detail.html:117
+#: apps/excursions/templates/excursions/detail.html:126
+#: apps/tours/templates/tours/detail.html:127
+msgid "Nicht inklusive"
+msgstr "Not Included"
+
+#: apps/activities/templates/activities/detail.html:123
+#: apps/excursions/templates/excursions/detail.html:132
+#: apps/tours/templates/tours/detail.html:133
+#: apps/transfers/templates/transfer/detail.html:138
+msgid "Beschreibung"
+msgstr "Description"
+
+#: apps/activities/templates/activities/detail.html:158
+#: apps/transfers/templates/transfer/detail.html:208
+msgid "Wichtige Informationen"
+msgstr "Important Information"
+
+#: apps/activities/templates/activities/detail.html:171
+#: apps/excursions/templates/excursions/detail.html:203
+#: apps/tours/templates/tours/detail.html:204
+#: apps/transfers/templates/transfer/detail.html:221
+msgid "Kundenbewertungen"
+msgstr "Customer Reviews"
+
+#: apps/activities/templates/activities/detail.html:201
+#: apps/excursions/templates/excursions/detail.html:233
+#: apps/tours/templates/tours/detail.html:234
+#: apps/transfers/templates/transfer/detail.html:251
+msgid "Noch keine Bewertungen. Seien Sie der Erste!"
+msgstr "No reviews yet. Be the first!"
+
+#: apps/activities/templates/activities/detail.html:206
+#: apps/excursions/templates/excursions/detail.html:238
+#: apps/tours/templates/tours/detail.html:239
+#: apps/transfers/templates/transfer/detail.html:256
+msgid "Ihre Bewertung schreiben"
+msgstr "Write Your Review"
+
+#: apps/activities/templates/activities/detail.html:214
+#: apps/excursions/templates/excursions/detail.html:246
+#: apps/tours/templates/tours/detail.html:248
+#: apps/transfers/templates/transfer/detail.html:264
+msgid "Ihre Bewertung (1-5 Sterne)"
+msgstr "Your Rating (1-5 Stars)"
+
+#: apps/activities/templates/activities/detail.html:227
+#: apps/activities/templates/activities/detail.html:228
+#: apps/activities/templates/activities/detail.html:377
+#: apps/excursions/templates/excursions/detail.html:259
+#: apps/excursions/templates/excursions/detail.html:260
+#: apps/excursions/templates/excursions/detail.html:409
+#: apps/tours/templates/tours/detail.html:261
+#: apps/tours/templates/tours/detail.html:262
+#: apps/tours/templates/tours/detail.html:415
+#: apps/transfers/templates/transfer/detail.html:277
+#: apps/transfers/templates/transfer/detail.html:278
+#: apps/transfers/templates/transfer/detail.html:433
+msgid "Ihr Name"
+msgstr "Your Name"
+
+#: apps/activities/templates/activities/detail.html:232
+#: apps/activities/templates/activities/detail.html:381
+#: apps/core/templates/core/contact.html:110
+#: apps/excursions/templates/excursions/detail.html:264
+#: apps/excursions/templates/excursions/detail.html:413
+#: apps/tours/templates/tours/detail.html:266
+#: apps/tours/templates/tours/detail.html:419
+#: apps/transfers/templates/transfer/detail.html:282
+#: apps/transfers/templates/transfer/detail.html:437
+#: apps/users/templates/users/profile.html:113
+msgid "E-Mail"
+msgstr "Email"
+
+#: apps/activities/templates/activities/detail.html:237
+#: apps/excursions/templates/excursions/detail.html:269
+#: apps/tours/templates/tours/detail.html:271
+#: apps/transfers/templates/transfer/detail.html:287
+msgid "Titel der Bewertung"
+msgstr "Review Title"
+
+#: apps/activities/templates/activities/detail.html:238
+#: apps/excursions/templates/excursions/detail.html:270
+#: apps/tours/templates/tours/detail.html:272
+#: apps/transfers/templates/transfer/detail.html:288
+msgid "z.B. \"Großartige Erfahrung!\""
+msgstr ""
+
+#: apps/activities/templates/activities/detail.html:242
+#: apps/excursions/templates/excursions/detail.html:274
+#: apps/tours/templates/tours/detail.html:276
+#: apps/transfers/templates/transfer/detail.html:292
+msgid "Ihr Kommentar"
+msgstr "Your Comment"
+
+#: apps/activities/templates/activities/detail.html:243
+#: apps/excursions/templates/excursions/detail.html:275
+#: apps/tours/templates/tours/detail.html:277
+#: apps/transfers/templates/transfer/detail.html:293
+msgid "Teilen Sie Ihre Erfahrung mit anderen..."
+msgstr "Share your experience with others..."
+
+#: apps/activities/templates/activities/detail.html:247
+#: apps/excursions/templates/excursions/detail.html:279
+#: apps/tours/templates/tours/detail.html:281
+#: apps/transfers/templates/transfer/detail.html:297
+msgid "Bewertung absenden"
+msgstr "Submit Review"
+
+#: apps/activities/templates/activities/detail.html:250
+#: apps/excursions/templates/excursions/detail.html:282
+#: apps/tours/templates/tours/detail.html:284
+#: apps/transfers/templates/transfer/detail.html:300
+msgid "Ihre Bewertung wird nach Überprüfung veröffentlicht."
+msgstr "Your review will be published after review."
+
+#: apps/activities/templates/activities/detail.html:259
+#: apps/excursions/templates/excursions/detail.html:291
+#: apps/tours/templates/tours/detail.html:293
+#: apps/transfers/templates/transfer/detail.html:309
+msgid "Melden Sie sich an, um eine Bewertung zu schreiben"
+msgstr "Sign in to write a review"
+
+#: apps/activities/templates/activities/detail.html:260
+#: apps/excursions/templates/excursions/detail.html:292
+#: apps/tours/templates/tours/detail.html:294
+#: apps/transfers/templates/transfer/detail.html:310
+msgid "Teilen Sie Ihre Erfahrung mit anderen Reisenden!"
+msgstr "Share your experience with other travelers!"
+
+#: apps/activities/templates/activities/detail.html:263
+#: apps/activities/templates/activities/detail.html:407
+#: apps/core/templates/core/index.html:510
+#: apps/excursions/templates/excursions/detail.html:439
+#: apps/tours/templates/tours/detail.html:297
+#: apps/tours/templates/tours/detail.html:445
+#: apps/transfers/templates/transfer/detail.html:313
+#: apps/transfers/templates/transfer/detail.html:463 templates/header.html:107
+#: templates/header.html:170
+msgid "Anmelden"
+msgstr "Sign In"
+
+#: apps/activities/templates/activities/detail.html:266
+#: apps/activities/templates/activities/detail.html:410
+#: apps/excursions/templates/excursions/detail.html:442
+#: apps/tours/templates/tours/detail.html:300
+#: apps/tours/templates/tours/detail.html:448
+#: apps/transfers/templates/transfer/detail.html:316
+#: apps/transfers/templates/transfer/detail.html:466 templates/header.html:110
+#: templates/header.html:173
+msgid "Registrieren"
+msgstr "Sign Up"
+
+#: apps/activities/templates/activities/detail.html:298
+msgid "Ähnliche Aktivitäten"
+msgstr "Similar Activities"
+
+#: apps/activities/templates/activities/detail.html:315
+#: apps/activities/templates/activities/index.html:186
+#: apps/excursions/templates/excursions/detail.html:347
+#: apps/tours/templates/tours/detail.html:353
+#: apps/tours/templates/tours/tour_list.html:141
+#: apps/transfers/templates/transfer/detail.html:369
+msgid "Details"
+msgstr "Details"
+
+#: apps/activities/templates/activities/detail.html:331
+#: apps/activities/templates/activities/index.html:176
+#: apps/core/templates/core/index.html:178
+#: apps/excursions/templates/excursions/detail.html:363
+#: apps/excursions/templates/excursions/index.html:246
+#: apps/tours/templates/tours/detail.html:369
+#: apps/tours/templates/tours/tour_list.html:131
+#: apps/transfers/templates/transfer/detail.html:385
+#: apps/transfers/templates/transfer/index.html:200
+msgid "Ab"
+msgstr "From"
+
+#: apps/activities/templates/activities/detail.html:339
+#: apps/core/templates/core/index.html:180
+#: apps/excursions/templates/excursions/detail.html:371
+#: apps/tours/templates/tours/detail.html:377
+#: apps/transfers/templates/transfer/detail.html:394
+#: apps/transfers/templates/transfer/index.html:210
+msgid "pro Person"
+msgstr "per person"
+
+#: apps/activities/templates/activities/detail.html:343
+#: apps/excursions/templates/excursions/detail.html:375
+#: apps/tours/templates/tours/detail.html:381
+#: apps/transfers/templates/transfer/detail.html:399
+msgid "Sonderangebot!"
+msgstr "Special Offer!"
+
+#: apps/activities/templates/activities/detail.html:353
+#: apps/excursions/templates/excursions/detail.html:385
+#: apps/tours/templates/tours/detail.html:391
+msgid "Datum wählen"
+msgstr "Choose Date"
+
+#: apps/activities/templates/activities/detail.html:358
+#: apps/excursions/templates/excursions/detail.html:390
+#: apps/tours/templates/tours/detail.html:396
+#: apps/transfers/templates/transfer/detail.html:414
+msgid "Gäste"
+msgstr ""
+
+#: apps/activities/templates/activities/detail.html:361
+#: apps/excursions/templates/excursions/detail.html:393
+#: apps/tours/templates/tours/detail.html:399
+#: apps/transfers/templates/transfer/detail.html:417
+msgid "Erwachsene"
+msgstr ""
+
+#: apps/activities/templates/activities/detail.html:365
+#: apps/excursions/templates/excursions/detail.html:397
+#: apps/tours/templates/tours/detail.html:403
+#: apps/transfers/templates/transfer/detail.html:421
+msgid "Kinder"
+msgstr ""
+
+#: apps/activities/templates/activities/detail.html:369
+#: apps/excursions/templates/excursions/detail.html:401
+#: apps/tours/templates/tours/detail.html:407
+#: apps/transfers/templates/transfer/detail.html:425
+msgid "Babys"
+msgstr ""
+
+#: apps/activities/templates/activities/detail.html:376
+#: apps/excursions/templates/excursions/detail.html:408
+#: apps/tours/templates/tours/detail.html:414
+#: apps/transfers/templates/transfer/detail.html:432
+msgid "Name"
+msgstr "Name"
+
+#: apps/activities/templates/activities/detail.html:382
+#: apps/excursions/templates/excursions/detail.html:265
+#: apps/excursions/templates/excursions/detail.html:414
+#: apps/tours/templates/tours/detail.html:267
+#: apps/tours/templates/tours/detail.html:420
+#: apps/transfers/templates/transfer/detail.html:283
+#: apps/transfers/templates/transfer/detail.html:438
+msgid "ihre@email.com"
+msgstr "your@email.com"
+
+#: apps/activities/templates/activities/detail.html:386
+#: apps/core/templates/core/contact.html:98
+#: apps/excursions/templates/excursions/detail.html:418
+#: apps/tours/templates/tours/detail.html:424
+#: apps/transfers/templates/transfer/detail.html:442
+#: apps/users/templates/users/profile.html:118
+msgid "Telefon"
+msgstr "Phone"
+
+#: apps/activities/templates/activities/detail.html:387
+#: apps/excursions/templates/excursions/detail.html:419
+#: apps/tours/templates/tours/detail.html:425
+#: apps/transfers/templates/transfer/detail.html:443
+msgid "+49 "
+msgstr "+49 "
+
+#: apps/activities/templates/activities/detail.html:391
+#: apps/excursions/templates/excursions/detail.html:423
+#: apps/tours/templates/tours/detail.html:429
+#: apps/transfers/templates/transfer/detail.html:447
+msgid "Besondere Wünsche (optional)"
+msgstr "Special Requests (optional)"
+
+#: apps/activities/templates/activities/detail.html:392
+#: apps/excursions/templates/excursions/detail.html:424
+#: apps/tours/templates/tours/detail.html:430
+msgid "Haben Sie besondere Wünsche oder Fragen?"
+msgstr "Do you have special requests or questions?"
+
+#: apps/activities/templates/activities/detail.html:396
+#: apps/excursions/templates/excursions/detail.html:428
+#: apps/tours/templates/tours/detail.html:434
+#: apps/transfers/templates/transfer/detail.html:452
+msgid "Buchungsanfrage Senden"
+msgstr "Send Booking Request"
+
+#: apps/activities/templates/activities/detail.html:403
+#: apps/excursions/templates/excursions/detail.html:435
+#: apps/tours/templates/tours/detail.html:441
+#: apps/transfers/templates/transfer/detail.html:459
+msgid "Haben Sie bereits ein Konto?"
+msgstr ""
+
+#: apps/activities/templates/activities/detail.html:421
+#: apps/excursions/templates/excursions/detail.html:453
+#: apps/tours/templates/tours/detail.html:459
+#: apps/transfers/templates/transfer/detail.html:478
+#: apps/transfers/templates/transfer/index.html:193
+msgid "Kostenlose Stornierung"
+msgstr "Free Cancellation"
+
+#: apps/activities/templates/activities/detail.html:427
+#: apps/core/templates/core/about.html:167
+#: apps/excursions/templates/excursions/detail.html:459
+#: apps/excursions/templates/excursions/index.html:58
+#: apps/tours/templates/tours/detail.html:465
+#: apps/transfers/templates/transfer/detail.html:485
+msgid "Sofortige Bestätigung"
+msgstr "Instant Confirmation"
+
+#: apps/activities/templates/activities/detail.html:434
+#: apps/excursions/templates/excursions/detail.html:474
+#: apps/tours/templates/tours/detail.html:480
+#: apps/transfers/templates/transfer/detail.html:506
+msgid "Fragen?"
+msgstr "Questions?"
+
+#: apps/activities/templates/activities/detail.html:435
+#: apps/excursions/templates/excursions/detail.html:475
+#: apps/tours/templates/tours/detail.html:481
+#: apps/transfers/templates/transfer/detail.html:507
+msgid "Kontaktieren Sie uns jederzeit!"
+msgstr "Contact us anytime!"
+
+#: apps/activities/templates/activities/index.html:5
+#: apps/activities/templates/activities/index.html:31
+#: apps/core/templates/core/index.html:304
+msgid "Ägypten Aktivitäten & Sehenswürdigkeiten"
+msgstr "Egypt Activities & Attractions"
+
+#: apps/activities/templates/activities/index.html:29 templates/header.html:16
+#: templates/header.html:181
+msgid "Ägypten Aktivitäten"
+msgstr "Egypt Activities"
+
+#: apps/activities/templates/activities/index.html:32
+msgid ""
+"Erleben Sie unvergessliche Abenteuer - von Schnorcheln im Roten Meer bis zu "
+"Wüsten-Safaris"
+msgstr ""
+
+#: apps/activities/templates/activities/index.html:75
+msgid "Mehr erfahren"
+msgstr "Learn More"
+
+#: apps/activities/templates/activities/index.html:90
+msgid "Aktivitäten gefunden"
+msgstr "Activities found"
+
+#: apps/activities/templates/activities/index.html:94
+#: apps/tours/templates/tours/tour_list.html:43
+msgid "Alle Kategorien"
+msgstr "All Categories"
+
+#: apps/activities/templates/activities/index.html:104
+#: apps/excursions/templates/excursions/index.html:181
+#: apps/tours/templates/tours/tour_list.html:60
+#: apps/transfers/templates/transfer/index.html:124
+msgid "Preis: Niedrig bis Hoch"
+msgstr "Price: Low to High"
+
+#: apps/activities/templates/activities/index.html:105
+#: apps/excursions/templates/excursions/index.html:182
+#: apps/tours/templates/tours/tour_list.html:61
+#: apps/transfers/templates/transfer/index.html:125
+msgid "Preis: Hoch bis Niedrig"
+msgstr "Price: High to Low"
+
+#: apps/activities/templates/activities/index.html:111 templates/header.html:25
+#: templates/header.html:190
+msgid "Alle Aktivitäten"
+msgstr "All Activities"
+
+#: apps/activities/templates/activities/index.html:224
+msgid "Keine Aktivitäten gefunden."
+msgstr "No activities found."
+
+#: apps/activities/templates/activities/index.html:225
+msgid "Alle Aktivitäten anzeigen"
+msgstr "Show All Activities"
+
+#: apps/activities/templates/activities/index.html:230
+msgid "Alle Ausflüge Ansehen"
+msgstr "View All Excursions"
+
+#: apps/blog/templates/blog/detail.html:16
+#: apps/blog/templates/blog/index.html:26 templates/header.html:47
+#: templates/header.html:215
+msgid "Blog"
+msgstr "Blog"
+
+#: apps/blog/templates/blog/detail.html:47
+#: apps/blog/templates/blog/index.html:87
+msgid "Min. Lesezeit"
+msgstr "Min. Reading Time"
+
+#: apps/blog/templates/blog/detail.html:86
+#: apps/core/templates/core/about.html:230
+msgid "Bereit für Ihr Ägypten-Abenteuer?"
+msgstr "Ready for Your Egypt Adventure?"
+
+#: apps/blog/templates/blog/detail.html:87
+msgid ""
+"Buchen Sie jetzt eine unserer exklusiven Touren und erleben Sie diese Wunder "
+"hautnah!"
+msgstr ""
+
+#: apps/blog/templates/blog/detail.html:89
+#: apps/users/templates/users/dashboard.html:188
+msgid "Touren entdecken"
+msgstr "Discover Tours"
+
+#: apps/blog/templates/blog/detail.html:97
+msgid "Artikel teilen"
+msgstr "Share Article"
+
+#: apps/blog/templates/blog/detail.html:101
+msgid "Facebook"
+msgstr "Facebook"
+
+#: apps/blog/templates/blog/detail.html:105
+msgid "Twitter"
+msgstr "Twitter"
+
+#: apps/blog/templates/blog/detail.html:109
+#: apps/core/templates/core/contact.html:122
+#: apps/excursions/templates/excursions/detail.html:480
+#: apps/tours/templates/tours/detail.html:486
+#: apps/transfers/templates/transfer/detail.html:512
+msgid "WhatsApp"
+msgstr "WhatsApp"
+
+#: apps/blog/templates/blog/detail.html:117
+msgid "Ähnliche Artikel"
+msgstr "Similar Articles"
+
+#: apps/blog/templates/blog/detail.html:140
+msgid "Blog durchsuchen"
+msgstr "Search Blog"
+
+#: apps/blog/templates/blog/detail.html:142
+msgid "Suchen..."
+msgstr "Search..."
+
+#: apps/blog/templates/blog/detail.html:153
+#: apps/excursions/templates/excursions/index.html:88
+msgid "Kategorien"
+msgstr "Categories"
+
+#: apps/blog/templates/blog/detail.html:157
+#: apps/blog/templates/blog/index.html:40
+msgid "Alle Artikel"
+msgstr "All Articles"
+
+#: apps/blog/templates/blog/detail.html:173
+msgid "Beliebte Artikel"
+msgstr "Popular Articles"
+
+#: apps/blog/templates/blog/detail.html:196
+msgid "Bereit für Ihr Abenteuer?"
+msgstr "Ready for Your Adventure?"
+
+#: apps/blog/templates/blog/detail.html:197
+msgid "Buchen Sie jetzt Ihre Traumtour!"
+msgstr "Book your dream tour now!"
+
+#: apps/blog/templates/blog/detail.html:199
+msgid "Touren ansehen"
+msgstr "View Tours"
+
+#: apps/blog/templates/blog/index.html:5 apps/blog/templates/blog/index.html:28
+msgid "Ägypten & Hurghada Reiseblog"
+msgstr "Egypt & Hurghada Travel Blog"
+
+#: apps/blog/templates/blog/index.html:29
+#: apps/core/templates/core/index.html:435
+msgid "Tipps, Infos und Inspiration für Ihre Ägypten-Reise"
+msgstr "Tips, info and inspiration for your Egypt trip"
+
+#: apps/blog/templates/blog/index.html:56
+msgid "Empfohlener Artikel"
+msgstr "Featured Article"
+
+#: apps/blog/templates/blog/index.html:99
+#: apps/blog/templates/blog/index.html:157
+#: apps/core/templates/core/index.html:467
+msgid "Weiterlesen"
+msgstr "Read More"
+
+#: apps/blog/templates/blog/index.html:115
+msgid "Neueste Artikel"
+msgstr "Latest Articles"
+
+#: apps/blog/templates/blog/index.html:146
+#: apps/transfers/templates/transfer/detail.html:498
+msgid "Min."
+msgstr "Min."
+
+#: apps/blog/templates/blog/index.html:198
+msgid "Keine Artikel gefunden."
+msgstr "No articles found."
+
+#: apps/blog/templates/blog/index.html:199
+msgid "Alle Artikel anzeigen"
+msgstr "Show All Articles"
+
+#: apps/blog/templates/blog/index.html:208
+msgid "Bleiben Sie auf dem Laufenden"
+msgstr "Stay Up to Date"
+
+#: apps/blog/templates/blog/index.html:209
+msgid ""
+"Abonnieren Sie unseren Newsletter für die neuesten Reisetipps und exklusive "
+"Angebote"
+msgstr ""
+
+#: apps/blog/templates/blog/index.html:212
+#: apps/core/templates/core/index.html:505
+msgid "Ihre E-Mail-Adresse"
+msgstr "Your Email Address"
+
+#: apps/blog/templates/blog/index.html:214
+msgid "Abonnieren"
+msgstr "Subscribe"
+
+#: apps/bookings/templates/bookings/cancel.html:6
+#: apps/bookings/templates/bookings/cancel.html:20
+msgid "Zahlung Abgebrochen"
+msgstr "Payment Cancelled"
+
+#: apps/bookings/templates/bookings/cancel.html:21
+msgid ""
+"Ihre Zahlung wurde nicht abgeschlossen. Keine Sorge, es wurden keine "
+"Gebühren berechnet."
+msgstr ""
+
+#: apps/bookings/templates/bookings/cancel.html:26
+msgid "Was ist passiert?"
+msgstr "What Happened?"
+
+#: apps/bookings/templates/bookings/cancel.html:34
+msgid "Keine Sorge!"
+msgstr "Don't Worry!"
+
+#: apps/bookings/templates/bookings/cancel.html:35
+msgid ""
+"Ihre Zahlung wurde nicht verarbeitet. Es wurden keine Gebühren von Ihrer "
+"Karte abgebucht."
+msgstr ""
+
+#: apps/bookings/templates/bookings/cancel.html:41
+msgid ""
+"Sie haben den Zahlungsvorgang abgebrochen oder es gab ein Problem bei der "
+"Verarbeitung."
+msgstr ""
+
+#: apps/bookings/templates/bookings/cancel.html:42
+msgid ""
+"Ihre Buchungsanfrage wurde nicht erstellt. Sie können jederzeit eine neue "
+"Buchung vornehmen."
+msgstr ""
+
+#: apps/bookings/templates/bookings/cancel.html:48
+msgid "Häufige Gründe"
+msgstr "Common Reasons"
+
+#: apps/bookings/templates/bookings/cancel.html:54
+msgid "Sie haben den Zahlungsvorgang versehentlich abgebrochen"
+msgstr "You accidentally cancelled the payment process"
+
+#: apps/bookings/templates/bookings/cancel.html:60
+msgid "Probleme mit Ihrer Kreditkarte oder Bank"
+msgstr "Problems with your credit card or bank"
+
+#: apps/bookings/templates/bookings/cancel.html:66
+msgid "Verbindungsprobleme während des Zahlungsvorgangs"
+msgstr "Connection problems during the payment process"
+
+#: apps/bookings/templates/bookings/cancel.html:73
+msgid "Benötigen Sie Hilfe?"
+msgstr "Need Help?"
+
+#: apps/bookings/templates/bookings/cancel.html:75
+msgid ""
+"Wenn Sie Probleme bei der Zahlung hatten oder Fragen haben, kontaktieren Sie "
+"uns gerne. Wir helfen Ihnen gerne weiter!"
+msgstr ""
+
+#: apps/bookings/templates/bookings/cancel.html:92
+#: apps/bookings/templates/bookings/inquiry_success.html:125
+#: apps/bookings/templates/bookings/success.html:85
+msgid "WhatsApp Chat"
+msgstr "WhatsApp Chat"
+
+#: apps/bookings/templates/bookings/cancel.html:100
+#: apps/bookings/templates/bookings/inquiry_success.html:133
+#: apps/bookings/templates/bookings/success.html:93
+msgid "Zur Startseite"
+msgstr "To Homepage"
+
+#: apps/bookings/templates/bookings/cancel.html:103
+msgid "Erneut Buchen"
+msgstr "Book Again"
+
+#: apps/bookings/templates/bookings/inquiry_success.html:6
+msgid "Buchung Erfolgreich"
+msgstr "Booking Successful"
+
+#: apps/bookings/templates/bookings/inquiry_success.html:20
+msgid "Vielen Dank für Ihre Buchungsanfrage!"
+msgstr "Thank you for your booking request!"
+
+#: apps/bookings/templates/bookings/inquiry_success.html:21
+msgid ""
+"Wir haben Ihre Anfrage erhalten und werden uns in Kürze bei Ihnen melden."
+msgstr ""
+
+#: apps/bookings/templates/bookings/inquiry_success.html:27
+msgid "Ihre Buchungsdetails"
+msgstr "Your Booking Details"
+
+#: apps/bookings/templates/bookings/inquiry_success.html:31
+msgid "Bestätigungsnummer"
+msgstr "Confirmation Number"
+
+#: apps/bookings/templates/bookings/inquiry_success.html:35
+#: apps/users/templates/users/dashboard.html:138
+msgid "Status"
+msgstr "Status"
+
+#: apps/bookings/templates/bookings/inquiry_success.html:44
+msgid "Tour/Ausflug:"
+msgstr "Tour/Excursion:"
+
+#: apps/bookings/templates/bookings/inquiry_success.html:48
+msgid "Datum:"
+msgstr "Date:"
+
+#: apps/bookings/templates/bookings/inquiry_success.html:52
+msgid "Anzahl Personen:"
+msgstr "Number of People:"
+
+#: apps/bookings/templates/bookings/inquiry_success.html:56
+msgid "Name:"
+msgstr "Name:"
+
+#: apps/bookings/templates/bookings/inquiry_success.html:60
+msgid "E-Mail:"
+msgstr "Email:"
+
+#: apps/bookings/templates/bookings/inquiry_success.html:64
+msgid "Telefon:"
+msgstr "Phone:"
+
+#: apps/bookings/templates/bookings/inquiry_success.html:68
+msgid "Voraussichtlicher Preis:"
+msgstr "Estimated Price:"
+
+#: apps/bookings/templates/bookings/inquiry_success.html:75
+msgid "Besondere Wünsche:"
+msgstr "Special Requests:"
+
+#: apps/bookings/templates/bookings/inquiry_success.html:84
+#: apps/bookings/templates/bookings/success.html:48
+msgid "Was passiert als Nächstes?"
+msgstr "What Happens Next?"
+
+#: apps/bookings/templates/bookings/inquiry_success.html:88
+msgid "Sie erhalten eine Bestätigungs-E-Mail mit Ihren Buchungsdetails"
+msgstr "You will receive a confirmation email with your booking details"
+
+#: apps/bookings/templates/bookings/inquiry_success.html:92
+msgid "Unser Team wird Ihre Anfrage prüfen und die Verfügbarkeit bestätigen"
+msgstr "Our team will review your request and confirm availability"
+
+#: apps/bookings/templates/bookings/inquiry_success.html:96
+msgid ""
+"Wir kontaktieren Sie innerhalb von 24 Stunden mit weiteren Informationen"
+msgstr ""
+
+#: apps/bookings/templates/bookings/inquiry_success.html:100
+msgid "Nach Bestätigung erhalten Sie Zahlungsinformationen und finale Details"
+msgstr ""
+"After confirmation, you will receive payment information and final details"
+
+#: apps/bookings/templates/bookings/inquiry_success.html:107
+#: apps/bookings/templates/bookings/success.html:67
+msgid "Fragen? Kontaktieren Sie uns!"
+msgstr "Questions? Contact Us!"
+
+#: apps/bookings/templates/bookings/inquiry_success.html:136
+#: apps/bookings/templates/bookings/success.html:101
+msgid "Weitere Touren Entdecken"
+msgstr "Discover More Tours"
+
+#: apps/bookings/templates/bookings/success.html:6
+msgid "Zahlung Erfolgreich"
+msgstr "Payment Successful"
+
+#: apps/bookings/templates/bookings/success.html:20
+msgid "Zahlung Erfolgreich!"
+msgstr "Payment Successful!"
+
+#: apps/bookings/templates/bookings/success.html:21
+msgid ""
+"Vielen Dank für Ihre Buchung. Ihre Zahlung wurde erfolgreich verarbeitet."
+msgstr ""
+
+#: apps/bookings/templates/bookings/success.html:26
+msgid "Zahlungsbestätigung"
+msgstr "Payment Confirmation"
+
+#: apps/bookings/templates/bookings/success.html:34
+msgid "Ihre Zahlung wurde erfolgreich abgeschlossen"
+msgstr "Your payment has been successfully completed"
+
+#: apps/bookings/templates/bookings/success.html:35
+msgid "Sie erhalten in Kürze eine Bestätigungs-E-Mail mit allen Details."
+msgstr "You will receive a confirmation email with all details shortly."
+
+#: apps/bookings/templates/bookings/success.html:41
+msgid "Ihre Buchung wurde bestätigt und ist jetzt aktiv."
+msgstr "Your booking has been confirmed and is now active."
+
+#: apps/bookings/templates/bookings/success.html:42
+msgid ""
+"Bitte überprüfen Sie Ihre E-Mail für weitere Informationen und Ihre "
+"Buchungsbestätigung."
+msgstr ""
+
+#: apps/bookings/templates/bookings/success.html:52
+msgid ""
+"Sie erhalten eine Bestätigungs-E-Mail mit Ihren Buchungsdetails und Rechnung"
+msgstr ""
+
+#: apps/bookings/templates/bookings/success.html:56
+msgid "Alle wichtigen Informationen werden Ihnen per E-Mail zugesendet"
+msgstr ""
+
+#: apps/bookings/templates/bookings/success.html:60
+msgid "Sie können Ihre Buchung jederzeit in Ihrem Konto einsehen"
+msgstr "You can view your booking anytime in your account"
+
+#: apps/bookings/templates/bookings/success.html:97
+#: apps/users/templates/users/booking_history.html:22
+msgid "Meine Buchungen"
+msgstr "My Bookings"
+
+#: apps/bookings/views.py:143
+msgid "Ungültige Buchungsanfrage."
+msgstr "Invalid booking request."
+
+#: apps/bookings/views.py:157
+msgid "Vielen Dank! Wir werden uns bald bei Ihnen melden."
+msgstr ""
+
+#: apps/core/templates/core/about.html:6 apps/core/templates/core/about.html:18
+#: apps/core/templates/core/about.html:45
+msgid "Über uns"
+msgstr "About Us"
+
+#: apps/core/templates/core/about.html:20
+msgid "Über AusflugÄgypten"
+msgstr "About AusflugÄgypten"
+
+#: apps/core/templates/core/about.html:21
+msgid "Ihr vertrauenswürdiger Partner für unvergessliche Ägypten-Erlebnisse"
+msgstr "Your trusted partner for unforgettable Egypt experiences"
+
+#: apps/core/templates/core/about.html:31
+msgid "Unsere Geschichte"
+msgstr "Our Story"
+
+#: apps/core/templates/core/about.html:34
+msgid ""
+"AusflugÄgypten wurde aus einer tiefen Leidenschaft für Ägypten und dem "
+"Wunsch gegründet, Reisenden authentische und unvergessliche Erlebnisse zu "
+"bieten. Seit unserer Gründung haben wir Tausende von zufriedenen Gästen "
+"betreut und ihnen geholfen, die Wunder Ägyptens zu entdecken."
+msgstr ""
+
+#: apps/core/templates/core/about.html:37
+msgid ""
+"Unser Team besteht aus erfahrenen Reiseexperten, professionellen Guides und "
+"leidenschaftlichen Ägypten-Liebhabern. Wir kennen jede Ecke dieses "
+"faszinierenden Landes und teilen unser Wissen gerne mit unseren Gästen."
+msgstr ""
+
+#: apps/core/templates/core/about.html:40
+msgid ""
+"Von den majestätischen Pyramiden von Gizeh über die antiken Tempel von Luxor "
+"bis hin zu den kristallklaren Gewässern des Roten Meeres – wir bieten Ihnen "
+"die besten Touren und Ausflüge zu den schönsten Orten Ägyptens."
+msgstr ""
+
+#: apps/core/templates/core/about.html:55
+msgid "Unsere Werte"
+msgstr "Our Values"
+
+#: apps/core/templates/core/about.html:57
+msgid "Diese Prinzipien leiten uns bei allem, was wir tun"
+msgstr "These principles guide us in everything we do"
+
+#: apps/core/templates/core/about.html:68
+msgid "Sicherheit"
+msgstr "Safety"
+
+#: apps/core/templates/core/about.html:69
+msgid "Ihre Sicherheit und Ihr Wohlbefinden stehen bei uns an erster Stelle."
+msgstr "Your safety and well-being are our top priority."
+
+#: apps/core/templates/core/about.html:78
+msgid "Zufriedenheit"
+msgstr "Satisfaction"
+
+#: apps/core/templates/core/about.html:79
+msgid "Wir arbeiten hart daran, Ihre Erwartungen zu übertreffen."
+msgstr "We work hard to exceed your expectations."
+
+#: apps/core/templates/core/about.html:88
+#: apps/core/templates/core/index.html:267
+#: apps/excursions/templates/excursions/index.html:65
+msgid "Beste Preise"
+msgstr "Best Prices"
+
+#: apps/core/templates/core/about.html:89
+msgid "Qualitätstouren zu fairen und transparenten Preisen."
+msgstr "Quality tours at fair and transparent prices."
+
+#: apps/core/templates/core/about.html:98
+msgid "Qualität"
+msgstr "Quality"
+
+#: apps/core/templates/core/about.html:99
+msgid "Hochwertige Services und erstklassige Erlebnisse garantiert."
+msgstr "High-quality services and first-class experiences guaranteed."
+
+#: apps/core/templates/core/about.html:109
+#: apps/core/templates/core/index.html:247
+msgid "Warum AusflugÄgypten?"
+msgstr "Why AusflugÄgypten?"
+
+#: apps/core/templates/core/about.html:111
+msgid "Was uns von anderen unterscheidet"
+msgstr "What sets us apart"
+
+#: apps/core/templates/core/about.html:125
+msgid "Erfahrene Guides"
+msgstr "Experienced Guides"
+
+#: apps/core/templates/core/about.html:126
+msgid ""
+"Unsere deutschsprachigen Guides sind Experten und teilen ihr Wissen mit "
+"Begeisterung."
+msgstr ""
+
+#: apps/core/templates/core/about.html:139
+msgid "Flexible Planung"
+msgstr "Flexible Planning"
+
+#: apps/core/templates/core/about.html:140
+msgid ""
+"Wir bieten flexible Buchungsoptionen und passen uns Ihren Bedürfnissen an."
+msgstr ""
+
+#: apps/core/templates/core/about.html:153
+#: apps/transfers/templates/transfer/detail.html:491
+msgid "Sichere Zahlung"
+msgstr "Secure Payment"
+
+#: apps/core/templates/core/about.html:154
+msgid ""
+"Alle Zahlungen werden über sichere und verschlüsselte Verbindungen "
+"abgewickelt."
+msgstr ""
+
+#: apps/core/templates/core/about.html:168
+msgid ""
+"Erhalten Sie Ihre Buchungsbestätigung direkt nach der Zahlung per E-Mail."
+msgstr ""
+
+#: apps/core/templates/core/about.html:181
+#: apps/core/templates/core/index.html:287
+msgid "24/7 Support"
+msgstr "24/7 Support"
+
+#: apps/core/templates/core/about.html:182
+msgid "Unser Kundenservice-Team steht Ihnen rund um die Uhr zur Verfügung."
+msgstr "Our customer service team is available around the clock."
+
+#: apps/core/templates/core/about.html:195
+msgid "Lokale Expertise"
+msgstr "Local Expertise"
+
+#: apps/core/templates/core/about.html:196
+msgid ""
+"Als lokales Unternehmen kennen wir die besten versteckten Perlen Ägyptens."
+msgstr ""
+
+#: apps/core/templates/core/about.html:209
+#: apps/core/templates/core/index.html:90
+msgid "Jahre Erfahrung"
+msgstr "Years of Experience"
+
+#: apps/core/templates/core/about.html:213
+msgid "Zufriedene Kunden"
+msgstr "Satisfied Customers"
+
+#: apps/core/templates/core/about.html:217
+#: apps/core/templates/core/faq.html:108 apps/core/templates/core/faq.html:186
+#: apps/core/templates/core/index.html:82
+#: apps/core/templates/core/index.html:211
+msgid "Touren & Ausflüge"
+msgstr "Tours & Excursions"
+
+#: apps/core/templates/core/about.html:221
+msgid "Durchschnittliche Bewertung"
+msgstr "Average Rating"
+
+#: apps/core/templates/core/about.html:232
+msgid ""
+"Entdecken Sie unsere vielfältigen Touren und Ausflüge und lassen Sie sich "
+"von der Schönheit Ägyptens verzaubern."
+msgstr ""
+
+#: apps/core/templates/core/about.html:236
+#: apps/core/templates/core/index.html:64
+msgid "Touren Entdecken"
+msgstr "Discover Tours"
+
+#: apps/core/templates/core/about.html:239
+#: apps/core/templates/core/index.html:67
+msgid "Kontakt Aufnehmen"
+msgstr "Contact Us"
+
+#: apps/core/templates/core/contact.html:5 templates/header.html:50
+#: templates/header.html:224
+msgid "Kontakt"
+msgstr "Contact"
+
+#: apps/core/templates/core/contact.html:14
+msgid "Kontaktieren Sie uns"
+msgstr "Contact Us"
+
+#: apps/core/templates/core/contact.html:15
+msgid "Wir freuen uns, von Ihnen zu hören!"
+msgstr "We look forward to hearing from you!"
+
+#: apps/core/templates/core/contact.html:21
+#: apps/core/templates/core/contact.html:67
+msgid "Nachricht senden"
+msgstr "Send Message"
+
+#: apps/core/templates/core/contact.html:75
+msgid "Kontaktinformationen"
+msgstr "Contact Information"
+
+#: apps/core/templates/core/contact.html:86
+#: apps/users/templates/users/profile.html:139
+msgid "Adresse"
+msgstr "Address"
+
+#: apps/core/templates/core/contact.html:123
+msgid "Chat starten"
+msgstr "Start Chat"
+
+#: apps/core/templates/core/contact.html:130
+msgid "Öffnungszeiten"
+msgstr "Opening Hours"
+
+#: apps/core/templates/core/contact.html:133
+msgid "Montag - Freitag:"
+msgstr "Monday - Friday:"
+
+#: apps/core/templates/core/contact.html:137
+msgid "Samstag:"
+msgstr "Saturday:"
+
+#: apps/core/templates/core/contact.html:141
+msgid "Sonntag:"
+msgstr "Sunday:"
+
+#: apps/core/templates/core/faq.html:6
+msgid "FAQ - Häufig gestellte Fragen"
+msgstr "FAQ - Frequently Asked Questions"
+
+#: apps/core/templates/core/faq.html:86
+msgid "FAQ"
+msgstr "FAQ"
+
+#: apps/core/templates/core/faq.html:88
+msgid "Häufig gestellte Fragen"
+msgstr "Frequently Asked Questions"
+
+#: apps/core/templates/core/faq.html:89
+msgid "Antworten auf die wichtigsten Fragen zu unseren Touren und Services"
+msgstr "Answers to the most important questions about our tours and services"
+
+#: apps/core/templates/core/faq.html:102 apps/core/templates/core/faq.html:120
+msgid "Buchung & Zahlung"
+msgstr "Booking & Payment"
+
+#: apps/core/templates/core/faq.html:114
+msgid "Allgemeine Fragen"
+msgstr "General Questions"
+
+#: apps/core/templates/core/faq.html:124
+msgid "Wie kann ich eine Tour buchen?"
+msgstr "How can I book a tour?"
+
+#: apps/core/templates/core/faq.html:130
+msgid ""
+"Die Buchung ist ganz einfach: Wählen Sie Ihre gewünschte Tour aus, wählen "
+"Sie das Datum und die Anzahl der Personen, geben Sie Ihre Kontaktdaten ein "
+"und schließen Sie die Zahlung ab. Sie erhalten sofort eine Bestätigungs-E-"
+"Mail."
+msgstr ""
+
+#: apps/core/templates/core/faq.html:136
+msgid "Welche Zahlungsmethoden werden akzeptiert?"
+msgstr "What payment methods are accepted?"
+
+#: apps/core/templates/core/faq.html:142
+msgid ""
+"Wir akzeptieren alle gängigen Kreditkarten (Visa, Mastercard, American "
+"Express), PayPal und Banküberweisungen. Alle Zahlungen werden über sichere, "
+"verschlüsselte Verbindungen abgewickelt."
+msgstr ""
+
+#: apps/core/templates/core/faq.html:148
+msgid "Kann ich meine Buchung stornieren?"
+msgstr "Can I cancel my booking?"
+
+#: apps/core/templates/core/faq.html:154
+msgid ""
+"Ja, die meisten unserer Touren bieten kostenlose Stornierung bis 24 Stunden "
+"vor Tourbeginn. Die genauen Stornierungsbedingungen finden Sie auf der "
+"jeweiligen Tourseite. Kontaktieren Sie uns einfach, um Ihre Buchung zu "
+"stornieren."
+msgstr ""
+
+#: apps/core/templates/core/faq.html:160
+msgid "Wann erhalte ich meine Buchungsbestätigung?"
+msgstr "When will I receive my booking confirmation?"
+
+#: apps/core/templates/core/faq.html:166
+msgid ""
+"Sie erhalten Ihre Buchungsbestätigung sofort nach Abschluss der Zahlung per "
+"E-Mail. Bitte überprüfen Sie auch Ihren Spam-Ordner, falls Sie keine E-Mail "
+"erhalten haben."
+msgstr ""
+
+#: apps/core/templates/core/faq.html:172
+msgid "Kann ich eine Buchung ändern?"
+msgstr "Can I change a booking?"
+
+#: apps/core/templates/core/faq.html:178
+msgid ""
+"Ja, Änderungen sind nach Verfügbarkeit möglich. Kontaktieren Sie uns "
+"mindestens 48 Stunden vor Ihrem gebuchten Termin, um Änderungen vorzunehmen. "
+"Beachten Sie, dass bei manchen Touren Gebühren für Änderungen anfallen "
+"können."
+msgstr ""
+
+#: apps/core/templates/core/faq.html:190
+msgid "Ist die Abholung vom Hotel im Preis enthalten?"
+msgstr "Is hotel pickup included in the price?"
+
+#: apps/core/templates/core/faq.html:196
+msgid ""
+"Bei den meisten unserer Touren ist die Abholung vom Hotel und Rückfahrt im "
+"Preis enthalten. Die genauen Details finden Sie in der Tourbeschreibung. Wir "
+"holen Sie pünktlich an Ihrer Hotelrezeption ab."
+msgstr ""
+
+#: apps/core/templates/core/faq.html:202
+msgid "In welchen Sprachen werden die Touren angeboten?"
+msgstr "In which languages are the tours offered?"
+
+#: apps/core/templates/core/faq.html:208
+msgid ""
+"Die meisten unserer Touren werden in Deutsch und Englisch angeboten. Für "
+"einige Touren sind auch andere Sprachen verfügbar. Bitte prüfen Sie die "
+"Tourdetails oder kontaktieren Sie uns für spezifische Sprachanfragen."
+msgstr ""
+
+#: apps/core/templates/core/index.html:57
+msgid "Entdecken Sie das magische Ägypten"
+msgstr "Discover Magical Egypt"
+
+#: apps/core/templates/core/index.html:60
+msgid ""
+"Erleben Sie unvergessliche Abenteuer mit unseren exklusiven Touren und "
+"Ausflügen"
+msgstr ""
+
+#: apps/core/templates/core/index.html:86
+msgid "Glückliche Kunden"
+msgstr "Happy Customers"
+
+#: apps/core/templates/core/index.html:94
+msgid "Kundenbewertung"
+msgstr "Customer Rating"
+
+#: apps/core/templates/core/index.html:109
+msgid "Beliebte Ausflüge"
+msgstr "Popular Excursions"
+
+#: apps/core/templates/core/index.html:111
+msgid "Beliebte Ausflüge in Ägypten"
+msgstr "Popular Excursions in Egypt"
+
+#: apps/core/templates/core/index.html:114
+msgid "Entdecken Sie unsere meistgebuchten Touren und Erlebnisse"
+msgstr "Discover our most booked tours and experiences"
+
+#: apps/core/templates/core/index.html:139
+msgid "Ägypten"
+msgstr "Egypt"
+
+#: apps/core/templates/core/index.html:153
+#: apps/excursions/templates/excursions/detail.html:89
+#: apps/excursions/templates/excursions/index.html:228
+#: apps/tours/templates/tours/detail.html:90
+#: apps/tours/templates/tours/tour_list.html:110
+#: apps/transfers/templates/transfer/detail.html:90
+#, python-format
+msgid "(%(counter)s Bewertung)"
+msgid_plural "(%(counter)s Bewertungen)"
+msgstr[0] "(%(counter)s Reviews)"
+msgstr[1] "(%(counter)s Reviews)"
+
+#: apps/core/templates/core/index.html:169
+msgid "Privat"
+msgstr "Private"
+
+#: apps/core/templates/core/index.html:170
+msgid "Kleine Gruppe"
+msgstr "Small Group"
+
+#: apps/core/templates/core/index.html:183
+#: apps/excursions/templates/excursions/index.html:256
+#: apps/transfers/templates/transfer/index.html:213
+msgid "Buchen"
+msgstr "Book"
+
+#: apps/core/templates/core/index.html:190
+msgid "Keine Touren verfügbar."
+msgstr "No tours available."
+
+#: apps/core/templates/core/index.html:197
+msgid "Alle Touren Ansehen"
+msgstr "View All Tours"
+
+#: apps/core/templates/core/index.html:213
+#: apps/tours/templates/tours/tour_list.html:5
+#: apps/tours/templates/tours/tour_list.html:20
+msgid "Ägypten Touren & Ausflüge"
+msgstr "Egypt Tours & Excursions"
+
+#: apps/core/templates/core/index.html:216
+msgid "Wählen Sie Ihr Traumziel in Ägypten"
+msgstr "Choose Your Dream Destination in Egypt"
+
+#: apps/core/templates/core/index.html:225
+#, python-format
+msgid "Entdecken Sie %(location.name)s"
+msgstr "Discover %(location.name)s"
+
+#: apps/core/templates/core/index.html:227
+msgid "Entdecken"
+msgstr "Discover"
+
+#: apps/core/templates/core/index.html:236
+msgid "Keine Standorte verfügbar."
+msgstr "No locations available."
+
+#: apps/core/templates/core/index.html:257
+msgid "Zertifizierte Guides"
+msgstr "Certified Guides"
+
+#: apps/core/templates/core/index.html:258
+msgid "Erfahrene deutschsprachige Reiseleiter mit tiefen Kenntnissen"
+msgstr "Experienced German-speaking tour guides with deep knowledge"
+
+#: apps/core/templates/core/index.html:268
+msgid "Garantiert günstige Preise ohne versteckte Kosten"
+msgstr "Guaranteed low prices without hidden costs"
+
+#: apps/core/templates/core/index.html:277
+msgid "Sichere Buchung"
+msgstr "Secure Booking"
+
+#: apps/core/templates/core/index.html:278
+msgid "SSL-verschlüsselte Zahlung und sofortige Bestätigung"
+msgstr "SSL-encrypted payment and instant confirmation"
+
+#: apps/core/templates/core/index.html:288
+msgid "Wir sind immer für Sie da - vor, während und nach der Tour"
+msgstr "We are always there for you - before, during and after the tour"
+
+#: apps/core/templates/core/index.html:307
+msgid "Entdecken Sie die vielfältigen Aktivitäten und kulturellen Highlights"
+msgstr "Discover the diverse activities and cultural highlights"
+
+#: apps/core/templates/core/index.html:320
+#, python-format
+msgid "Entdecken Sie %(category.name)s"
+msgstr "Discover %(category.name)s"
+
+#: apps/core/templates/core/index.html:330
+msgid "Mehr Aktivitäten"
+msgstr "More Activities"
+
+#: apps/core/templates/core/index.html:331
+msgid "Alle ansehen"
+msgstr "View All"
+
+#: apps/core/templates/core/index.html:356
+msgid "Was unsere glücklichen Kunden sagen"
+msgstr "What Our Happy Customers Say"
+
+#: apps/core/templates/core/index.html:361
+msgid "(2,847 Google Bewertungen)"
+msgstr "(2,847 Google Reviews)"
+
+#: apps/core/templates/core/index.html:366
+msgid "Über 10.000 zufriedene Reisende vertrauen uns"
+msgstr "Over 10,000 satisfied travelers trust us"
+
+#: apps/core/templates/core/index.html:387
+#, python-format
+msgid "%(time)s ago"
+msgstr "%(time)s ago"
+
+#: apps/core/templates/core/index.html:405
+#: apps/tours/templates/tours/tour_list.html:94
+#: apps/users/templates/users/dashboard.html:156
+msgid "Tour"
+msgstr "Tour"
+
+#: apps/core/templates/core/index.html:410
+msgid "Noch keine Bewertungen verfügbar."
+msgstr "No reviews available yet."
+
+#: apps/core/templates/core/index.html:423
+msgid "Alle Google Bewertungen ansehen"
+msgstr "View All Google Reviews"
+
+#: apps/core/templates/core/index.html:433
+msgid "Ägypten Reiseblog"
+msgstr "Egypt Travel Blog"
+
+#: apps/core/templates/core/index.html:476
+msgid "Noch keine Blog-Artikel verfügbar."
+msgstr "No blog articles available yet."
+
+#: apps/core/templates/core/index.html:483
+msgid "Alle Artikel Ansehen"
+msgstr "View All Articles"
+
+#: apps/core/templates/core/index.html:494
+msgid "Bleiben Sie auf dem Laufenden!"
+msgstr "Stay Up to Date!"
+
+#: apps/core/templates/core/index.html:497
+msgid ""
+"Abonnieren Sie unseren Newsletter und erhalten Sie exklusive Angebote, "
+"Reisetipps und Neuigkeiten direkt in Ihr Postfach."
+msgstr ""
+
+#: apps/core/templates/core/index.html:515
+msgid ""
+"Keine Sorge, wir senden keinen Spam. Sie können sich jederzeit abmelden."
+msgstr ""
+
+#: apps/excursions/templates/excursions/detail.html:19 templates/header.html:39
+msgid "Ausflüge"
+msgstr "Excursions"
+
+#: apps/excursions/templates/excursions/detail.html:43
+#: apps/excursions/templates/excursions/index.html:201
+msgid "Bestseller"
+msgstr "Bestseller"
+
+#: apps/excursions/templates/excursions/detail.html:141
+#: apps/tours/templates/tours/detail.html:142
+msgid "Reiseverlauf"
+msgstr "Itinerary"
+
+#: apps/excursions/templates/excursions/detail.html:183
+#: apps/tours/templates/tours/detail.html:184
+msgid "Nicht Inklusive"
+msgstr "Not Included"
+
+#: apps/excursions/templates/excursions/detail.html:330
+msgid "Ähnliche Ausflüge"
+msgstr "Similar Excursions"
+
+#: apps/excursions/templates/excursions/detail.html:466
+msgid "Abholzeit:"
+msgstr "Pickup Time:"
+
+#: apps/excursions/templates/excursions/index.html:5
+#: apps/excursions/templates/excursions/index.html:29
+msgid "Ägypten Ausflüge & Touren"
+msgstr "Egypt Excursions & Tours"
+
+#: apps/excursions/templates/excursions/index.html:27 templates/header.html:32
+#: templates/header.html:197
+msgid "Ägypten Ausflüge"
+msgstr "Egypt Excursions"
+
+#: apps/excursions/templates/excursions/index.html:30
+msgid ""
+"Entdecken Sie die besten Ausflüge in Ägypten - von historischen Stätten bis "
+"zu Wüstenabenteuern"
+msgstr ""
+
+#: apps/excursions/templates/excursions/index.html:51
+msgid "Zertifiziert"
+msgstr "Certified"
+
+#: apps/excursions/templates/excursions/index.html:93
+#: apps/excursions/templates/excursions/index.html:118
+#: apps/gallery/templates/gallery/index.html:40
+#: apps/users/templates/users/booking_history.html:36
+msgid "Alle"
+msgstr "All"
+
+#: apps/excursions/templates/excursions/index.html:113
+msgid "Standort"
+msgstr "Location"
+
+#: apps/excursions/templates/excursions/index.html:135
+#: apps/users/templates/users/dashboard.html:137
+msgid "Preis"
+msgstr "Price"
+
+#: apps/excursions/templates/excursions/index.html:140
+msgid "Min"
+msgstr "Min"
+
+#: apps/excursions/templates/excursions/index.html:147
+msgid "Max"
+msgstr "Max"
+
+#: apps/excursions/templates/excursions/index.html:162
+msgid "Filter anwenden"
+msgstr "Apply Filters"
+
+#: apps/excursions/templates/excursions/index.html:167
+msgid "Filter zurücksetzen"
+msgstr "Reset Filters"
+
+#: apps/excursions/templates/excursions/index.html:177
+#, python-format
+msgid "%(counter)s Ausflug gefunden"
+msgid_plural "%(counter)s Ausflüge gefunden"
+msgstr[0] "%(counter)s excursions found"
+msgstr[1] "%(counter)s excursions found"
+
+#: apps/excursions/templates/excursions/index.html:183
+msgid "Beliebtheit"
+msgstr "Popularity"
+
+#: apps/excursions/templates/excursions/index.html:294
+msgid "Keine Ausflüge gefunden."
+msgstr "No excursions found."
+
+#: apps/excursions/templates/excursions/index.html:295
+msgid "Alle Ausflüge anzeigen"
+msgstr "Show All Excursions"
+
+#: apps/gallery/templates/gallery/index.html:5
+#: apps/gallery/templates/gallery/index.html:26
+#: apps/gallery/templates/gallery/index.html:28 templates/header.html:49
+#: templates/header.html:221
+msgid "Galerie"
+msgstr "Gallery"
+
+#: apps/gallery/templates/gallery/index.html:29
+msgid "Entdecken Sie die Schönheit Ägyptens in unseren Fotos"
+msgstr "Discover the beauty of Egypt in our photos"
+
+#: apps/gallery/templates/gallery/index.html:77
+msgid "Hervorgehoben"
+msgstr "Featured"
+
+#: apps/gallery/templates/gallery/index.html:115
+msgid "Keine Bilder gefunden."
+msgstr "No images found."
+
+#: apps/gallery/templates/gallery/index.html:126
+msgid "Lightbox schließen"
+msgstr "Close Lightbox"
+
+#: apps/gallery/templates/gallery/index.html:131
+msgid "Vorheriges Bild"
+msgstr "Previous Image"
+
+#: apps/gallery/templates/gallery/index.html:136
+msgid "Nächstes Bild"
+msgstr "Next Image"
+
+#: apps/gallery/templates/gallery/index.html:141
+msgid "Galeriebild"
+msgstr "Gallery Image"
+
+#: apps/tours/templates/tours/detail.html:20 templates/header.html:46
+#: templates/header.html:212
+msgid "Touren"
+msgstr "Tours"
+
+#: apps/tours/templates/tours/detail.html:332
+msgid "Ähnliche Touren"
+msgstr "Similar Tours"
+
+#: apps/tours/templates/tours/detail.html:472
+msgid "Abholzeit"
+msgstr "Pickup Time"
+
+#: apps/tours/templates/tours/tour_list.html:18
+msgid "Ägypten Touren"
+msgstr "Egypt Tours"
+
+#: apps/tours/templates/tours/tour_list.html:21
+msgid ""
+"Entdecken Sie die besten Touren in Ägypten - von historischen Stätten bis zu "
+"Wüstenabenteuern"
+msgstr ""
+
+#: apps/tours/templates/tours/tour_list.html:39
+msgid "Tour gefunden"
+msgid_plural "Touren gefunden"
+msgstr[0] "tours found"
+msgstr[1] "tours found"
+
+#: apps/tours/templates/tours/tour_list.html:51
+msgid "Alle Standorte"
+msgstr "All Locations"
+
+#: apps/tours/templates/tours/tour_list.html:59
+msgid "Neueste"
+msgstr "Newest"
+
+#: apps/tours/templates/tours/tour_list.html:62
+msgid "Name: A-Z"
+msgstr "Name: A-Z"
+
+#: apps/tours/templates/tours/tour_list.html:179
+msgid "Keine Touren gefunden."
+msgstr "No tours found."
+
+#: apps/tours/templates/tours/tour_list.html:180
+msgid "Alle Touren anzeigen"
+msgstr "Show All Tours"
+
+#: apps/transfers/templates/transfer/detail.html:19
+#: apps/transfers/templates/transfer/index.html:27
+#: apps/users/templates/users/dashboard.html:159 templates/header.html:48
+#: templates/header.html:218
+msgid "Transfer"
+msgstr "Transfer"
+
+#: apps/transfers/templates/transfer/detail.html:101
+msgid "Verfügbarkeit"
+msgstr "Availability"
+
+#: apps/transfers/templates/transfer/detail.html:109
+msgid "Kapazität"
+msgstr "Capacity"
+
+#: apps/transfers/templates/transfer/detail.html:112
+#, python-format
+msgid "%(counter)s Pers."
+msgid_plural "%(counter)s Pers."
+msgstr[0] "%(counter)s pers."
+msgstr[1] "%(counter)s pers."
+
+#: apps/transfers/templates/transfer/detail.html:114
+msgid "Variabel"
+msgstr "Variable"
+
+#: apps/transfers/templates/transfer/detail.html:131
+msgid "Stornierung"
+msgstr "Cancellation"
+
+#: apps/transfers/templates/transfer/detail.html:132
+msgid "Kostenlos"
+msgstr "Free"
+
+#: apps/transfers/templates/transfer/detail.html:132
+msgid "Gebührenpflichtig"
+msgstr "Fee Required"
+
+#: apps/transfers/templates/transfer/detail.html:147
+msgid "Verfügbare Routen"
+msgstr "Available Routes"
+
+#: apps/transfers/templates/transfer/detail.html:348
+msgid "Ähnliche Transfers"
+msgstr "Similar Transfers"
+
+#: apps/transfers/templates/transfer/detail.html:394
+#: apps/transfers/templates/transfer/index.html:210
+msgid "pro km"
+msgstr "per km"
+
+#: apps/transfers/templates/transfer/detail.html:394
+#: apps/transfers/templates/transfer/index.html:210
+msgid "pro Fahrzeug"
+msgstr "per vehicle"
+
+#: apps/transfers/templates/transfer/detail.html:409
+#: apps/users/templates/users/dashboard.html:135
+msgid "Datum"
+msgstr "Date"
+
+#: apps/transfers/templates/transfer/detail.html:448
+msgid "Transfer-Art, Flugnummer, Hotel/Adresse, besondere Wünsche..."
+msgstr "Transfer type, flight number, hotel/address, special requests..."
+
+#: apps/transfers/templates/transfer/detail.html:498
+msgid "Kostenlose Wartezeit"
+msgstr "Free Waiting Time"
+
+#: apps/transfers/templates/transfer/index.html:5
+msgid "Transfer Service Ägypten"
+msgstr "Transfer Service Egypt"
+
+#: apps/transfers/templates/transfer/index.html:29
+msgid "Transfer Service in Ägypten"
+msgstr "Transfer Service in Egypt"
+
+#: apps/transfers/templates/transfer/index.html:30
+msgid ""
+"Zuverlässig, komfortabel und pünktlich - Ihr Transfer-Partner in Ägypten"
+msgstr ""
+
+#: apps/transfers/templates/transfer/index.html:64
+msgid "Pünktlich"
+msgstr "Punctual"
+
+#: apps/transfers/templates/transfer/index.html:65
+msgid "Garantierte Pünktlichkeit für alle Transfers"
+msgstr "Guaranteed punctuality for all transfers"
+
+#: apps/transfers/templates/transfer/index.html:74
+msgid "Sicher"
+msgstr "Secure"
+
+#: apps/transfers/templates/transfer/index.html:75
+msgid "Lizenzierte Fahrer & versicherte Fahrzeuge"
+msgstr "Licensed drivers & insured vehicles"
+
+#: apps/transfers/templates/transfer/index.html:84
+msgid "Komfortabel"
+msgstr "Comfortable"
+
+#: apps/transfers/templates/transfer/index.html:85
+msgid "Moderne, klimatisierte Fahrzeuge"
+msgstr "Modern, air-conditioned vehicles"
+
+#: apps/transfers/templates/transfer/index.html:94
+msgid "Faire Preise"
+msgstr "Fair Prices"
+
+#: apps/transfers/templates/transfer/index.html:95
+msgid "Transparente Preise ohne versteckte Kosten"
+msgstr "Transparent prices without hidden costs"
+
+#: apps/transfers/templates/transfer/index.html:102
+msgid "Transfer verfügbar"
+msgid_plural "Transfers verfügbar"
+msgstr[0] "transfers available"
+msgstr[1] "transfers available"
+
+#: apps/transfers/templates/transfer/index.html:106
+msgid "Alle Typen"
+msgstr "All Types"
+
+#: apps/transfers/templates/transfer/index.html:114
+msgid "Alle Fahrzeuge"
+msgstr "All Vehicles"
+
+#: apps/transfers/templates/transfer/index.html:131
+msgid "Alle Transfers"
+msgstr "All Transfers"
+
+#: apps/transfers/templates/transfer/index.html:177
+msgid "Meet & Greet Service"
+msgstr "Meet & Greet Service"
+
+#: apps/transfers/templates/transfer/index.html:185
+msgid "Flugüberwachung"
+msgstr "Flight Monitoring"
+
+#: apps/transfers/templates/transfer/index.html:251
+msgid "Keine Transfers gefunden."
+msgstr "No transfers found."
+
+#: apps/transfers/templates/transfer/index.html:252
+msgid "Alle Transfers anzeigen"
+msgstr "Show All Transfers"
+
+#: apps/transfers/templates/transfer/index.html:261
+msgid "Brauchen Sie einen individuellen Transfer?"
+msgstr "Need a custom transfer?"
+
+#: apps/transfers/templates/transfer/index.html:262
+msgid "Kontaktieren Sie uns für maßgeschneiderte Transfer-Lösungen!"
+msgstr "Contact us for customized transfer solutions!"
+
+#: apps/transfers/templates/transfer/index.html:264
+msgid "Kontakt aufnehmen"
+msgstr "Contact Us"
+
+#: apps/users/admin.py:15 apps/users/admin.py:16
+msgid "User Profile"
+msgstr ""
+
+#: apps/users/templates/users/booking_history.html:5
+#: apps/users/templates/users/dashboard.html:100
+msgid "Buchungsverlauf"
+msgstr "Booking History"
+
+#: apps/users/templates/users/booking_history.html:18
+#: apps/users/templates/users/profile.html:18
+#: apps/users/templates/users/profile.html:53 templates/header.html:78
+#: templates/header.html:153
+msgid "Dashboard"
+msgstr "Dashboard"
+
+#: apps/users/templates/users/booking_history.html:20
+#: apps/users/templates/users/profile.html:67 templates/header.html:90
+#: templates/header.html:159
+msgid "Buchungen"
+msgstr "Bookings"
+
+#: apps/users/templates/users/booking_history.html:39
+#: apps/users/templates/users/dashboard.html:41
+msgid "Ausstehend"
+msgstr "Pending"
+
+#: apps/users/templates/users/booking_history.html:42
+#: apps/users/templates/users/dashboard.html:53
+msgid "Bestätigt"
+msgstr "Confirmed"
+
+#: apps/users/templates/users/booking_history.html:45
+#: apps/users/templates/users/dashboard.html:65
+msgid "Abgeschlossen"
+msgstr "Completed"
+
+#: apps/users/templates/users/booking_history.html:48
+msgid "Storniert"
+msgstr "Cancelled"
+
+#: apps/users/templates/users/booking_history.html:89
+#, python-format
+msgid "%(counter)s Person"
+msgid_plural "%(counter)s Personen"
+msgstr[0] "%(counter)s people"
+msgstr[1] "%(counter)s people"
+
+#: apps/users/templates/users/booking_history.html:101
+msgid "Gebucht am"
+msgstr "Booked on"
+
+#: apps/users/templates/users/booking_history.html:107
+msgid "Besondere Wünsche"
+msgstr "Special Requests"
+
+#: apps/users/templates/users/booking_history.html:113
+msgid "Tour ansehen"
+msgstr "View Tour"
+
+#: apps/users/templates/users/booking_history.html:115
+msgid "Ausflug ansehen"
+msgstr "View Excursion"
+
+#: apps/users/templates/users/booking_history.html:117
+msgid "Aktivität ansehen"
+msgstr "View Activity"
+
+#: apps/users/templates/users/booking_history.html:119
+msgid "Transfer ansehen"
+msgstr "View Transfer"
+
+#: apps/users/templates/users/booking_history.html:124
+msgid "Stornieren"
+msgstr ""
+
+#: apps/users/templates/users/booking_history.html:137
+msgid "Keine Buchungen gefunden"
+msgstr "No bookings found"
+
+#: apps/users/templates/users/booking_history.html:140
+#, python-format
+msgid "Keine Buchungen mit dem Status \"%(status)s\" gefunden."
+msgstr ""
+
+#: apps/users/templates/users/booking_history.html:142
+msgid "Sie haben noch keine Buchungen vorgenommen."
+msgstr "You haven't made any bookings yet."
+
+#: apps/users/templates/users/booking_history.html:145
+msgid "Jetzt buchen"
+msgstr "Book Now"
+
+#: apps/users/templates/users/dashboard.html:5
+msgid "Mein Dashboard"
+msgstr "My Dashboard"
+
+#: apps/users/templates/users/dashboard.html:15
+#, python-format
+msgid "Willkommen, %(name)s!"
+msgstr "Welcome, %(name)s!"
+
+#: apps/users/templates/users/dashboard.html:16
+msgid "Verwalten Sie Ihre Buchungen und Profile"
+msgstr "Manage your bookings and profile"
+
+#: apps/users/templates/users/dashboard.html:29
+msgid "Gesamt Buchungen"
+msgstr "Total Bookings"
+
+#: apps/users/templates/users/dashboard.html:86
+#: apps/users/templates/users/profile.html:83
+msgid "Profil bearbeiten"
+msgstr "Edit Profile"
+
+#: apps/users/templates/users/dashboard.html:87
+msgid "Persönliche Daten aktualisieren"
+msgstr "Update personal data"
+
+#: apps/users/templates/users/dashboard.html:101
+msgid "Alle Buchungen anzeigen"
+msgstr "View All Bookings"
+
+#: apps/users/templates/users/dashboard.html:114
+msgid "Neue Buchung"
+msgstr "New Booking"
+
+#: apps/users/templates/users/dashboard.html:115
+msgid "Touren & Aktivitäten entdecken"
+msgstr "Discover tours & activities"
+
+#: apps/users/templates/users/dashboard.html:124
+msgid "Aktuelle Buchungen"
+msgstr "Current Bookings"
+
+#: apps/users/templates/users/dashboard.html:125
+msgid "Alle anzeigen"
+msgstr ""
+
+#: apps/users/templates/users/dashboard.html:133
+msgid "Buchungscode"
+msgstr "Booking Code"
+
+#: apps/users/templates/users/dashboard.html:134
+msgid "Tour/Aktivität"
+msgstr "Tour/Activity"
+
+#: apps/users/templates/users/dashboard.html:136
+msgid "Personen"
+msgstr "People"
+
+#: apps/users/templates/users/dashboard.html:157
+msgid "Ausflug"
+msgstr "Excursion"
+
+#: apps/users/templates/users/dashboard.html:158
+msgid "Aktivität"
+msgstr "Activity"
+
+#: apps/users/templates/users/dashboard.html:186
+msgid "Keine Buchungen vorhanden"
+msgstr "No bookings available"
+
+#: apps/users/templates/users/dashboard.html:187
+msgid "Starten Sie Ihre Reise und buchen Sie Ihr erstes Abenteuer!"
+msgstr "Start your journey and book your first adventure!"
+
+#: apps/users/templates/users/profile.html:5
+#: apps/users/templates/users/profile.html:22
+#: apps/users/templates/users/profile.html:60
+msgid "Mein Profil"
+msgstr "My Profile"
+
+#: apps/users/templates/users/profile.html:20 templates/header.html:84
+#: templates/header.html:156
+msgid "Profil"
+msgstr "Profile"
+
+#: apps/users/templates/users/profile.html:74 templates/header.html:97
+#: templates/header.html:162
+msgid "Abmelden"
+msgstr "Logout"
+
+#: apps/users/templates/users/profile.html:99
+msgid "Persönliche Informationen"
+msgstr "Personal Information"
+
+#: apps/users/templates/users/profile.html:103
+msgid "Vorname"
+msgstr "First Name"
+
+#: apps/users/templates/users/profile.html:107
+msgid "Nachname"
+msgstr "Last Name"
+
+#: apps/users/templates/users/profile.html:125
+msgid "Adressinformationen"
+msgstr "Address Information"
+
+#: apps/users/templates/users/profile.html:129
+msgid "Land"
+msgstr "Country"
+
+#: apps/users/templates/users/profile.html:133
+msgid "Stadt"
+msgstr "City"
+
+#: apps/users/templates/users/profile.html:146
+msgid "Einstellungen"
+msgstr "Settings"
+
+#: apps/users/templates/users/profile.html:149
+msgid "Bevorzugte Sprache"
+msgstr "Preferred Language"
+
+#: apps/users/templates/users/profile.html:154
+msgid "Profilbild"
+msgstr "Profile Picture"
+
+#: apps/users/templates/users/profile.html:156
+msgid "JPG, PNG oder GIF (max. 2MB)"
+msgstr "JPG, PNG or GIF (max. 2MB)"
+
+#: apps/users/templates/users/profile.html:162
+msgid "Newsletter abonnieren"
+msgstr "Subscribe to Newsletter"
+
+#: apps/users/templates/users/profile.html:164
+msgid "Erhalten Sie exklusive Angebote und Updates"
+msgstr "Receive exclusive offers and updates"
+
+#: apps/users/templates/users/profile.html:170
+msgid "Änderungen speichern"
+msgstr "Save Changes"
+
+#: apps/users/templates/users/profile.html:173
+msgid "Abbrechen"
+msgstr "Cancel"
+
+#: templates/header.html:41 templates/header.html:206
+#, fuzzy
+#| msgid "Ausflüge"
+msgid "Alle Ausflüge"
+msgstr "Excursions"
+
+#~ msgid "Anzahl Personen"
+#~ msgstr "Number of People"
+
+#~ msgid "Anmeldung erforderlich"
+#~ msgstr "Login Required"
+
+#~ msgid "Jetzt anmelden"
+#~ msgstr "Sign In Now"
+
+#~ msgid "Konto erstellen"
+#~ msgstr "Create Account"
+
+#~ msgid "Vorteile eines Kontos:"
+#~ msgstr "Benefits of an Account:"
+
+#~ msgid "Buchungen einfach verwalten"
+#~ msgstr "Easily manage bookings"
+
+#~ msgid "Schnellere Buchungen mit gespeicherten Daten"
+#~ msgstr "Faster bookings with saved data"
+
+#~ msgid "Exklusive Mitgliederangebote"
+#~ msgstr "Exclusive member offers"
+
+#~ msgid "Bewertungen schreiben und teilen"
+#~ msgstr "Write and share reviews"
+
+#~ msgid "Anzahl Personen (Select fallback)"
+#~ msgstr "Number of People (Select fallback)"
+
+#~ msgid "1 Person"
+#~ msgstr "1 Person"
+
+#~ msgid "2 Personen"
+#~ msgstr "2 People"
+
+#~ msgid "3 Personen"
+#~ msgstr "3 People"
+
+#~ msgid "4 Personen"
+#~ msgstr "4 People"
+
+#~ msgid "5+ Personen"
+#~ msgstr "5+ People"

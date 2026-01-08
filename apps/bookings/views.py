@@ -10,6 +10,7 @@ from django.conf import settings
 from django.shortcuts import get_object_or_404, redirect
 from django.contrib import messages
 from django.urls import reverse
+from django.utils.translation import gettext_lazy as _
 import stripe
 import json
 
@@ -52,8 +53,8 @@ class CreateCheckoutSessionView(View):
                     'quantity': participants,
                 }],
                 mode='payment',
-                success_url=request.build_absolute_uri('/booking/success/'),
-                cancel_url=request.build_absolute_uri('/booking/cancel/'),
+                success_url=request.build_absolute_uri(reverse('bookings:success')),
+                cancel_url=request.build_absolute_uri(reverse('bookings:cancel')),
                 metadata={
                     'tour_id': tour.id,
                     'participants': participants,
@@ -139,7 +140,7 @@ class BookingInquiryView(View):
             redirect_url = transfer.get_absolute_url()
             form = BookingInquiryForm(request.POST, transfer=transfer)
         else:
-            messages.error(request, "Ungültige Buchungsanfrage.")
+            messages.error(request, _("Ungültige Buchungsanfrage."))
             return redirect('core:home')
         
         if form.is_valid():
@@ -153,9 +154,7 @@ class BookingInquiryView(View):
             
             messages.success(
                 request,
-                f'Vielen Dank für Ihre Buchungsanfrage! '
-                f'Ihre Bestätigungsnummer ist {booking.confirmation_code}. '
-                f'Wir werden uns in Kürze mit Ihnen in Verbindung setzen.'
+                _('Vielen Dank! Wir werden uns bald bei Ihnen melden.')
             )
             # TODO: Send confirmation email to customer and notification to admin
             return redirect('bookings:inquiry_success', confirmation_code=booking.confirmation_code)

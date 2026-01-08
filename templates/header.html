@@ -1,4 +1,5 @@
 {% load static %}
+{% load i18n %}
   <!-- HEADER -->
   <header class="header-sticky" id="mainHeader">
     <div class="container mx-auto px-4">
@@ -12,7 +13,7 @@
         <nav class="hidden lg:flex items-center space-x-8">
           <div class="relative group">
             <a href="{% url 'activities:list' %}" class="nav-link flex items-center gap-2">
-              Ägypten Aktivitäten
+              {% trans "Ägypten Aktivitäten" %}
               <svg class="w-4 h-4 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
               </svg>
@@ -21,39 +22,40 @@
               {% for category in header_activity_categories %}
               <a href="{% url 'activities:list' %}?category={{ category.slug }}" class="dropdown-item">{{ category.name }}</a>
               {% empty %}
-              <a href="{% url 'activities:list' %}" class="dropdown-item">Alle Aktivitäten</a>
+              <a href="{% url 'activities:list' %}" class="dropdown-item">{% trans "Alle Aktivitäten" %}</a>
               {% endfor %}
             </div>
           </div>
 
           <div class="relative group">
             <a href="{% url 'excursions:list' %}" class="nav-link flex items-center gap-2">
-              Ägypten Ausflüge
+              {% trans "Ägypten Ausflüge" %}
               <svg class="w-4 h-4 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
               </svg>
             </a>
             <div class="dropdown-menu">
               {% for location in header_locations %}
-              <a href="{% url 'excursions:list' %}?location={{ location.slug }}" class="dropdown-item">{{ location.name }} Ausflüge</a>
+              <a href="{% url 'excursions:list' %}?location={{ location.slug }}" class="dropdown-item">{{ location.name }} {% trans "Ausflüge" %}</a>
               {% empty %}
-              <a href="{% url 'excursions:list' %}" class="dropdown-item">Alle Ausflüge</a>
+              <a href="{% url 'excursions:list' %}" class="dropdown-item">{% trans "Alle Ausflüge" %}</a>
               {% endfor %}
             </div>
           </div>
 
-          <a href="{% url 'tours:list' %}" class="nav-link">Touren</a>
-          <a href="{% url 'blog:list' %}" class="nav-link">Blog</a>
-          <a href="{% url 'transfers:list' %}" class="nav-link">Transfer</a>
-          <a href="{% url 'gallery:list' %}" class="nav-link">Galerie</a>
-          <a href="{% url 'core:contact' %}" class="nav-link">Kontakt</a>
+          <a href="{% url 'tours:list' %}" class="nav-link">{% trans "Touren" %}</a>
+          <a href="{% url 'blog:list' %}" class="nav-link">{% trans "Blog" %}</a>
+          <a href="{% url 'transfers:list' %}" class="nav-link">{% trans "Transfer" %}</a>
+          <a href="{% url 'gallery:list' %}" class="nav-link">{% trans "Galerie" %}</a>
+          <a href="{% url 'core:contact' %}" class="nav-link">{% trans "Kontakt" %}</a>
         </nav>
 
         <div class="flex items-center gap-4">
           <div class="lang-switcher">
-            <button class="lang-btn active" data-lang="de">DE</button>
+            {% get_current_language as CURRENT_LANGUAGE %}
+            <button type="button" class="lang-btn {% if CURRENT_LANGUAGE == 'de' %}active text-primary-gold{% else %}text-gray-600{% endif %}" data-lang="de">DE</button>
             <span class="lang-separator"></span>
-            <button class="lang-btn" data-lang="en">EN</button>
+            <button type="button" class="lang-btn {% if CURRENT_LANGUAGE == 'en' %}active text-primary-gold{% else %}text-gray-600{% endif %}" data-lang="en">EN</button>
           </div>
 
           <!-- Desktop User Menu / Login Buttons -->
@@ -73,26 +75,26 @@
                   <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
                   </svg>
-                  Dashboard
+                  {% trans "Dashboard" %}
                 </a>
                 <a href="{% url 'users:profile' %}" class="dropdown-item">
                   <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
                   </svg>
-                  Profil
+                  {% trans "Profil" %}
                 </a>
                 <a href="{% url 'users:booking_history' %}" class="dropdown-item">
                   <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
                   </svg>
-                  Buchungen
+                  {% trans "Buchungen" %}
                 </a>
                 <hr class="my-2">
                 <a href="{% url 'users:logout' %}" class="dropdown-item text-red-600 hover:bg-red-50">
                   <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
                   </svg>
-                  Abmelden
+                  {% trans "Abmelden" %}
                 </a>
               </div>
             </div>
@@ -102,10 +104,10 @@
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"/>
                 </svg>
-                Anmelden
+                {% trans "Anmelden" %}
               </a>
               <a href="{% url 'users:signup' %}" class="btn-primary px-6 py-2">
-                Registrieren
+                {% trans "Registrieren" %}
               </a>
             </div>
           {% endif %}
@@ -148,16 +150,16 @@
           </div>
           <div class="space-y-1">
             <a href="{% url 'users:dashboard' %}" class="block px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded">
-              📊 Dashboard
+              📊 {% trans "Dashboard" %}
             </a>
             <a href="{% url 'users:profile' %}" class="block px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded">
-              👤 Profil
+              👤 {% trans "Profil" %}
             </a>
             <a href="{% url 'users:booking_history' %}" class="block px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded">
-              📋 Buchungen
+              📋 {% trans "Buchungen" %}
             </a>
             <a href="{% url 'users:logout' %}" class="block px-3 py-2 text-sm text-red-600 hover:bg-red-50 rounded">
-              🚪 Abmelden
+              🚪 {% trans "Abmelden" %}
             </a>
           </div>
         </div>
@@ -165,10 +167,10 @@
         <div class="mobile-menu-item mb-4">
           <div class="flex gap-2">
             <a href="{% url 'users:login' %}" class="flex-1 btn-secondary text-center py-2 text-sm">
-              Anmelden
+              {% trans "Anmelden" %}
             </a>
             <a href="{% url 'users:signup' %}" class="flex-1 btn-primary text-center py-2 text-sm">
-              Registrieren
+              {% trans "Registrieren" %}
             </a>
           </div>
         </div>
@@ -176,7 +178,7 @@
 
         <div class="mobile-menu-item">
           <button class="mobile-dropdown-btn">
-            Ägypten Aktivitäten
+            {% trans "Ägypten Aktivitäten" %}
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
             </svg>
@@ -185,14 +187,14 @@
             {% for category in header_activity_categories %}
             <a href="{% url 'activities:list' %}?category={{ category.slug }}">{{ category.name }}</a>
             {% empty %}
-            <a href="{% url 'activities:list' %}">Alle Aktivitäten</a>
+            <a href="{% url 'activities:list' %}">{% trans "Alle Aktivitäten" %}</a>
             {% endfor %}
           </div>
         </div>
 
         <div class="mobile-menu-item">
           <button class="mobile-dropdown-btn">
-            Ägypten Ausflüge
+            {% trans "Ägypten Ausflüge" %}
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
             </svg>
@@ -201,25 +203,25 @@
             {% for location in header_locations %}
             <a href="{% url 'excursions:list' %}?location={{ location.slug }}">{{ location.name }}</a>
             {% empty %}
-            <a href="{% url 'excursions:list' %}">Alle Ausflüge</a>
+            <a href="{% url 'excursions:list' %}">{% trans "Alle Ausflüge" %}</a>
             {% endfor %}
           </div>
         </div>
 
         <div class="mobile-menu-item">
-          <a href="{% url 'tours:list' %}">Touren</a>
+          <a href="{% url 'tours:list' %}">{% trans "Touren" %}</a>
         </div>
         <div class="mobile-menu-item">
-          <a href="{% url 'blog:list' %}">Blog</a>
+          <a href="{% url 'blog:list' %}">{% trans "Blog" %}</a>
         </div>
         <div class="mobile-menu-item">
-          <a href="{% url 'transfers:list' %}">Transfer</a>
+          <a href="{% url 'transfers:list' %}">{% trans "Transfer" %}</a>
         </div>
         <div class="mobile-menu-item">
-          <a href="{% url 'gallery:list' %}">Galerie</a>
+          <a href="{% url 'gallery:list' %}">{% trans "Galerie" %}</a>
         </div>
         <div class="mobile-menu-item">
-          <a href="{% url 'core:contact' %}">Kontakt</a>
+          <a href="{% url 'core:contact' %}">{% trans "Kontakt" %}</a>
         </div>
       </nav>
     </div>

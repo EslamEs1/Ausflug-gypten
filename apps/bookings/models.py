@@ -38,6 +38,9 @@ class Booking(models.Model):
     # Booking details
     booking_date = models.DateField(verbose_name="Buchungsdatum")
     number_of_participants = models.PositiveIntegerField(default=1, verbose_name="Anzahl Teilnehmer")
+    adults = models.PositiveIntegerField(default=1, verbose_name="Erwachsene")
+    children = models.PositiveIntegerField(default=0, verbose_name="Kinder")
+    babies = models.PositiveIntegerField(default=0, verbose_name="Babys")
     total_price = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="Gesamtpreis")
     
     # Status

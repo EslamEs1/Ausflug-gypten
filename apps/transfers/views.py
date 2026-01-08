@@ -155,6 +155,10 @@ class TransferDetailView(DetailView):
             context['average_rating'] = None
             context['total_reviews'] = 0
         
+        # Add today's date for form min date
+        from datetime import date
+        context['today'] = date.today()
+        
         return context
 
 

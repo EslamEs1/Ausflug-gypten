@@ -75,6 +75,7 @@ class TourDetailView(DetailView):
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        from datetime import date
         
         # Get related tours
         context['related_tours'] = Tour.objects.filter(
@@ -87,6 +88,9 @@ class TourDetailView(DetailView):
             is_approved=True,
             rating__gt=3
         )[:10]
+        
+        # Add today's date for form min date
+        context['today'] = date.today()
         
         return context
 

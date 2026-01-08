@@ -18,14 +18,39 @@ class BookingInquiryForm(forms.ModelForm):
         })
     )
     
-    persons = forms.IntegerField(
-        label="Anzahl Personen",
-        min_value=1,
+    adults = forms.IntegerField(
+        label="Erwachsene",
+        min_value=0,
         max_value=50,
-        initial=2,
+        initial=1,
         widget=forms.NumberInput(attrs={
             'class': 'input-field',
             'required': True,
+            'min': '0',
+        })
+    )
+    
+    children = forms.IntegerField(
+        label="Kinder",
+        min_value=0,
+        max_value=50,
+        initial=0,
+        widget=forms.NumberInput(attrs={
+            'class': 'input-field',
+            'required': True,
+            'min': '0',
+        })
+    )
+    
+    babies = forms.IntegerField(
+        label="Babys",
+        min_value=0,
+        max_value=50,
+        initial=0,
+        widget=forms.NumberInput(attrs={
+            'class': 'input-field',
+            'required': True,
+            'min': '0',
         })
     )
     
@@ -70,7 +95,7 @@ class BookingInquiryForm(forms.ModelForm):
     
     class Meta:
         model = Booking
-        fields = ['date', 'persons', 'name', 'email', 'phone', 'special_requests']
+        fields = ['date', 'adults', 'children', 'babies', 'name', 'email', 'phone', 'special_requests']
     
     def __init__(self, *args, **kwargs):
         self.tour = kwargs.pop('tour', None)
@@ -86,6 +111,18 @@ class BookingInquiryForm(forms.ModelForm):
             raise forms.ValidationError("Das Datum muss in der Zukunft liegen.")
         return date
     
+    def clean(self):
+        cleaned_data = super().clean()
+        adults = cleaned_data.get('adults', 0)
+        children = cleaned_data.get('children', 0)
+        babies = cleaned_data.get('babies', 0)
+        
+        total = adults + children + babies
+        if total < 1:
+            raise forms.ValidationError("Mindestens eine Person muss angegeben werden.")
+        
+        return cleaned_data
+    
     def save(self, commit=True):
         booking = super().save(commit=False)
         
@@ -94,7 +131,13 @@ class BookingInquiryForm(forms.ModelForm):
         booking.customer_email = self.cleaned_data['email']
         booking.customer_phone = self.cleaned_data['phone']
         booking.booking_date = self.cleaned_data['date']
-        booking.number_of_participants = self.cleaned_data['persons']
+        
+        # Set participant counts
+        booking.adults = self.cleaned_data.get('adults', 0)
+        booking.children = self.cleaned_data.get('children', 0)
+        booking.babies = self.cleaned_data.get('babies', 0)
+        booking.number_of_participants = booking.adults + booking.children + booking.babies
+        
         booking.special_requests = self.cleaned_data.get('special_requests', '')
         
         # Set tour/excursion/activity/transfer

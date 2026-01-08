@@ -24,12 +24,12 @@
         <div class="container mx-auto px-4">
           <div class="max-w-3xl">
             <div class="breadcrumb mb-6 text-white">
-              <a href="{% url 'core:home' %}" class="hover:text-primary-gold">Home</a>
+              <a href="{% url 'core:home' %}" class="hover:text-primary-gold">{% trans "Home" %}</a>
               <span class="breadcrumb-separator">/</span>
-              <span>{% if page_hero and page_hero.breadcrumb_text %}{{ page_hero.breadcrumb_text }}{% else %}Ägypten Aktivitäten{% endif %}</span>
+              <span>{% if page_hero and page_hero.breadcrumb_text %}{{ page_hero.breadcrumb_text }}{% else %}{% trans "Ägypten Aktivitäten" %}{% endif %}</span>
             </div>
-            <h1 class="text-white font-heading font-bold mb-6 animate-fade-in">{% if page_hero %}{{ page_hero.title }}{% else %}Ägypten Aktivitäten & Sehenswürdigkeiten{% endif %}</h1>
-            <p class="text-white text-xl mb-8 animate-slide-up">{% if page_hero %}{{ page_hero.subtitle }}{% else %}Erleben Sie unvergessliche Abenteuer - von Schnorcheln im Roten Meer bis zu Wüsten-Safaris{% endif %}</p>
+            <h1 class="text-white font-heading font-bold mb-6 animate-fade-in">{% if page_hero %}{{ page_hero.title }}{% else %}{% trans "Ägypten Aktivitäten & Sehenswürdigkeiten" %}{% endif %}</h1>
+            <p class="text-white text-xl mb-8 animate-slide-up">{% if page_hero %}{{ page_hero.subtitle }}{% else %}{% trans "Erleben Sie unvergessliche Abenteuer - von Schnorcheln im Roten Meer bis zu Wüsten-Safaris" %}{% endif %}</p>
             {% if page_hero and page_hero.badges.exists %}
             <div class="flex flex-wrap gap-4 animate-slide-up">
               {% for badge in page_hero.badges.all %}
@@ -72,7 +72,7 @@
                 <h3 class="text-3xl font-heading font-bold mb-3">{{ category.name }}</h3>
                 <p class="text-gray-200 mb-4">{{ category.description|striptags|truncatewords:15 }}</p>
                 <div class="flex items-center gap-2 text-primary-gold font-bold">
-                  <span>Mehr erfahren</span>
+                  <span>{% trans "Mehr erfahren" %}</span>
                   <svg class="w-5 h-5 transform group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
                   </svg>
@@ -87,11 +87,11 @@
         <!-- Filter & Sort -->
         <div class="mb-8 flex flex-col md:flex-row gap-4 items-center justify-between">
           <div class="text-gray-600">
-            <strong>{{ total_activities }}</strong> Aktivitäten gefunden
+            <strong>{{ total_activities }}</strong> {% trans "Aktivitäten gefunden" %}
           </div>
           <div class="flex gap-4">
             <select id="categoryFilter" class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-gold">
-              <option value="">Alle Kategorien</option>
+              <option value="">{% trans "Alle Kategorien" %}</option>
               {% for category in categories %}
                 <option value="{{ category.slug }}" {% if current_category == category.slug %}selected{% endif %}>
                   {{ category.name }}
@@ -99,16 +99,16 @@
               {% endfor %}
             </select>
             <select id="orderingFilter" class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-gold">
-              <option value="featured" {% if current_ordering == 'featured' %}selected{% endif %}>Empfohlen</option>
-              <option value="popular" {% if current_ordering == 'popular' %}selected{% endif %}>Beliebt</option>
-              <option value="price_low" {% if current_ordering == 'price_low' %}selected{% endif %}>Preis: Niedrig bis Hoch</option>
-              <option value="price_high" {% if current_ordering == 'price_high' %}selected{% endif %}>Preis: Hoch bis Niedrig</option>
+              <option value="featured" {% if current_ordering == 'featured' %}selected{% endif %}>{% trans "Empfohlen" %}</option>
+              <option value="popular" {% if current_ordering == 'popular' %}selected{% endif %}>{% trans "Beliebt" %}</option>
+              <option value="price_low" {% if current_ordering == 'price_low' %}selected{% endif %}>{% trans "Preis: Niedrig bis Hoch" %}</option>
+              <option value="price_high" {% if current_ordering == 'price_high' %}selected{% endif %}>{% trans "Preis: Hoch bis Niedrig" %}</option>
             </select>
           </div>
         </div>
 
         <!-- All Activities Grid -->
-        <h2 class="text-3xl font-heading font-bold text-primary-blue mb-8 text-center">Alle Aktivitäten</h2>
+        <h2 class="text-3xl font-heading font-bold text-primary-blue mb-8 text-center">{% trans "Alle Aktivitäten" %}</h2>
         
         {% if activities %}
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -122,10 +122,10 @@
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
                 </svg>
               </button>
-              {% if activity.is_popular %}
-                <span class="badge-featured absolute top-4 left-4">Beliebt</span>
+                {% if activity.is_popular %}
+                <span class="badge-featured absolute top-4 left-4">{% trans "Beliebt" %}</span>
               {% elif activity.is_featured %}
-                <span class="badge-featured absolute top-4 left-4">Empfohlen</span>
+                <span class="badge-featured absolute top-4 left-4">{% trans "Empfohlen" %}</span>
               {% endif %}
             </div>
             
@@ -150,7 +150,7 @@
                     {% if forloop.counter <= activity.average_rating|floatformat:0|add:"0" %}★{% else %}☆{% endif %}
                   {% endfor %}
                 </div>
-                <span class="text-sm text-gray-600">({{ activity.total_reviews }} Bewertungen)</span>
+                <span class="text-sm text-gray-600">({{ activity.total_reviews }} {% trans "Bewertungen" %})</span>
               </div>
               {% endif %}
               
@@ -159,7 +159,7 @@
                   <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
                   </svg>
-                  <span>{{ activity.duration_hours }} Stunden</span>
+                  <span>{{ activity.duration_hours }} {% trans "Stunden" %}</span>
                 </div>
                 {% if activity.location %}
                 <div class="flex items-center gap-2">
@@ -173,7 +173,7 @@
               
               <div class="flex items-center justify-between pt-4 border-t border-gray-200">
                 <div>
-                  <span class="text-sm text-gray-600">Ab</span>
+                  <span class="text-sm text-gray-600">{% trans "Ab" %}</span>
                   <div class="price-tag">
                     {% if activity.has_discount %}
                       <span class="line-through text-gray-400 text-lg">€{{ activity.price }}</span>
@@ -183,7 +183,7 @@
                     {% endif %}
                   </div>
                 </div>
-                <a href="{{ activity.get_absolute_url }}" class="btn-primary text-sm px-6 py-2">Details</a>
+                <a href="{{ activity.get_absolute_url }}" class="btn-primary text-sm px-6 py-2">{% trans "Details" %}</a>
               </div>
             </div>
           </div>
@@ -221,13 +221,13 @@
 
         {% else %}
         <div class="text-center py-12">
-          <p class="text-gray-600 text-lg mb-4">Keine Aktivitäten gefunden.</p>
-          <a href="{% url 'activities:list' %}" class="btn-primary">Alle Aktivitäten anzeigen</a>
+          <p class="text-gray-600 text-lg mb-4">{% trans "Keine Aktivitäten gefunden." %}</p>
+          <a href="{% url 'activities:list' %}" class="btn-primary">{% trans "Alle Aktivitäten anzeigen" %}</a>
         </div>
         {% endif %}
 
         <div class="text-center mt-12">
-          <a href="{% url 'tours:list' %}" class="btn-secondary">Alle Ausflüge Ansehen</a>
+          <a href="{% url 'tours:list' %}" class="btn-secondary">{% trans "Alle Ausflüge Ansehen" %}</a>
         </div>
       </div>
     </section>

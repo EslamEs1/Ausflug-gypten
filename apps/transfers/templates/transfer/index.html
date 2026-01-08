@@ -22,12 +22,12 @@
         <div class="container mx-auto px-4">
           <div class="max-w-3xl">
             <div class="breadcrumb mb-6 text-white">
-              <a href="{% url 'core:home' %}" class="hover:text-primary-gold">Home</a>
+              <a href="{% url 'core:home' %}" class="hover:text-primary-gold">{% trans "Home" %}</a>
               <span class="breadcrumb-separator">/</span>
-              <span>{% if page_hero and page_hero.breadcrumb_text %}{{ page_hero.breadcrumb_text }}{% else %}Transfer{% endif %}</span>
+              <span>{% if page_hero and page_hero.breadcrumb_text %}{{ page_hero.breadcrumb_text }}{% else %}{% trans "Transfer" %}{% endif %}</span>
             </div>
-            <h1 class="text-white font-heading font-bold mb-6 animate-fade-in text-4xl md:text-5xl">{% if page_hero %}{{ page_hero.title }}{% else %}Transfer Service in Ägypten{% endif %}</h1>
-            <p class="text-white text-xl mb-8 animate-slide-up">{% if page_hero %}{{ page_hero.subtitle }}{% else %}Zuverlässig, komfortabel und pünktlich - Ihr Transfer-Partner in Ägypten{% endif %}</p>
+            <h1 class="text-white font-heading font-bold mb-6 animate-fade-in text-4xl md:text-5xl">{% if page_hero %}{{ page_hero.title }}{% else %}{% trans "Transfer Service in Ägypten" %}{% endif %}</h1>
+            <p class="text-white text-xl mb-8 animate-slide-up">{% if page_hero %}{{ page_hero.subtitle }}{% else %}{% trans "Zuverlässig, komfortabel und pünktlich - Ihr Transfer-Partner in Ägypten" %}{% endif %}</p>
             {% if page_hero and page_hero.badges.exists %}
             <div class="flex flex-wrap gap-4 animate-slide-up">
               {% for badge in page_hero.badges.all %}
@@ -61,8 +61,8 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
               </svg>
             </div>
-            <h3 class="font-heading font-bold text-lg mb-2">Pünktlich</h3>
-            <p class="text-gray-600 text-sm">Garantierte Pünktlichkeit für alle Transfers</p>
+            <h3 class="font-heading font-bold text-lg mb-2">{% trans "Pünktlich" %}</h3>
+            <p class="text-gray-600 text-sm">{% trans "Garantierte Pünktlichkeit für alle Transfers" %}</p>
           </div>
 
           <div class="text-center animate-on-scroll">
@@ -71,8 +71,8 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
               </svg>
             </div>
-            <h3 class="font-heading font-bold text-lg mb-2">Sicher</h3>
-            <p class="text-gray-600 text-sm">Lizenzierte Fahrer & versicherte Fahrzeuge</p>
+            <h3 class="font-heading font-bold text-lg mb-2">{% trans "Sicher" %}</h3>
+            <p class="text-gray-600 text-sm">{% trans "Lizenzierte Fahrer & versicherte Fahrzeuge" %}</p>
           </div>
 
           <div class="text-center animate-on-scroll">
@@ -81,8 +81,8 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5"/>
               </svg>
             </div>
-            <h3 class="font-heading font-bold text-lg mb-2">Komfortabel</h3>
-            <p class="text-gray-600 text-sm">Moderne, klimatisierte Fahrzeuge</p>
+            <h3 class="font-heading font-bold text-lg mb-2">{% trans "Komfortabel" %}</h3>
+            <p class="text-gray-600 text-sm">{% trans "Moderne, klimatisierte Fahrzeuge" %}</p>
           </div>
 
           <div class="text-center animate-on-scroll">
@@ -91,19 +91,19 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
               </svg>
             </div>
-            <h3 class="font-heading font-bold text-lg mb-2">Faire Preise</h3>
-            <p class="text-gray-600 text-sm">Transparente Preise ohne versteckte Kosten</p>
+            <h3 class="font-heading font-bold text-lg mb-2">{% trans "Faire Preise" %}</h3>
+            <p class="text-gray-600 text-sm">{% trans "Transparente Preise ohne versteckte Kosten" %}</p>
           </div>
         </div>
 
         <!-- Filter & Sort -->
         <div class="mb-8 flex flex-col md:flex-row gap-4 items-center justify-between">
           <div class="text-gray-600">
-            <strong>{{ total_transfers }}</strong> Transfers verfügbar
+            <strong>{{ total_transfers }}</strong> {% blocktrans count counter=total_transfers %}Transfer verfügbar{% plural %}Transfers verfügbar{% endblocktrans %}
           </div>
           <div class="flex flex-wrap gap-4">
             <select id="typeFilter" class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-gold">
-              <option value="">Alle Typen</option>
+              <option value="">{% trans "Alle Typen" %}</option>
               {% for type in transfer_types %}
                 <option value="{{ type.slug }}" {% if current_type == type.slug %}selected{% endif %}>
                   {{ type.name }}
@@ -111,7 +111,7 @@
               {% endfor %}
             </select>
             <select id="vehicleFilter" class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-gold">
-              <option value="">Alle Fahrzeuge</option>
+              <option value="">{% trans "Alle Fahrzeuge" %}</option>
               {% for vehicle in vehicle_types %}
                 <option value="{{ vehicle.slug }}" {% if current_vehicle == vehicle.slug %}selected{% endif %}>
                   {{ vehicle.name }}
@@ -119,16 +119,16 @@
               {% endfor %}
             </select>
             <select id="orderingFilter" class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-gold">
-              <option value="featured" {% if current_ordering == 'featured' %}selected{% endif %}>Empfohlen</option>
-              <option value="popular" {% if current_ordering == 'popular' %}selected{% endif %}>Beliebt</option>
-              <option value="price_low" {% if current_ordering == 'price_low' %}selected{% endif %}>Preis: Niedrig bis Hoch</option>
-              <option value="price_high" {% if current_ordering == 'price_high' %}selected{% endif %}>Preis: Hoch bis Niedrig</option>
+              <option value="featured" {% if current_ordering == 'featured' %}selected{% endif %}>{% trans "Empfohlen" %}</option>
+              <option value="popular" {% if current_ordering == 'popular' %}selected{% endif %}>{% trans "Beliebt" %}</option>
+              <option value="price_low" {% if current_ordering == 'price_low' %}selected{% endif %}>{% trans "Preis: Niedrig bis Hoch" %}</option>
+              <option value="price_high" {% if current_ordering == 'price_high' %}selected{% endif %}>{% trans "Preis: Hoch bis Niedrig" %}</option>
             </select>
           </div>
         </div>
 
         <!-- All Transfers Grid -->
-        <h2 class="text-3xl font-heading font-bold text-primary-blue mb-8 text-center">Alle Transfers</h2>
+        <h2 class="text-3xl font-heading font-bold text-primary-blue mb-8 text-center">{% trans "Alle Transfers" %}</h2>
         
         {% if transfers %}
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -151,9 +151,9 @@
                 {% endif %}
               </div>
               {% if transfer.is_popular %}
-                <span class="badge-featured absolute top-4 left-4">Beliebt</span>
+                <span class="badge-featured absolute top-4 left-4">{% trans "Beliebt" %}</span>
               {% elif transfer.is_featured %}
-                <span class="badge-featured absolute top-4 left-4">Empfohlen</span>
+                <span class="badge-featured absolute top-4 left-4">{% trans "Empfohlen" %}</span>
               {% endif %}
             </div>
             
@@ -174,7 +174,7 @@
                   <svg class="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                     <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
                   </svg>
-                  <span>Meet & Greet Service</span>
+                  <span>{% trans "Meet & Greet Service" %}</span>
                 </li>
                 {% endif %}
                 {% if transfer.flight_monitoring %}
@@ -182,7 +182,7 @@
                   <svg class="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                     <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
                   </svg>
-                  <span>Flugüberwachung</span>
+                  <span>{% trans "Flugüberwachung" %}</span>
                 </li>
                 {% endif %}
                 {% if transfer.free_cancellation %}
@@ -190,14 +190,14 @@
                   <svg class="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                     <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
                   </svg>
-                  <span>Kostenlose Stornierung</span>
+                  <span>{% trans "Kostenlose Stornierung" %}</span>
                 </li>
                 {% endif %}
               </ul>
               
               <div class="flex items-center justify-between pt-4 border-t border-gray-200">
                 <div>
-                  <span class="text-sm text-gray-600">Ab</span>
+                  <span class="text-sm text-gray-600">{% trans "Ab" %}</span>
                   <div class="price-tag">
                     {% if transfer.has_discount %}
                       <span class="line-through text-gray-400 text-lg">€{{ transfer.base_price }}</span>
@@ -207,10 +207,10 @@
                     {% endif %}
                   </div>
                   <span class="text-xs text-gray-500">
-                    {% if transfer.price_per_person %}pro Person{% elif transfer.price_per_km %}pro km{% else %}pro Fahrzeug{% endif %}
+                    {% if transfer.price_per_person %}{% trans "pro Person" %}{% elif transfer.price_per_km %}{% trans "pro km" %}{% else %}{% trans "pro Fahrzeug" %}{% endif %}
                   </span>
                 </div>
-                <a href="{{ transfer.get_absolute_url }}" class="btn-primary text-sm px-6 py-2">Buchen</a>
+                <a href="{{ transfer.get_absolute_url }}" class="btn-primary text-sm px-6 py-2">{% trans "Buchen" %}</a>
               </div>
             </div>
           </div>
@@ -248,8 +248,8 @@
 
         {% else %}
         <div class="text-center py-12">
-          <p class="text-gray-600 text-lg mb-4">Keine Transfers gefunden.</p>
-          <a href="{% url 'transfers:list' %}" class="btn-primary">Alle Transfers anzeigen</a>
+          <p class="text-gray-600 text-lg mb-4">{% trans "Keine Transfers gefunden." %}</p>
+          <a href="{% url 'transfers:list' %}" class="btn-primary">{% trans "Alle Transfers anzeigen" %}</a>
         </div>
         {% endif %}
       </div>
@@ -258,10 +258,10 @@
     <!-- CTA Section -->
     <section class="py-16 bg-gradient-to-r from-primary-blue to-primary-gold text-white">
       <div class="container mx-auto px-4 text-center">
-        <h2 class="text-3xl font-heading font-bold mb-4">Brauchen Sie einen individuellen Transfer?</h2>
-        <p class="text-xl mb-8">Kontaktieren Sie uns für maßgeschneiderte Transfer-Lösungen!</p>
+        <h2 class="text-3xl font-heading font-bold mb-4">{% trans "Brauchen Sie einen individuellen Transfer?" %}</h2>
+        <p class="text-xl mb-8">{% trans "Kontaktieren Sie uns für maßgeschneiderte Transfer-Lösungen!" %}</p>
         <a href="{% url 'core:contact' %}" class="btn-secondary bg-white text-primary-blue hover:bg-gray-100">
-          Kontakt aufnehmen
+          {% trans "Kontakt aufnehmen" %}
         </a>
       </div>
     </section>

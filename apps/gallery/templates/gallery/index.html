@@ -21,12 +21,12 @@
         <div class="container mx-auto px-4">
           <div class="max-w-3xl">
             <div class="breadcrumb mb-6 text-white">
-              <a href="{% url 'core:home' %}" class="hover:text-primary-gold">Home</a>
+              <a href="{% url 'core:home' %}" class="hover:text-primary-gold">{% trans "Home" %}</a>
               <span class="breadcrumb-separator">/</span>
-              <span>{% if page_hero and page_hero.breadcrumb_text %}{{ page_hero.breadcrumb_text }}{% else %}Galerie{% endif %}</span>
+              <span>{% if page_hero and page_hero.breadcrumb_text %}{{ page_hero.breadcrumb_text }}{% else %}{% trans "Galerie" %}{% endif %}</span>
             </div>
-            <h1 class="text-white font-heading font-bold mb-6 animate-fade-in text-4xl md:text-5xl">{% if page_hero %}{{ page_hero.title }}{% else %}Galerie{% endif %}</h1>
-            <p class="text-white text-xl mb-8 animate-slide-up">{% if page_hero %}{{ page_hero.subtitle }}{% else %}Entdecken Sie die Schönheit Ägyptens in unseren Fotos{% endif %}</p>
+            <h1 class="text-white font-heading font-bold mb-6 animate-fade-in text-4xl md:text-5xl">{% if page_hero %}{{ page_hero.title }}{% else %}{% trans "Galerie" %}{% endif %}</h1>
+            <p class="text-white text-xl mb-8 animate-slide-up">{% if page_hero %}{{ page_hero.subtitle }}{% else %}{% trans "Entdecken Sie die Schönheit Ägyptens in unseren Fotos" %}{% endif %}</p>
           </div>
         </div>
       </div>
@@ -37,7 +37,7 @@
       <div class="container mx-auto px-4">
         <div class="flex flex-wrap gap-4 justify-center">
           <button class="filter-btn {% if not current_category %}active{% endif %}" data-filter="all" onclick="filterGallery('all')">
-            Alle
+            {% trans "Alle" %}
           </button>
           {% for category in categories %}
           <button class="filter-btn {% if current_category == category.slug %}active{% endif %}" data-filter="{{ category.slug }}" onclick="filterGallery('{{ category.slug }}')">
@@ -74,7 +74,7 @@
                 </div>
               </div>
               {% if image.is_featured %}
-                <span class="badge-featured absolute top-4 left-4">Hervorgehoben</span>
+                <span class="badge-featured absolute top-4 left-4">{% trans "Hervorgehoben" %}</span>
               {% endif %}
             </div>
           </div>
@@ -112,7 +112,7 @@
 
         {% else %}
         <div class="text-center py-12">
-          <p class="text-gray-600 text-lg mb-4">Keine Bilder gefunden.</p>
+          <p class="text-gray-600 text-lg mb-4">{% trans "Keine Bilder gefunden." %}</p>
         </div>
         {% endif %}
       </div>
@@ -123,22 +123,22 @@
   <div id="lightboxModal" class="lightbox-modal hidden">
     <div class="lightbox-overlay" onclick="closeLightbox()"></div>
     <div class="lightbox-content">
-      <button class="lightbox-close" onclick="closeLightbox()" aria-label="Close lightbox">
+      <button class="lightbox-close" onclick="closeLightbox()" aria-label="{% trans 'Lightbox schließen' %}">
         <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
         </svg>
       </button>
-      <button class="lightbox-prev" onclick="prevImage()" aria-label="Previous image">
+      <button class="lightbox-prev" onclick="prevImage()" aria-label="{% trans 'Vorheriges Bild' %}">
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
         </svg>
       </button>
-      <button class="lightbox-next" onclick="nextImage()" aria-label="Next image">
+      <button class="lightbox-next" onclick="nextImage()" aria-label="{% trans 'Nächstes Bild' %}">
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
         </svg>
       </button>
-      <img id="lightboxImage" src="" alt="Gallery Image" class="lightbox-image">
+      <img id="lightboxImage" src="" alt="{% trans 'Galeriebild' %}" class="lightbox-image">
       <div class="lightbox-info">
         <h3 id="lightboxTitle" class="font-heading font-bold text-white text-xl"></h3>
         <p id="lightboxDescription" class="text-gray-200"></p>

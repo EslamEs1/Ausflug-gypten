@@ -13,12 +13,12 @@
         <div class="container mx-auto px-4">
           <div class="max-w-3xl">
             <div class="breadcrumb mb-6 text-white">
-              <a href="{% url 'core:home' %}" class="hover:text-primary-gold">Home</a>
+              <a href="{% url 'core:home' %}" class="hover:text-primary-gold">{% trans "Home" %}</a>
               <span class="breadcrumb-separator">/</span>
-              <span>Ägypten Touren</span>
+              <span>{% trans "Ägypten Touren" %}</span>
             </div>
-            <h1 class="text-white font-heading font-bold mb-6 animate-fade-in text-4xl md:text-5xl">Ägypten Touren & Ausflüge</h1>
-            <p class="text-white text-xl mb-8 animate-slide-up">Entdecken Sie die besten Touren in Ägypten - von historischen Stätten bis zu Wüstenabenteuern</p>
+            <h1 class="text-white font-heading font-bold mb-6 animate-fade-in text-4xl md:text-5xl">{% trans "Ägypten Touren & Ausflüge" %}</h1>
+            <p class="text-white text-xl mb-8 animate-slide-up">{% trans "Entdecken Sie die besten Touren in Ägypten - von historischen Stätten bis zu Wüstenabenteuern" %}</p>
             <div class="flex flex-wrap gap-4 animate-slide-up">
               {% for category in categories|slice:":3" %}
                 <span class="bg-white/20 backdrop-blur-sm px-6 py-3 rounded-full text-white">
@@ -36,11 +36,11 @@
       <div class="container mx-auto px-4">
         <div class="flex flex-col md:flex-row gap-4 items-center justify-between">
           <div class="text-gray-600">
-            <strong>{{ page_obj.paginator.count|default:tours.count }}</strong> Touren gefunden
+            <strong>{{ page_obj.paginator.count|default:tours.count }}</strong> {% blocktrans count counter=page_obj.paginator.count|default:tours.count %}Tour gefunden{% plural %}Touren gefunden{% endblocktrans %}
           </div>
           <div class="flex flex-wrap gap-4">
             <select id="categoryFilter" class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-gold">
-              <option value="">Alle Kategorien</option>
+              <option value="">{% trans "Alle Kategorien" %}</option>
               {% for category in categories %}
                 <option value="{{ category.slug }}" {% if request.GET.category == category.slug %}selected{% endif %}>
                   {{ category.name }}
@@ -48,7 +48,7 @@
               {% endfor %}
             </select>
             <select id="locationFilter" class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-gold">
-              <option value="">Alle Standorte</option>
+              <option value="">{% trans "Alle Standorte" %}</option>
               {% for location in locations %}
                 <option value="{{ location.slug }}" {% if request.GET.location == location.slug %}selected{% endif %}>
                   {{ location.name }}
@@ -56,10 +56,10 @@
               {% endfor %}
             </select>
             <select id="sortFilter" class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-gold">
-              <option value="-created_at" {% if request.GET.sort == '-created_at' or not request.GET.sort %}selected{% endif %}>Neueste</option>
-              <option value="price" {% if request.GET.sort == 'price' %}selected{% endif %}>Preis: Niedrig bis Hoch</option>
-              <option value="-price" {% if request.GET.sort == '-price' %}selected{% endif %}>Preis: Hoch bis Niedrig</option>
-              <option value="title" {% if request.GET.sort == 'title' %}selected{% endif %}>Name: A-Z</option>
+              <option value="-created_at" {% if request.GET.sort == '-created_at' or not request.GET.sort %}selected{% endif %}>{% trans "Neueste" %}</option>
+              <option value="price" {% if request.GET.sort == 'price' %}selected{% endif %}>{% trans "Preis: Niedrig bis Hoch" %}</option>
+              <option value="-price" {% if request.GET.sort == '-price' %}selected{% endif %}>{% trans "Preis: Hoch bis Niedrig" %}</option>
+              <option value="title" {% if request.GET.sort == 'title' %}selected{% endif %}>{% trans "Name: A-Z" %}</option>
             </select>
           </div>
         </div>
@@ -82,7 +82,7 @@
                 </svg>
               </button>
               {% if tour.is_featured %}
-                <span class="badge-featured absolute top-4 left-4">Empfohlen</span>
+                <span class="badge-featured absolute top-4 left-4">{% trans "Empfohlen" %}</span>
               {% endif %}
             </div>
             
@@ -91,7 +91,7 @@
                 {% if tour.category.icon %}
                   <span class="text-2xl">{{ tour.category.icon }}</span>
                 {% endif %}
-                <span class="text-sm text-gray-600">{{ tour.category.name|default:"Tour" }}</span>
+                <span class="text-sm text-gray-600">{{ tour.category.name|default:_("Tour") }}</span>
               </div>
               
               <h3 class="text-xl font-heading font-bold text-gray-800 mb-3">
@@ -107,7 +107,7 @@
                     {% if forloop.counter <= tour.average_rating|floatformat:0|add:"0" %}★{% else %}☆{% endif %}
                   {% endfor %}
                 </div>
-                <span class="text-sm text-gray-600">({{ tour.review_count }} Bewertungen)</span>
+                <span class="text-sm text-gray-600">{% blocktrans count counter=tour.review_count %}({{ counter }} Bewertung){% plural %}({{ counter }} Bewertungen){% endblocktrans %}</span>
               </div>
               {% endif %}
               
@@ -128,7 +128,7 @@
               
               <div class="flex items-center justify-between pt-4 border-t border-gray-200">
                 <div>
-                  <span class="text-sm text-gray-600">Ab</span>
+                  <span class="text-sm text-gray-600">{% trans "Ab" %}</span>
                   <div class="price-tag">
                     {% if tour.original_price %}
                       <span class="line-through text-gray-400 text-lg">€{{ tour.original_price }}</span>
@@ -138,7 +138,7 @@
                     {% endif %}
                   </div>
                 </div>
-                <a href="{{ tour.get_absolute_url }}" class="btn-primary text-sm px-6 py-2">Details</a>
+                <a href="{{ tour.get_absolute_url }}" class="btn-primary text-sm px-6 py-2">{% trans "Details" %}</a>
               </div>
             </div>
           </div>
@@ -176,8 +176,8 @@
 
         {% else %}
         <div class="text-center py-12">
-          <p class="text-gray-600 text-lg mb-4">Keine Touren gefunden.</p>
-          <a href="{% url 'tours:list' %}" class="btn-primary">Alle Touren anzeigen</a>
+          <p class="text-gray-600 text-lg mb-4">{% trans "Keine Touren gefunden." %}</p>
+          <a href="{% url 'tours:list' %}" class="btn-primary">{% trans "Alle Touren anzeigen" %}</a>
         </div>
         {% endif %}
       </div>

@@ -1,8 +1,9 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load i18n %}
 
 {% block title %}
-<title></title>
+<title>{% trans "Home" %} | AusflugÄgypten</title>
 {% endblock title %}
 
 
@@ -53,17 +54,17 @@
           <div class="container mx-auto px-4">
             <div class="max-w-4xl mx-auto text-white animate-fade-in">
               <h1 class="font-heading font-bold mb-6 leading-tight">
-                Entdecken Sie das magische Ägypten
+                {% trans "Entdecken Sie das magische Ägypten" %}
               </h1>
               <p class="text-xl md:text-2xl mb-8 opacity-90">
-                Erleben Sie unvergessliche Abenteuer mit unseren exklusiven Touren und Ausflügen
+                {% trans "Erleben Sie unvergessliche Abenteuer mit unseren exklusiven Touren und Ausflügen" %}
               </p>
               <div class="flex flex-wrap gap-4 justify-center">
                 <a href="{% url 'excursions:list' %}" class="btn-primary">
-                  Touren Entdecken
+                  {% trans "Touren Entdecken" %}
                 </a>
                 <a href="{% url 'core:contact' %}" class="btn-outline border-white text-white hover:bg-white hover:text-primary-blue">
-                  Kontakt Aufnehmen
+                  {% trans "Kontakt Aufnehmen" %}
                 </a>
               </div>
             </div>
@@ -78,19 +79,19 @@
           <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             <div class="animate-on-scroll">
               <div class="text-4xl md:text-5xl font-heading font-bold text-primary-gold mb-2">500+</div>
-              <div class="text-white">Touren & Ausflüge</div>
+              <div class="text-white">{% trans "Touren & Ausflüge" %}</div>
             </div>
             <div class="animate-on-scroll">
               <div class="text-4xl md:text-5xl font-heading font-bold text-primary-gold mb-2">10,000+</div>
-              <div class="text-white">Glückliche Kunden</div>
+              <div class="text-white">{% trans "Glückliche Kunden" %}</div>
             </div>
             <div class="animate-on-scroll">
               <div class="text-4xl md:text-5xl font-heading font-bold text-primary-gold mb-2">15+</div>
-              <div class="text-white">Jahre Erfahrung</div>
+              <div class="text-white">{% trans "Jahre Erfahrung" %}</div>
             </div>
             <div class="animate-on-scroll">
               <div class="text-4xl md:text-5xl font-heading font-bold text-primary-gold mb-2">4.9★</div>
-              <div class="text-white">Kundenbewertung</div>
+              <div class="text-white">{% trans "Kundenbewertung" %}</div>
             </div>
           </div>
         </div>
@@ -105,12 +106,12 @@
       </div>
       <div class="container mx-auto px-4 relative z-10">
         <div class="text-center mb-12">
-          <span class="inline-block px-4 py-2 bg-primary-gold/10 text-primary-gold rounded-full text-sm font-bold mb-4">Beliebte Ausflüge</span>
+          <span class="inline-block px-4 py-2 bg-primary-gold/10 text-primary-gold rounded-full text-sm font-bold mb-4">{% trans "Beliebte Ausflüge" %}</span>
           <h2 class="section-title animate-on-scroll text-4xl md:text-5xl font-heading font-bold mb-4">
-            <span class="gradient-text">Beliebte Ausflüge in Ägypten</span>
+            <span class="gradient-text">{% trans "Beliebte Ausflüge in Ägypten" %}</span>
           </h2>
           <p class="section-subtitle animate-on-scroll max-w-2xl mx-auto">
-            Entdecken Sie unsere meistgebuchten Touren und Erlebnisse
+            {% trans "Entdecken Sie unsere meistgebuchten Touren und Erlebnisse" %}
           </p>
         </div>
 
@@ -126,7 +127,7 @@
                 </svg>
               </button>
               {% if tour.is_featured %}
-              <span class="badge-featured absolute top-4 left-4">Beliebt</span>
+              <span class="badge-featured absolute top-4 left-4">{% trans "Beliebt" %}</span>
               {% endif %}
             </div>
             
@@ -135,7 +136,7 @@
                 <svg class="w-4 h-4 text-primary-blue" fill="currentColor" viewBox="0 0 20 20">
                   <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/>
                 </svg>
-                <span class="text-sm text-gray-600">{% if tour.location %}{{ tour.location.name }}{% else %}Ägypten{% endif %}</span>
+                <span class="text-sm text-gray-600">{% if tour.location %}{{ tour.location.name }}{% else %}{% trans "Ägypten" %}{% endif %}</span>
               </div>
               
               <h3 class="text-xl font-heading font-bold text-gray-800 mb-3 hover:text-primary-gold transition-colors">
@@ -149,7 +150,7 @@
                     {% if forloop.counter <= tour.average_rating|floatformat:0|add:"0" %}★{% else %}☆{% endif %}
                   {% endfor %}
                 </div>
-                <span class="text-sm text-gray-600">({{ tour.review_count }} Bewertungen)</span>
+                <span class="text-sm text-gray-600">{% blocktrans count counter=tour.review_count %}({{ counter }} Bewertung){% plural %}({{ counter }} Bewertungen){% endblocktrans %}</span>
               </div>
               {% endif %}
               
@@ -165,35 +166,35 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
                   </svg>
                   <span>
-                    {% if tour.group_type == 'private' %}Privat
-                    {% elif tour.group_type == 'small_group' %}Kleine Gruppe
-                    {% else %}Gruppe{% endif %}
+                    {% if tour.group_type == 'private' %}{% trans "Privat" %}
+                    {% elif tour.group_type == 'small_group' %}{% trans "Kleine Gruppe" %}
+                    {% else %}{% trans "Gruppe" %}{% endif %}
                   </span>
                 </div>
               </div>
               
               <div class="flex items-center justify-between pt-4 border-t border-gray-200">
                 <div>
-                  <span class="text-sm text-gray-600">Ab</span>
+                  <span class="text-sm text-gray-600">{% trans "Ab" %}</span>
                   <div class="price-tag">€{{ tour.price }}</div>
-                  <span class="text-xs text-gray-500">pro Person</span>
+                  <span class="text-xs text-gray-500">{% trans "pro Person" %}</span>
                 </div>
                 <a href="{% url 'tours:detail' tour.slug %}" class="btn-primary text-sm px-6 py-2">
-                  Buchen
+                  {% trans "Buchen" %}
                 </a>
               </div>
             </div>
           </div>
           {% empty %}
           <div class="col-span-3 text-center py-12">
-            <p class="text-gray-600">Keine Touren verfügbar.</p>
+            <p class="text-gray-600">{% trans "Keine Touren verfügbar." %}</p>
           </div>
           {% endfor %}
         </div>
 
         <div class="text-center mt-12 animate-on-scroll">
           <a href="{% url 'excursions:list' %}" class="btn-secondary">
-            Alle Touren Ansehen
+            {% trans "Alle Touren Ansehen" %}
           </a>
         </div>
       </div>
@@ -207,12 +208,12 @@
       </div>
       <div class="container mx-auto px-4 relative z-10">
         <div class="text-center mb-12">
-          <span class="inline-block px-4 py-2 bg-primary-blue/10 text-primary-blue rounded-full text-sm font-bold mb-4">Touren & Ausflüge</span>
+          <span class="inline-block px-4 py-2 bg-primary-blue/10 text-primary-blue rounded-full text-sm font-bold mb-4">{% trans "Touren & Ausflüge" %}</span>
           <h2 class="section-title animate-on-scroll text-4xl md:text-5xl font-heading font-bold mb-4">
-            <span class="gradient-text">Ägypten Touren & Ausflüge</span>
+            <span class="gradient-text">{% trans "Ägypten Touren & Ausflüge" %}</span>
           </h2>
           <p class="section-subtitle animate-on-scroll max-w-2xl mx-auto">
-            Wählen Sie Ihr Traumziel in Ägypten
+            {% trans "Wählen Sie Ihr Traumziel in Ägypten" %}
           </p>
         </div>
 
@@ -221,9 +222,9 @@
           <div class="category-card animate-on-scroll" style="background-image: url('{% if location.image %}{{ location.image.url }}{% else %}{% static 'img/categories/hurghada.jpg' %}{% endif %}');">
             <div class="category-card-content">
               <h3 class="text-2xl font-heading font-bold mb-2">{{ location.name }}</h3>
-              <p class="text-gray-200 mb-4 text-sm">{% if location.description %}{{ location.description|striptags|truncatewords:8 }}{% else %}Entdecken Sie {{ location.name }}{% endif %}</p>
+              <p class="text-gray-200 mb-4 text-sm">{% if location.description %}{{ location.description|striptags|truncatewords:8 }}{% else %}{% blocktrans %}Entdecken Sie {{ location.name }}{% endblocktrans %}{% endif %}</p>
               <a href="{% url 'excursions:list' %}?location={{ location.slug }}" class="inline-flex items-center gap-2 text-white hover:text-primary-gold transition-colors">
-                <span>Entdecken</span>
+                <span>{% trans "Entdecken" %}</span>
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
                 </svg>
@@ -232,7 +233,7 @@
           </div>
           {% empty %}
           <div class="col-span-4 text-center py-12">
-            <p class="text-gray-600">Keine Standorte verfügbar.</p>
+            <p class="text-gray-600">{% trans "Keine Standorte verfügbar." %}</p>
           </div>
           {% endfor %}
         </div>
@@ -243,7 +244,7 @@
     <section class="py-20 gradient-blue text-white">
       <div class="container mx-auto px-4">
         <h2 class="text-center text-white mb-16 text-3xl md:text-4xl font-heading font-bold animate-on-scroll">
-          Warum AusflugÄgypten?
+          {% trans "Warum AusflugÄgypten?" %}
         </h2>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -253,8 +254,8 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/>
               </svg>
             </div>
-            <h3 class="text-xl font-heading font-bold mb-3">Zertifizierte Guides</h3>
-            <p class="text-gray-200">Erfahrene deutschsprachige Reiseleiter mit tiefen Kenntnissen</p>
+            <h3 class="text-xl font-heading font-bold mb-3">{% trans "Zertifizierte Guides" %}</h3>
+            <p class="text-gray-200">{% trans "Erfahrene deutschsprachige Reiseleiter mit tiefen Kenntnissen" %}</p>
           </div>
 
           <div class="text-center animate-on-scroll">
@@ -263,8 +264,8 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
               </svg>
             </div>
-            <h3 class="text-xl font-heading font-bold mb-3">Beste Preise</h3>
-            <p class="text-gray-200">Garantiert günstige Preise ohne versteckte Kosten</p>
+            <h3 class="text-xl font-heading font-bold mb-3">{% trans "Beste Preise" %}</h3>
+            <p class="text-gray-200">{% trans "Garantiert günstige Preise ohne versteckte Kosten" %}</p>
           </div>
 
           <div class="text-center animate-on-scroll">
@@ -273,8 +274,8 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
               </svg>
             </div>
-            <h3 class="text-xl font-heading font-bold mb-3">Sichere Buchung</h3>
-            <p class="text-gray-200">SSL-verschlüsselte Zahlung und sofortige Bestätigung</p>
+            <h3 class="text-xl font-heading font-bold mb-3">{% trans "Sichere Buchung" %}</h3>
+            <p class="text-gray-200">{% trans "SSL-verschlüsselte Zahlung und sofortige Bestätigung" %}</p>
           </div>
 
           <div class="text-center animate-on-scroll">
@@ -283,8 +284,8 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"/>
               </svg>
             </div>
-            <h3 class="text-xl font-heading font-bold mb-3">24/7 Support</h3>
-            <p class="text-gray-200">Wir sind immer für Sie da - vor, während und nach der Tour</p>
+            <h3 class="text-xl font-heading font-bold mb-3">{% trans "24/7 Support" %}</h3>
+            <p class="text-gray-200">{% trans "Wir sind immer für Sie da - vor, während und nach der Tour" %}</p>
           </div>
         </div>
       </div>
@@ -298,12 +299,12 @@
       </div>
       <div class="container mx-auto px-4 relative z-10">
         <div class="text-center mb-12">
-          <span class="inline-block px-4 py-2 bg-gradient-to-r from-primary-gold/20 to-primary-blue/20 text-primary-blue rounded-full text-sm font-bold mb-4">Aktivitäten</span>
+          <span class="inline-block px-4 py-2 bg-gradient-to-r from-primary-gold/20 to-primary-blue/20 text-primary-blue rounded-full text-sm font-bold mb-4">{% trans "Aktivitäten" %}</span>
           <h2 class="section-title animate-on-scroll text-4xl md:text-5xl font-heading font-bold mb-4">
-            <span class="gradient-text">Ägypten Aktivitäten & Sehenswürdigkeiten</span>
+            <span class="gradient-text">{% trans "Ägypten Aktivitäten & Sehenswürdigkeiten" %}</span>
           </h2>
           <p class="section-subtitle animate-on-scroll max-w-2xl mx-auto">
-            Entdecken Sie die vielfältigen Aktivitäten und kulturellen Highlights
+            {% trans "Entdecken Sie die vielfältigen Aktivitäten und kulturellen Highlights" %}
           </p>
         </div>
 
@@ -316,7 +317,7 @@
               <div class="absolute bottom-0 left-0 right-0 p-6 text-white">
                 <div class="text-4xl mb-2">{% if category.icon %}{{ category.icon }}{% else %}✨{% endif %}</div>
                 <h3 class="text-2xl font-heading font-bold mb-2">{{ category.name }}</h3>
-                <p class="text-sm text-gray-200">{% if category.description %}{{ category.description|striptags|truncatewords:5 }}{% else %}Entdecken Sie {{ category.name }}{% endif %}</p>
+                <p class="text-sm text-gray-200">{% if category.description %}{{ category.description|striptags|truncatewords:5 }}{% else %}{% blocktrans %}Entdecken Sie {{ category.name }}{% endblocktrans %}{% endif %}</p>
               </div>
             </div>
           </a>
@@ -326,8 +327,8 @@
             <div class="relative h-64 rounded-2xl overflow-hidden shadow-xl bg-gradient-to-br from-primary-blue to-primary-gold flex items-center justify-center">
               <div class="text-center text-white p-6">
                 <div class="text-5xl mb-4">✨</div>
-                <h3 class="text-2xl font-heading font-bold mb-2">Mehr Aktivitäten</h3>
-                <p class="text-sm">Alle ansehen</p>
+                <h3 class="text-2xl font-heading font-bold mb-2">{% trans "Mehr Aktivitäten" %}</h3>
+                <p class="text-sm">{% trans "Alle ansehen" %}</p>
               </div>
             </div>
           </a>
@@ -352,17 +353,17 @@
             </svg>
             <div>
               <h2 class="section-title animate-on-scroll text-4xl md:text-5xl font-heading font-bold mb-2">
-                <span class="gradient-text">Was unsere glücklichen Kunden sagen</span>
+                <span class="gradient-text">{% trans "Was unsere glücklichen Kunden sagen" %}</span>
               </h2>
               <div class="flex items-center justify-center gap-2">
                 <div class="rating-stars text-xl">★★★★★</div>
                 <span class="text-gray-600 font-bold">4.9</span>
-                <span class="text-gray-500">(2,847 Google Bewertungen)</span>
+                <span class="text-gray-500">{% trans "(2,847 Google Bewertungen)" %}</span>
               </div>
             </div>
           </div>
           <p class="section-subtitle animate-on-scroll max-w-2xl mx-auto">
-            Über 10.000 zufriedene Reisende vertrauen uns
+            {% trans "Über 10.000 zufriedene Reisende vertrauen uns" %}
           </p>
         </div>
 
@@ -383,7 +384,7 @@
                           {% if forloop.counter <= review.rating %}★{% else %}☆{% endif %}
                         {% endfor %}
                       </div>
-                      <span class="text-xs text-gray-500">{{ review.created_at|timesince }} ago</span>
+                      <span class="text-xs text-gray-500">{% blocktrans with time=review.created_at|timesince %}{{ time }} ago{% endblocktrans %}</span>
                     </div>
                   </div>
                 </div>
@@ -401,12 +402,12 @@
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
                 </svg>
-                <span>{% if review.content_object %}{{ review.content_object.title }}{% else %}Tour{% endif %}</span>
+                <span>{% if review.content_object %}{{ review.content_object.title }}{% else %}{% trans "Tour" %}{% endif %}</span>
               </div>
             </div>
             {% empty %}
             <div class="col-span-3 text-center py-12">
-              <p class="text-gray-600">Noch keine Bewertungen verfügbar.</p>
+              <p class="text-gray-600">{% trans "Noch keine Bewertungen verfügbar." %}</p>
             </div>
             {% endfor %}
           </div>
@@ -419,7 +420,7 @@
                 <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
                 <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
               </svg>
-              Alle Google Bewertungen ansehen
+              {% trans "Alle Google Bewertungen ansehen" %}
             </a>
           </div>
         </div>
@@ -429,9 +430,9 @@
     <!-- 7. BLOG PREVIEW -->
     <section class="py-20 bg-white">
       <div class="container mx-auto px-4">
-        <h2 class="section-title animate-on-scroll">Ägypten Reiseblog</h2>
+        <h2 class="section-title animate-on-scroll">{% trans "Ägypten Reiseblog" %}</h2>
         <p class="section-subtitle animate-on-scroll">
-          Tipps, Infos und Inspiration für Ihre Ägypten-Reise
+          {% trans "Tipps, Infos und Inspiration für Ihre Ägypten-Reise" %}
         </p>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -463,7 +464,7 @@
               </p>
               
               <a href="{% url 'blog:detail' post.slug %}" class="text-primary-gold font-medium hover:text-secondary-gold-dark transition-colors inline-flex items-center gap-2">
-                Weiterlesen
+                {% trans "Weiterlesen" %}
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                 </svg>
@@ -472,14 +473,14 @@
           </div>
           {% empty %}
           <div class="col-span-3 text-center py-12">
-            <p class="text-gray-600">Noch keine Blog-Artikel verfügbar.</p>
+            <p class="text-gray-600">{% trans "Noch keine Blog-Artikel verfügbar." %}</p>
           </div>
           {% endfor %}
         </div>
 
         <div class="text-center mt-12 animate-on-scroll">
           <a href="{% url 'blog:list' %}" class="btn-outline">
-            Alle Artikel Ansehen
+            {% trans "Alle Artikel Ansehen" %}
           </a>
         </div>
       </div>
@@ -490,10 +491,10 @@
       <div class="container mx-auto px-4">
         <div class="max-w-3xl mx-auto text-center">
           <h2 class="text-3xl md:text-4xl font-heading font-bold text-white mb-6 animate-on-scroll">
-            Bleiben Sie auf dem Laufenden!
+            {% trans "Bleiben Sie auf dem Laufenden!" %}
           </h2>
           <p class="text-lg text-white/90 mb-8 animate-on-scroll">
-            Abonnieren Sie unseren Newsletter und erhalten Sie exklusive Angebote, Reisetipps und Neuigkeiten direkt in Ihr Postfach.
+            {% trans "Abonnieren Sie unseren Newsletter und erhalten Sie exklusive Angebote, Reisetipps und Neuigkeiten direkt in Ihr Postfach." %}
           </p>
           
           <form class="flex flex-col sm:flex-row gap-4 max-w-xl mx-auto animate-on-scroll" method="post" action="{% url 'core:newsletter' %}">
@@ -501,17 +502,17 @@
             <input 
               type="email" 
               name="email"
-              placeholder="Ihre E-Mail-Adresse" 
+              placeholder="{% trans 'Ihre E-Mail-Adresse' %}" 
               required
               class="flex-1 px-6 py-4 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-white"
             >
             <button type="submit" class="bg-primary-blue hover:bg-secondary-blue-dark text-white font-heading font-bold px-8 py-4 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg">
-              Anmelden
+              {% trans "Anmelden" %}
             </button>
           </form>
           
           <p class="text-sm text-white/80 mt-4">
-            Keine Sorge, wir senden keinen Spam. Sie können sich jederzeit abmelden.
+            {% trans "Keine Sorge, wir senden keinen Spam. Sie können sich jederzeit abmelden." %}
           </p>
         </div>
       </div>
