@@ -3,15 +3,18 @@
   "version": "1.0.0",
   "description": "Premium Egyptian Tourism Platform",
   "scripts": {
-    "dev": "npx tailwindcss -i ./css/input.css -o ./css/main.css --watch",
-    "build": "npx tailwindcss -i ./css/input.css -o ./css/main.css --minify && cp ./css/main.css ./staticfiles/css/main.css",
-    "build-css": "npx tailwindcss -i ./css/input.css -o ./css/main.css --minify && cp ./css/main.css ./staticfiles/css/main.css"
+    "dev": "npx tailwindcss -i ./staticfiles/css/input.css -o ./staticfiles/css/main.css --watch",
+    "build": "npx tailwindcss -i ./staticfiles/css/input.css -o ./staticfiles/css/main.css --minify",
+    "build-css": "npx tailwindcss -i ./staticfiles/css/input.css -o ./staticfiles/css/main.css --minify"
   },
-  "keywords": ["tourism", "egypt", "tours"],
+  "keywords": [
+    "tourism",
+    "egypt",
+    "tours"
+  ],
   "author": "AusflugAgypten",
   "license": "ISC",
   "devDependencies": {
     "tailwindcss": "^3.4.0"
   }
 }
-

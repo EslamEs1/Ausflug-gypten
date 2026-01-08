@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load i18n %}
+{% load static %}
 
 {% block title %}
 <title>Anmelden | AusflugÄgypten</title>
@@ -7,108 +7,161 @@
 
 {% block content %}
 <main>
-  <!-- Hero Section -->
-  <section class="relative h-[300px] bg-cover bg-center" style="background-image: linear-gradient(rgba(36, 93, 129, 0.85), rgba(200, 166, 110, 0.75)), url('/static/img/hero/login-bg.jpg');">
+  <!-- Hero Section with Modern Gradient -->
+  <section class="relative h-[400px] bg-gradient-to-br from-primary-blue via-primary-blue/90 to-primary-gold">
+    <div class="absolute inset-0 bg-[url('/static/img/patterns/topography.svg')] opacity-10"></div>
     <div class="relative z-10 h-full flex items-center">
       <div class="container mx-auto px-4">
-        <div class="max-w-3xl">
-          <div class="breadcrumb mb-6 text-white">
-            <a href="{% url 'core:home' %}" class="hover:text-primary-gold">Home</a>
-            <span class="breadcrumb-separator">/</span>
-            <span>Anmelden</span>
+        <div class="max-w-4xl mx-auto text-center">
+          <div class="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm rounded-full px-4 py-2 mb-6">
+            <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+            </svg>
+            <a href="{% url 'core:home' %}" class="text-white hover:text-primary-gold transition-colors">Home</a>
+            <span class="text-white">/</span>
+            <span class="text-white">Anmelden</span>
           </div>
-          <h1 class="text-white font-heading font-bold mb-4 text-4xl md:text-5xl">Anmelden</h1>
-          <p class="text-white text-xl">Willkommen zurück! Melden Sie sich an, um Ihre Buchungen zu verwalten.</p>
+          <h1 class="text-white font-heading font-bold mb-4 text-4xl md:text-6xl">Willkommen zurück!</h1>
+          <p class="text-white/90 text-xl md:text-2xl">Melden Sie sich an, um Ihre Buchungen zu verwalten</p>
         </div>
       </div>
+    </div>
+    <!-- Wave Separator -->
+    <div class="absolute bottom-0 left-0 w-full">
+      <svg viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0 0L60 10C120 20 240 40 360 46.7C480 53 600 47 720 43.3C840 40 960 40 1080 46.7C1200 53 1320 67 1380 73.3L1440 80V120H1380C1320 120 1200 120 1080 120C960 120 840 120 720 120C600 120 480 120 360 120C240 120 120 120 60 120H0V0Z" fill="#F9FAFB"/>
+      </svg>
     </div>
   </section>
 
   <!-- Login Form Section -->
-  <section class="py-16 bg-white">
+  <section class="py-20 bg-gray-50">
     <div class="container mx-auto px-4">
       <div class="max-w-md mx-auto">
-        <!-- Login Card -->
-        <div class="card p-8">
-          <h2 class="text-2xl font-heading font-bold text-primary-blue mb-6 text-center">Bei Ihrem Konto anmelden</h2>
+        <!-- Login Card with Modern Shadow -->
+        <div class="bg-white rounded-2xl shadow-xl p-8 md:p-10 border border-gray-100">
+          <div class="text-center mb-8">
+            <div class="w-20 h-20 bg-gradient-to-br from-primary-blue to-primary-gold rounded-2xl flex items-center justify-center mx-auto mb-4">
+              <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+              </svg>
+            </div>
+            <h2 class="text-3xl font-heading font-bold text-gray-900 mb-2">Anmelden</h2>
+            <p class="text-gray-600">Bei Ihrem Konto anmelden</p>
+          </div>
           
           <!-- Messages -->
           {% if messages %}
             {% for message in messages %}
-              <div class="mb-4 p-4 rounded-lg {% if message.tags == 'error' %}bg-red-50 text-red-700{% else %}bg-green-50 text-green-700{% endif %}">
-                {{ message }}
+              <div class="mb-6 p-4 rounded-xl {% if message.tags == 'error' %}bg-red-50 border border-red-100 text-red-700{% else %}bg-green-50 border border-green-100 text-green-700{% endif %}">
+                <div class="flex items-start gap-3">
+                  <svg class="w-5 h-5 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                    {% if message.tags == 'error' %}
+                      <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
+                    {% else %}
+                      <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                    {% endif %}
+                  </svg>
+                  <span>{{ message }}</span>
+                </div>
               </div>
             {% endfor %}
           {% endif %}
           
-          <form method="post" action="{% url 'users:login' %}">
+          <form method="post" action="{% url 'users:login' %}" class="space-y-5">
             {% csrf_token %}
             
-            <div class="mb-4">
-              <label class="input-label">Benutzername oder E-Mail</label>
-              {{ form.username }}
+            <div>
+              <label class="block text-sm font-semibold text-gray-700 mb-2">
+                Benutzername oder E-Mail
+              </label>
+              <div class="relative">
+                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                  <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                  </svg>
+                </div>
+                <input type="text" name="username" class="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-blue focus:border-transparent transition-all" placeholder="Ihr Benutzername" required>
+              </div>
               {% if form.username.errors %}
                 <p class="text-red-600 text-sm mt-1">{{ form.username.errors|striptags }}</p>
               {% endif %}
             </div>
             
-            <div class="mb-6">
-              <label class="input-label">Passwort</label>
-              {{ form.password }}
+            <div>
+              <label class="block text-sm font-semibold text-gray-700 mb-2">
+                Passwort
+              </label>
+              <div class="relative">
+                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                  <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+                  </svg>
+                </div>
+                <input type="password" name="password" class="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-blue focus:border-transparent transition-all" placeholder="Ihr Passwort" required>
+              </div>
               {% if form.password.errors %}
                 <p class="text-red-600 text-sm mt-1">{{ form.password.errors|striptags }}</p>
               {% endif %}
             </div>
             
-            <div class="flex items-center justify-between mb-6">
+            <div class="flex items-center justify-between">
               <label class="flex items-center">
-                <input type="checkbox" name="remember" class="form-checkbox text-primary-gold">
-                <span class="ml-2 text-gray-700">Angemeldet bleiben</span>
+                <input type="checkbox" name="remember" class="w-4 h-4 text-primary-blue border-gray-300 rounded focus:ring-primary-blue">
+                <span class="ml-2 text-sm text-gray-700">Angemeldet bleiben</span>
               </label>
-              <a href="#" class="text-primary-gold hover:underline text-sm">Passwort vergessen?</a>
+              <a href="#" class="text-sm text-primary-blue hover:text-primary-gold transition-colors font-semibold">Passwort vergessen?</a>
             </div>
             
-            <button type="submit" class="btn-primary w-full mb-4">
-              Anmelden
+            <button type="submit" class="w-full bg-gradient-to-r from-primary-blue to-primary-blue/90 hover:from-primary-blue/90 hover:to-primary-blue text-white font-bold py-3.5 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-0.5">
+              Jetzt anmelden
             </button>
             
-            <p class="text-center text-gray-600">
-              Noch kein Konto? 
-              <a href="{% url 'users:signup' %}" class="text-primary-gold hover:underline font-semibold">Jetzt registrieren</a>
-            </p>
+            <div class="relative my-6">
+              <div class="absolute inset-0 flex items-center">
+                <div class="w-full border-t border-gray-300"></div>
+              </div>
+              <div class="relative flex justify-center text-sm">
+                <span class="px-4 bg-white text-gray-500">Noch kein Konto?</span>
+              </div>
+            </div>
+            
+            <a href="{% url 'users:signup' %}" class="block w-full text-center bg-white border-2 border-primary-gold text-primary-gold hover:bg-primary-gold hover:text-white font-bold py-3.5 rounded-xl transition-all duration-300">
+              Jetzt registrieren
+            </a>
           </form>
         </div>
         
         <!-- Benefits -->
-        <div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div class="text-center p-4">
-            <div class="w-12 h-12 bg-primary-blue/10 rounded-full flex items-center justify-center mx-auto mb-3">
-              <svg class="w-6 h-6 text-primary-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="text-center">
+            <div class="w-16 h-16 bg-gradient-to-br from-primary-blue to-primary-blue/80 rounded-2xl flex items-center justify-center mx-auto mb-4">
+              <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
               </svg>
             </div>
-            <h3 class="font-semibold text-sm mb-1">Buchungen verwalten</h3>
-            <p class="text-xs text-gray-600">Alle Ihre Buchungen an einem Ort</p>
+            <h6 class="font-bold text-gray-900 mb-2">Buchungen verwalten</h6>
+            <p class="text-sm text-gray-600">Alle Buchungen an einem Ort</p>
           </div>
           
-          <div class="text-center p-4">
-            <div class="w-12 h-12 bg-primary-gold/10 rounded-full flex items-center justify-center mx-auto mb-3">
-              <svg class="w-6 h-6 text-primary-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+          <div class="text-center">
+            <div class="w-16 h-16 bg-gradient-to-br from-primary-gold to-primary-gold/80 rounded-2xl flex items-center justify-center mx-auto mb-4">
+              <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
               </svg>
             </div>
-            <h3 class="font-semibold text-sm mb-1">Schneller buchen</h3>
-            <p class="text-xs text-gray-600">Gespeicherte Informationen</p>
+            <h6 class="font-bold text-gray-900 mb-2">Schneller buchen</h6>
+            <p class="text-sm text-gray-600">Gespeicherte Daten</p>
           </div>
           
-          <div class="text-center p-4">
-            <div class="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-3">
-              <svg class="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div class="text-center">
+            <div class="w-16 h-16 bg-gradient-to-br from-orange-500 to-orange-400 rounded-2xl flex items-center justify-center mx-auto mb-4">
+              <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
               </svg>
             </div>
-            <h3 class="font-semibold text-sm mb-1">Exklusive Angebote</h3>
-            <p class="text-xs text-gray-600">Sonderpreise für Mitglieder</p>
+            <h6 class="font-bold text-gray-900 mb-2">Exklusive Angebote</h6>
+            <p class="text-sm text-gray-600">Sonderpreise für Mitglieder</p>
           </div>
         </div>
       </div>
@@ -116,4 +169,3 @@
   </section>
 </main>
 {% endblock content %}
-
