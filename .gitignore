@@ -32,6 +32,8 @@ MANIFEST
 # PyInstaller
 *.manifest
 *.spec
+migrations/
+/migrations
 
 # Installer logs
 pip-log.txt
