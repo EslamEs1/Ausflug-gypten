@@ -89,6 +89,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'django.template.context_processors.i18n',
                 'apps.core.context_processors.site_settings',  # Global site settings
+                'apps.core.admin_context.admin_dashboard_stats',  # Admin dashboard stats
             ],
         },
     },
@@ -169,58 +170,154 @@ JAZZMIN_SETTINGS = {
     "site_title": "AusflugÄgypten Admin",
     "site_header": "AusflugÄgypten",
     "site_brand": "AusflugÄgypten",
+    "site_logo": None,  # Add your logo path here: "img/logo/logo.png"
+    "site_logo_classes": "img-circle",
+    "site_icon": None,  # Add your favicon path here: "img/logo/favicon.png"
+    
+    # Welcome message
     "welcome_sign": "Willkommen im AusflugÄgypten Admin Panel",
-    "copyright": "AusflugÄgypten",
-    "search_model": ["auth.User", "tours.Tour", "blog.BlogPost"],
+    "copyright": "© 2024 AusflugÄgypten - Alle Rechte vorbehalten",
+    
+    # Search configuration
+    "search_model": ["auth.User", "tours.Tour", "blog.BlogPost", "excursions.Excursion", "activities.Activity", "transfers.Transfer", "bookings.Booking"],
     "user_avatar": None,
     
+    # Top menu links
     "topmenu_links": [
-        {"name": "Home", "url": "admin:index", "permissions": ["auth.view_user"]},
-        {"name": "Website", "url": "/", "new_window": True},
+        {"name": "Home", "url": "admin:index", "permissions": ["auth.view_user"], "icon": "fas fa-home"},
+        {"name": "Website", "url": "/", "new_window": True, "icon": "fas fa-globe"},
+        {"name": "Dashboard", "url": "admin:index", "permissions": ["auth.view_user"], "icon": "fas fa-tachometer-alt"},
     ],
     
+    # User menu links
     "usermenu_links": [
-        {"name": "Website", "url": "/", "new_window": True},
+        {"name": "Website ansehen", "url": "/", "new_window": True, "icon": "fas fa-external-link-alt"},
+        {"name": "Support", "url": "/contact", "icon": "fas fa-life-ring"},
     ],
     
+    # Sidebar configuration
     "show_sidebar": True,
     "navigation_expanded": True,
     "hide_apps": [],
     "hide_models": [],
-    "order_with_respect_to": ["auth", "tours", "blog", "activities", "transfers", "bookings"],
+    "order_with_respect_to": ["auth", "core", "tours", "excursions", "activities", "transfers", "bookings", "blog", "gallery", "reviews", "users"],
     
+    # Icons configuration
     "icons": {
         "auth": "fas fa-users-cog",
         "auth.user": "fas fa-user",
         "auth.Group": "fas fa-users",
+        "core.SiteSettings": "fas fa-cog",
+        "core.HeroSlide": "fas fa-images",
+        "core.ContactMessage": "fas fa-envelope",
+        "core.NewsletterSubscriber": "fas fa-newspaper",
+        "core.PageHero": "fas fa-heading",
+        "tours.Tour": "fas fa-map-marked-alt",
+        "tours.TourCategory": "fas fa-tags",
+        "tours.Location": "fas fa-map-marker-alt",
+        "excursions.Excursion": "fas fa-umbrella-beach",
+        "excursions.ExcursionCategory": "fas fa-folder",
+        "activities.Activity": "fas fa-running",
+        "activities.ActivityCategory": "fas fa-list",
+        "transfers.Transfer": "fas fa-car",
+        "transfers.TransferType": "fas fa-taxi",
+        "transfers.VehicleType": "fas fa-truck",
+        "bookings.Booking": "fas fa-calendar-check",
+        "bookings.Payment": "fas fa-credit-card",
+        "blog.BlogPost": "fas fa-blog",
+        "blog.BlogCategory": "fas fa-folder-open",
+        "gallery.GalleryImage": "fas fa-photo-video",
+        "gallery.GalleryCategory": "fas fa-images",
+        "reviews.Review": "fas fa-star",
+        "users.UserProfile": "fas fa-user-circle",
     },
     "default_icon_parents": "fas fa-chevron-circle-right",
     "default_icon_children": "fas fa-circle",
     
-    "related_modal_active": False,
-    "custom_css": None,
-    "custom_js": None,
+    # Modal configuration
+    "related_modal_active": True,  # Enable modals for better UX
+    
+    # Custom CSS/JS
+    "custom_css": "admin/css/custom_admin.css",  # Custom admin styling
+    "custom_js": "admin/js/admin_notifications.js",   # Admin notifications and badges
+    
+    # Fonts and UI
     "use_google_fonts_cdn": True,
-    "show_ui_builder": False,
+    "show_ui_builder": True,  # Enable UI builder for live customization
     "changeform_format": "horizontal_tabs",
-    "changeform_format_overrides": {"auth.user": "collapsible", "auth.group": "vertical_tabs"},
+    "changeform_format_overrides": {
+        "auth.user": "collapsible",
+        "auth.group": "vertical_tabs",
+    },
+    
+    # Language
     "language_chooser": False,
+    
+    # Additional modern features
+    "show_ui_builder_on_load": False,  # Don't show UI builder by default
+    "custom_links": {
+        "bookings": [{
+            "name": "📋 Alle Buchungen",
+            "url": "admin:bookings_booking_changelist",
+            "icon": "fas fa-list",
+            "permissions": ["bookings.view_booking"]
+        }, {
+            "name": "⏳ Ausstehende Buchungen",
+            "url": "admin:bookings_booking_changelist?status__exact=pending",
+            "icon": "fas fa-clock",
+            "permissions": ["bookings.view_booking"]
+        }, {
+            "name": "✅ Bestätigte Buchungen",
+            "url": "admin:bookings_booking_changelist?status__exact=confirmed",
+            "icon": "fas fa-check-circle",
+            "permissions": ["bookings.view_booking"]
+        }],
+        "core": [{
+            "name": "📧 Neue Nachrichten",
+            "url": "admin:core_contactmessage_changelist?status__exact=new",
+            "icon": "fas fa-envelope",
+            "permissions": ["core.view_contactmessage"]
+        }, {
+            "name": "💬 Alle Nachrichten",
+            "url": "admin:core_contactmessage_changelist",
+            "icon": "fas fa-envelope-open",
+            "permissions": ["core.view_contactmessage"]
+        }],
+        "reviews": [{
+            "name": "⏳ Ausstehende Bewertungen",
+            "url": "admin:reviews_review_changelist?is_approved__exact=0",
+            "icon": "fas fa-star-half-alt",
+            "permissions": ["reviews.view_review"]
+        }, {
+            "name": "⭐ Alle Bewertungen",
+            "url": "admin:reviews_review_changelist",
+            "icon": "fas fa-star",
+            "permissions": ["reviews.view_review"]
+        }],
+    },
+    
+    # Custom colors can be set in JAZZMIN_UI_TWEAKS below
 }
 
 JAZZMIN_UI_TWEAKS = {
+    # Text sizes
     "navbar_small_text": False,
     "footer_small_text": False,
     "body_small_text": False,
     "brand_small_text": False,
+    
+    # Colors - Modern Blue & Gold Theme matching your brand
     "brand_colour": "navbar-primary",
     "accent": "accent-primary",
-    "navbar": "navbar-dark",
+    "navbar": "navbar-dark",  # Use "navbar-white" for light navbar
     "no_navbar_border": False,
+    
+    # Layout options
     "navbar_fixed": True,
     "layout_boxed": False,
     "footer_fixed": False,
     "sidebar_fixed": True,
-    "sidebar": "sidebar-dark-primary",
+    "sidebar": "sidebar-dark-primary",  # Options: sidebar-dark-primary, sidebar-dark-warning, sidebar-dark-info, sidebar-dark-success, sidebar-dark-danger, sidebar-light-primary, sidebar-light-warning, sidebar-light-info, sidebar-light-success, sidebar-light-danger
     "sidebar_nav_small_text": False,
     "sidebar_disable_expand": False,
     "sidebar_nav_child_indent": False,

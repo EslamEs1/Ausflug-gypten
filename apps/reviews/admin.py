@@ -4,6 +4,7 @@ Admin configuration for Reviews app
 
 from django.contrib import admin
 from django.utils.translation import gettext_lazy as _
+from django.utils.html import format_html
 from .models import Review
 
 
@@ -11,7 +12,7 @@ from .models import Review
 class ReviewAdmin(admin.ModelAdmin):
     """⭐ Customer Reviews - Approve/manage reviews"""
     
-    list_display = ['name', 'rating', 'get_review_type', 'is_approved', 'created_at']
+    list_display = ['name', 'get_rating_stars', 'get_review_type', 'is_approved', 'get_approval_badge', 'needs_approval', 'created_at']
     list_filter = ['is_approved', 'rating', 'content_type', 'created_at']
     list_editable = ['is_approved']
     search_fields = ['name', 'email', 'title', 'comment']
@@ -52,6 +53,36 @@ class ReviewAdmin(admin.ModelAdmin):
     def get_review_type(self, obj):
         return obj.content_type.model.upper()
     get_review_type.short_description = 'Type'
+    
+    def get_rating_stars(self, obj):
+        """Display rating as stars"""
+        stars = '★' * obj.rating + '☆' * (5 - obj.rating)
+        color = '#ffc107' if obj.rating >= 4 else '#ff9800' if obj.rating >= 3 else '#f44336'
+        return format_html(
+            '<span style="color: {}; font-size: 1.2em;">{}</span> <strong>({})</strong>',
+            color,
+            stars,
+            obj.rating
+        )
+    get_rating_stars.short_description = 'Rating'
+    get_rating_stars.admin_order_field = 'rating'
+    
+    def get_approval_badge(self, obj):
+        """Display approval status with badge"""
+        if obj.is_approved:
+            return format_html('<span class="badge badge-success">✓ Genehmigt</span>')
+        else:
+            return format_html('<span class="badge badge-warning">⏳ Ausstehend</span>')
+    get_approval_badge.short_description = 'Status'
+    get_approval_badge.admin_order_field = 'is_approved'
+    
+    def needs_approval(self, obj):
+        """Show alert if review needs approval"""
+        if not obj.is_approved:
+            return format_html('<span class="badge badge-danger">⚠️ Prüfen</span>')
+        return ''
+    needs_approval.short_description = 'Alert'
+    needs_approval.admin_order_field = 'is_approved'
     
     def has_add_permission(self, request):
         return False

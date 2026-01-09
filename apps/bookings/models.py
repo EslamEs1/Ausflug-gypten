@@ -93,6 +93,12 @@ class Booking(models.Model):
             # Generate confirmation code
             import uuid
             self.confirmation_code = f"AE-{uuid.uuid4().hex[:8].upper()}"
+        
+        # Calculate number_of_participants from adults, children, and babies
+        self.number_of_participants = (self.adults or 0) + (self.children or 0) + (self.babies or 0)
+        if self.number_of_participants == 0:
+            self.number_of_participants = 1  # Ensure at least 1 participant
+        
         super().save(*args, **kwargs)
 
 

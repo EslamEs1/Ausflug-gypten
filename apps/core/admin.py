@@ -4,6 +4,9 @@ Admin configuration for Core app
 
 from django.contrib import admin
 from django.utils.translation import gettext_lazy as _
+from django.utils.html import format_html
+from django.utils import timezone
+from datetime import timedelta
 from .models import SiteSettings, ContactMessage, HeroSlide, NewsletterSubscriber, PageHero, PageHeroBadge
 
 
@@ -49,9 +52,9 @@ class SiteSettingsAdmin(admin.ModelAdmin):
 class ContactMessageAdmin(admin.ModelAdmin):
     """Customer Messages - View and respond to customer inquiries"""
     
-    list_display = ['name', 'email', 'get_subject_display', 'status', 'is_read', 'created_at']
+    list_display = ['name', 'email', 'get_subject_display', 'status', 'is_read', 'get_status_badge', 'is_new_message', 'created_at']
     list_filter = ['status', 'is_read', 'subject', 'created_at']
-    list_editable = ['status']
+    list_editable = ['status', 'is_read']
     search_fields = ['name', 'email', 'message']
     readonly_fields = ['name', 'email', 'phone', 'subject', 'message', 'created_at', 'updated_at']
     date_hierarchy = 'created_at'
@@ -75,6 +78,45 @@ class ContactMessageAdmin(admin.ModelAdmin):
     
     def get_queryset(self, request):
         return super().get_queryset(request).order_by('-created_at')
+    
+    def get_status_badge(self, obj):
+        """Display status with colored badge"""
+        from django.utils.html import format_html
+        from django.utils import timezone
+        from datetime import timedelta
+        
+        colors = {
+            'new': 'danger',
+            'read': 'info',
+            'replied': 'success',
+            'archived': 'secondary',
+        }
+        color = colors.get(obj.status, 'secondary')
+        
+        badge = format_html(
+            '<span class="badge badge-{}">{}</span>',
+            color,
+            obj.get_status_display()
+        )
+        
+        if not obj.is_read:
+            badge += format_html(' <span class="badge badge-warning">Ungelesen</span>')
+        
+        return badge
+    get_status_badge.short_description = 'Status'
+    get_status_badge.admin_order_field = 'status'
+    
+    def is_new_message(self, obj):
+        """Show if message is new and unread"""
+        from django.utils.html import format_html
+        from django.utils import timezone
+        from datetime import timedelta
+        
+        if obj.status == 'new' and not obj.is_read:
+            return format_html('<span class="badge badge-danger">🆕 NEW</span>')
+        return ''
+    is_new_message.short_description = 'Alert'
+    is_new_message.admin_order_field = 'created_at'
     
     def has_add_permission(self, request):
         return False
